@@ -4,6 +4,7 @@ import { Configuration, OpenAIApi } from "openai";
 import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import express from "express";
+import fs from "fs";
 
 dotenv.config();
 
@@ -127,7 +128,7 @@ client.on("messageCreate", function (message) {
 });
 
 const app = express();
-app.get("/", (req, res) => res.send("Systems online."));
+app.get("/", (req, res) => fs.readFileSync("Website/K9.html"));
 app.listen(3000, () => console.log("Listening on TARDIS base code 3000"));
 
 client.login(process.env.TOKEN);
