@@ -3,6 +3,7 @@ import { Client, Events, GatewayIntentBits, Collection } from "discord.js";
 import { Configuration, OpenAIApi } from "openai";
 import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
+import express from "express";
 
 dotenv.config();
 
@@ -124,5 +125,9 @@ client.on("messageCreate", function (message) {
     return;
   });
 });
+
+const app = express();
+app.get("/", (req, res) => res.send("Systems online."));
+app.listen(3000, () => console.log("Listening on TARDIS base code 3000"));
 
 client.login(process.env.TOKEN);
