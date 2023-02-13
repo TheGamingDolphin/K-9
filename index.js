@@ -128,7 +128,27 @@ client.on("messageCreate", function (message) {
 });
 
 const app = express();
-app.get("/", (req, res) => fs.readFileSync("Website/K9.html"));
+app.get("/", (req, res) => {
+  fs.readFile("./Website/K9.html", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading file");
+    } else {
+      res.set("Content-Type", "text/html");
+      res.send(data);
+    }
+  });
+});
+app.get("/image", (req, res) => {
+  fs.readFile("./Website/Assets/K9Logo.png", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading file");
+    } else {
+      res.set("Content-Type", "image/jpeg");
+      res.send(data);
+    }
+  });
+});
+
 app.listen(3000, () => console.log("Listening on TARDIS base code 3000"));
 
 client.login(process.env.TOKEN);
