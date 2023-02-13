@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "node ./index.js"
+  },
   "dependencies": {
     "main": "src/index.js",
     "discord.js": "^14.7.1",
