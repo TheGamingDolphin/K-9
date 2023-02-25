@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>bot</title>
+    <link rel="icon" href="/icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body class="prevent-select" style="background-color: #8a8a8a">
+    <link rel="stylesheet" href="./Languages/Home/body.css" />
+    <link rel="stylesheet" href="./Languages/Home/video.css" />
+    <section class="container">
+      <video
+        class="fullscreen"
+        id="backgroundVideo"
+        src="/backgroundVideo"
+        playsinline
+        autoplay
+        muted
+        loop
+      ></video>
+      <div class="content">
+        <link rel="stylesheet" href="./Languages/Home/navbar.css" />
+        <div class="navbar">
+          <div class="dropdown">
+            <button class="dropbtn">
+              Navigation &#x25BC;
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a
+                class="active"
+                onclick="location.href='./Home.html'"
+                href="#home"
+                >Home</a
+              >
+              <a onclick="location.href='./Support.html'" href="#support"
+                >Support</a
+              >
+              <a onclick="location.href='./Request.html'" href="#request"
+                >Feature request</a
+              >
+              <a onclick="location.href='./Own.html'" href="#own"
+                >Want the bot for<br />your own server?</a
+              >
+            </div>
+            <img class="banner" src="/title" alt="title" />
+          </div>
+        </div>
+        <script src="./Languages/Home/highlighting.js"></script>
+        <link rel="stylesheet" href="./Languages/Home/outlineText.css" />
+        <div class="main">
+          <div class="strokeme" style="display: flex">
+            <div style="margin: auto" ;>
+              <h3>
+                K-9 bot is an AI powered discord bot<br />that thinks and acts
+                like the character<br />K-9 from Doctor Who!<br />
+              </h3>
+              <h4>
+                You can use this bot by putting <code>K-9</code> before your
+                messages!
+                <br />
+                <br />
+                Example: <br />
+                User says: <code>K-9 What does TARDIS stand for</code><br />
+                K-9 responds: <code>Time and relative dimension in space.</code>
+              </h4>
+              <h4>
+                K-9 uses a
+                <a href="https://platform.openai.com/docs/guides/fine-tuning"
+                  >fine tuned</a
+                >
+                version of the ada model of
+                <a href="https://platform.openai.com/docs/models/gpt-3">GPT3</a>
+              </h4>
+              <link rel="stylesheet" href="./Languages/Home/k9pic.css" />
+              <img class="k9pic" src="/K-9" alt="title" />
+
+              <script
+                type="text/javascript"
+                src="./Languages/Home/hideButton.js"
+              ></script>
+              <link rel="stylesheet" href="./Languages/Home/hideButton.css" />
+              <br /><button class="hideButton" onclick="TestsFunction()">
+                Toggle video
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

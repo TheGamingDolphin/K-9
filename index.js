@@ -26,7 +26,7 @@ const client = new Client({
   ],
 });
 
-let channel = "1018199943774732410";
+let channel = "1071813708461916160";
 let lastChannel = channel;
 let c;
 
@@ -128,8 +128,9 @@ client.on("messageCreate", function (message) {
 });
 
 const app = express();
+app.use(express.static("Website"));
 app.get("/", (req, res) => {
-  fs.readFile("./Website/K9.html", (err, data) => {
+  fs.readFile("./Website/Home.html", (err, data) => {
     if (err) {
       res.status(500).send("Error reading file");
     } else {
@@ -138,7 +139,7 @@ app.get("/", (req, res) => {
     }
   });
 });
-app.get("/image", (req, res) => {
+app.get("/icon", (req, res) => {
   fs.readFile("./Website/Assets/K9Logo.png", (err, data) => {
     if (err) {
       res.status(500).send("Error reading file");
@@ -148,7 +149,77 @@ app.get("/image", (req, res) => {
     }
   });
 });
+app.get("/title", (req, res) => {
+  fs.readFile("./Website/Assets/banner.png", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading file");
+    } else {
+      res.set("Content-Type", "image/jpeg");
+      res.send(data);
+    }
+  });
+});
+app.get("/K-9", (req, res) => {
+  fs.readFile("./Website/Assets/K-9.jpg", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading file");
+    } else {
+      res.set("Content-Type", "image/jpeg");
+      res.send(data);
+    }
+  });
+});
+app.get("/background", (req, res) => {
+  fs.readFile("./Website/Assets/background.png", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading file");
+    } else {
+      res.set("Content-Type", "image/jpeg");
+      res.send(data);
+    }
+  });
+});
+app.get("/backgroundVideo", (req, res) => {
+  fs.readFile("./Website/Assets/vortex.mp4", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading file");
+    } else {
+      res.set("Content-Type", "video/mp4");
+      res.send(data);
+    }
+  });
+});
+app.get("/K-9_2", (req, res) => {
+  fs.readFile("./Website/Assets/K-9_2.jpg", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading file");
+    } else {
+      res.set("Content-Type", "image/jpeg");
+      res.send(data);
+    }
+  });
+});
+app.get("/K-9_3", (req, res) => {
+  fs.readFile("./Website/Assets/K-9_3.jpg", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading file");
+    } else {
+      res.set("Content-Type", "image/jpeg");
+      res.send(data);
+    }
+  });
+});
+app.get("/K-9_4", (req, res) => {
+  fs.readFile("./Website/Assets/K-9_4.jpg", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading file");
+    } else {
+      res.set("Content-Type", "image/jpeg");
+      res.send(data);
+    }
+  });
+});
 
-app.listen(3000, () => console.log("Listening on TARDIS base code 3000"));
+app.listen(3000, () => console.log("Listening on port 3000"));
 
 client.login(process.env.TOKEN);

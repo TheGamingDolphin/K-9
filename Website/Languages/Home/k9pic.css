@@ -1,0 +1,11 @@
+.k9pic {
+  display: block;
+}
+
+@media (max-aspect-ratio: 4/3) {
+  .k9pic {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+}

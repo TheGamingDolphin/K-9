@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>bot</title>
+    <link rel="icon" href="/icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body class="prevent-select" style="background-color: #8a8a8a">
+    <link rel="stylesheet" href="./Languages/Support/body.css" />
+    <link rel="stylesheet" href="./Languages/Home/video.css" />
+    <section class="container">
+      <div class="content">
+        <link rel="stylesheet" href="./Languages/Home/navbar.css" />
+        <div class="navbar">
+          <div class="dropdown">
+            <button class="dropbtn">
+              Navigation &#x25BC;
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a onclick="location.href='./Home.html'" href="#home">Home</a>
+              <a
+                onclick="location.href='./Support.html'"
+                class="active"
+                href="#support"
+                >Support</a
+              >
+              <a onclick="location.href='./Request.html'" href="#request"
+                >Feature request</a
+              >
+              <a onclick="location.href='./Own.html'" href="#own"
+                >Want the bot for<br />your own server?</a
+              >
+            </div>
+            <img class="banner" src="/title" alt="title" />
+          </div>
+        </div>
+        <script src="./Languages/Home/highlighting.js"></script>
+        <link rel="stylesheet" href="./Languages/Home/outlineText.css" />
+        <div class="main">
+          <div class="strokeme" style="display: flex">
+            <div style="margin: auto" ;>
+              <h3>Want to request a feature? Send it below!</h3>
+              <link rel="stylesheet" href="./Languages/Home/k9pic.css" />
+              <img class="k9pic" src="/K-9_4" alt="title" />
+            </div>
+          </div>
+        </div>
+        <br />
+        <!-- Bootstrap CSS -->
+        <div class="form">
+          <div class="strokeme">
+            <form onsubmit="sendContact(event)">
+              <div class="mb-3">
+                <label for="subjectInput" class="form-label"
+                  >What's your username? (I will DM you)</label
+                >
+                <br />
+                <input class="form-control" id="subjectInput" />
+              </div>
+              <div class="mb-3">
+                <label for="descriptionInput" class="form-label"
+                  >Why do you want the bot?</label
+                >
+                <br />
+                <textarea
+                  class="form-control"
+                  id="descriptionInput"
+                  rows="3"
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <script
+              type="text/javascript"
+              src="./Languages/Own/sendSupport.js"
+            ></script>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
