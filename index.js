@@ -82,7 +82,12 @@ async function getGptResponse(prompt, model) {
   });
   const reply = `${gptResponse.data.choices[0].text.trim()}`;
   if (reply.length) {
-    return reply;
+    if (!reply.includes("@")) {
+      return reply;
+    } else {
+      console.log(reply);
+      return "Sorry, my reply contained an '@' character, which is blocked for obvious reasons";
+    }
   } else {
     return "Input unknown. Please try again. (This is an error, not an AI response)";
   }
