@@ -126,13 +126,6 @@ client.on("messageCreate", async function (message) {
           fs.createReadStream("output.mp3"),
           "whisper-1"
         );
-        // try {
-        //   fs.unlinkSync("input.ogg");
-        //   fs.unlinkSync("output.mp3");
-        //   console.log("Deleted files successfully.");
-        // } catch (error) {
-        //   console.log(error);
-        // }
         console.log(transcript.data.text);
         message.channel.send(
           "Message transcript:\n ```" + transcript.data.text + "```"
