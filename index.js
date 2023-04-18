@@ -1,4 +1,4 @@
-const dotenv = require("dotenv");
+const dotenv = require("dotenv").config();
 const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
 const { Configuration, OpenAIApi } = require("openai");
 const readline = require("node:readline/promises");
@@ -6,8 +6,13 @@ const { stdin: input, stdout: output } = require("node:process");
 const express = require("express");
 const fs = require("node:fs");
 const path = require("node:path");
+const fetch = require("node-fetch");
+const FormData = require("form-data");
 
-dotenv.config();
+const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
+const ffmpeg = require("fluent-ffmpeg");
+ffmpeg.setFfmpegPath(ffmpegPath);
+const outStream = fs.createWriteStream("./output.mp3");
 
 const PREFIX = "K-9 ";
 const PREFIX2 = ",";
@@ -17,6 +22,8 @@ const configuration = new Configuration({
 });
 
 const openai = new OpenAIApi(configuration);
+
+console.log(openai);
 
 // create client with necessary intents
 const client = new Client({
@@ -85,7 +92,6 @@ async function getGptResponse(prompt, model) {
     if (!reply.includes("@")) {
       return reply;
     } else {
-      console.log(reply);
       return "Sorry, my reply contained an '@' character, which is blocked for obvious reasons";
     }
   } else {
@@ -98,7 +104,53 @@ client.on("ready", () => {
   reader();
 });
 
-client.on("messageCreate", function (message) {
+client.on("messageCreate", async function (message) {
+  if (message.attachments.size > 0) {
+    const attachment = message.attachments.first();
+    if (attachment.contentType.includes("audio")) {
+      const response = await fetch(attachment.url);
+      const buffer = await response.buffer();
+      const filename = "./input.ogg";
+      fs.writeFileSync(`./${filename}`, buffer);
+      // temporary
+      const outStream = fs.createWriteStream("./output.mp3");
+      outStream.on("close", async () => {
+        console.log("Write stream closed");
+        const filePath = path.join(__dirname, "output.mp3");
+        const whisperModel = "whisper-1";
+        const formData = new FormData();
+        formData.append("model", whisperModel);
+        formData.append("file", fs.createReadStream(filePath));
+        // Transcribe audio
+        const transcript = await openai.createTranscription(
+          fs.createReadStream("output.mp3"),
+          "whisper-1"
+        );
+        // try {
+        //   fs.unlinkSync("input.ogg");
+        //   fs.unlinkSync("output.mp3");
+        //   console.log("Deleted files successfully.");
+        // } catch (error) {
+        //   console.log(error);
+        // }
+        console.log(transcript.data.text);
+        message.channel.send(
+          "Message transcript:\n ```" + transcript.data.text + "```"
+        );
+      });
+      ffmpeg()
+        .input("./input.ogg")
+        .audioQuality(96)
+        .toFormat("mp3")
+        .on("error", (error) => console.log(`Encoding Error: ${error.message}`))
+        .on("end", () => {
+          console.log("Audio Transcoding succeeded !");
+          outStream.end();
+        })
+        .pipe(outStream, { end: true });
+    }
+  }
+
   if (
     message.author.bot ||
     !(
