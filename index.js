@@ -1,17 +1,21 @@
-const dotenv = require("dotenv").config();
-const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
-const { Configuration, OpenAIApi } = require("openai");
-const readline = require("node:readline/promises");
-const { stdin: input, stdout: output } = require("node:process");
-const express = require("express");
-const fs = require("node:fs");
-const path = require("node:path");
-const fetch = require("node-fetch");
-const FormData = require("form-data");
+import dotenv from "dotenv";
+dotenv.config();
 
-const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
-const ffmpeg = require("fluent-ffmpeg");
-ffmpeg.setFfmpegPath(ffmpegPath);
+import { Configuration, OpenAIApi } from "openai";
+
+import readline from "node:readline/promises";
+import { stdin as input, stdout as output } from "node:process";
+
+import express from "express";
+
+import fs from "node:fs";
+import path from "node:path";
+import fetch from "node-fetch";
+import FormData from "form-data";
+
+import ffmpeg from "fluent-ffmpeg";
+import ffmpegPath from "@ffmpeg-installer/ffmpeg";
+ffmpeg.setFfmpegPath(ffmpegPath.path);
 const outStream = fs.createWriteStream("./output.mp3");
 
 const PREFIX = "K-9 ";
@@ -26,6 +30,9 @@ const openai = new OpenAIApi(configuration);
 console.log(openai);
 
 // create client with necessary intents
+import { Client, Collection, Constants, Events, GatewayIntentBits} from "discord.js";
+
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -33,6 +40,8 @@ const client = new Client({
     GatewayIntentBits.MessageContent,
   ],
 });
+
+
 
 let channel = "1071813708461916160";
 let lastChannel = channel;
@@ -116,6 +125,8 @@ client.on("messageCreate", async function (message) {
       const outStream = fs.createWriteStream("./output.mp3");
       outStream.on("close", async () => {
         console.log("Write stream closed");
+        const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
         const filePath = path.join(__dirname, "output.mp3");
         const whisperModel = "whisper-1";
         const formData = new FormData();
@@ -275,23 +286,25 @@ app.listen(3000, () => console.log("Listening on port 3000"));
 
 client.commands = new Collection();
 
-const commandsPath = path.join(__dirname, "commands");
+const commandsPath = path.dirname(new URL(import.meta.url).pathname);
 const commandFiles = fs
   .readdirSync(commandsPath)
   .filter((file) => file.endsWith(".js"));
 
 for (const file of commandFiles) {
   const filePath = path.join(commandsPath, file);
-  const command = require(filePath);
-  // Set a new item in the Collection with the key as the command name and the value as the exported module
-  if ("data" in command && "execute" in command) {
-    client.commands.set(command.data.name, command);
-  } else {
-    console.log(
-      `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
-    );
-  }
+  import(filePath).then(module => {
+    const command = module.default;
+    if (command && "data" in command && "execute" in command) {
+      client.commands.set(command.data.name, command);
+    } else {
+      console.log(
+        `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
+      );
+    }
+  }).catch(err => console.log(`Error while importing ${filePath}:`, err));
 }
+
 
 client.on(Events.InteractionCreate, (interaction) => {
   if (!interaction.isChatInputCommand()) return;
