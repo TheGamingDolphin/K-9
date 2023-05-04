@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -16,6 +16,19 @@ module.exports = {
     const role = interaction.guild.roles.cache.find(
       (role) => role.name === "Cybermen"
     );
+
+    // Prevent the command from being used on the bot or the user who sent the command
+    if (member.id === interaction.user.id) {
+      await interaction.reply(
+        "UPGRADE MACHINE CANNOT BE OPERATED WITH ONLY ONE PARTICIPANT"
+      );
+      return;
+    }
+
+    if (member.id === interaction.client.user.id) {
+      await interaction.reply("I am already a robot.");
+      return;
+    }
 
     // Check if the role exists and its ID matches the desired role ID
     if (role && role.id === "1018260927948259358") {
