@@ -3,7 +3,8 @@ const { SlashCommandBuilder } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("reversepolarity")
-    .setDescription("Reverses the polarity??"),
+    .setDescription("Reverses the polarity??")
+    .setDMPermission(false),
   async execute(interaction) {
     console.log(
       interaction.channel.permissionsFor(interaction.client.user).toArray()
