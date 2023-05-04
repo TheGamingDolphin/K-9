@@ -1,22 +1,13 @@
-import dotenv from "dotenv";
+const dotenv = require("dotenv");
+const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
+const { Configuration, OpenAIApi } = require("openai");
+const readline = require("node:readline/promises");
+const { stdin: input, stdout: output } = require("node:process");
+const express = require("express");
+const fs = require("node:fs");
+const path = require("node:path");
+
 dotenv.config();
-
-import { Configuration, OpenAIApi } from "openai";
-
-import readline from "node:readline/promises";
-import { stdin as input, stdout as output } from "node:process";
-
-import express from "express";
-
-import fs from "node:fs";
-import path from "node:path";
-import fetch from "node-fetch";
-import FormData from "form-data";
-
-import ffmpeg from "fluent-ffmpeg";
-import ffmpegPath from "@ffmpeg-installer/ffmpeg";
-ffmpeg.setFfmpegPath(ffmpegPath.path);
-const outStream = fs.createWriteStream("./output.mp3");
 
 const PREFIX = "K-9 ";
 const PREFIX2 = ",";
@@ -27,12 +18,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-console.log(openai);
-
 // create client with necessary intents
-import { Client, Collection, Constants, Events, GatewayIntentBits} from "discord.js";
-
-
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -40,8 +26,6 @@ const client = new Client({
     GatewayIntentBits.MessageContent,
   ],
 });
-
-
 
 let channel = "1071813708461916160";
 let lastChannel = channel;
@@ -101,6 +85,7 @@ async function getGptResponse(prompt, model) {
     if (!reply.includes("@")) {
       return reply;
     } else {
+      console.log(reply);
       return "Sorry, my reply contained an '@' character, which is blocked for obvious reasons";
     }
   } else {
@@ -113,48 +98,7 @@ client.on("ready", () => {
   reader();
 });
 
-client.on("messageCreate", async function (message) {
-  if (message.attachments.size > 0) {
-    const attachment = message.attachments.first();
-    if (attachment.contentType.includes("audio")) {
-      const response = await fetch(attachment.url);
-      const buffer = await response.buffer();
-      const filename = "./input.ogg";
-      fs.writeFileSync(`./${filename}`, buffer);
-      // temporary
-      const outStream = fs.createWriteStream("./output.mp3");
-      outStream.on("close", async () => {
-        console.log("Write stream closed");
-        const __dirname = path.dirname(new URL(import.meta.url).pathname);
-
-        const filePath = path.join(__dirname, "output.mp3");
-        const whisperModel = "whisper-1";
-        const formData = new FormData();
-        formData.append("model", whisperModel);
-        formData.append("file", fs.createReadStream(filePath));
-        // Transcribe audio
-        const transcript = await openai.createTranscription(
-          fs.createReadStream("output.mp3"),
-          "whisper-1"
-        );
-        console.log(transcript.data.text);
-        message.channel.send(
-          "Message transcript:\n ```" + transcript.data.text + "```"
-        );
-      });
-      ffmpeg()
-        .input("./input.ogg")
-        .audioQuality(96)
-        .toFormat("mp3")
-        .on("error", (error) => console.log(`Encoding Error: ${error.message}`))
-        .on("end", () => {
-          console.log("Audio Transcoding succeeded !");
-          outStream.end();
-        })
-        .pipe(outStream, { end: true });
-    }
-  }
-
+client.on("messageCreate", function (message) {
   if (
     message.author.bot ||
     !(
@@ -286,25 +230,23 @@ app.listen(3000, () => console.log("Listening on port 3000"));
 
 client.commands = new Collection();
 
-const commandsPath = path.dirname(new URL(import.meta.url).pathname);
+const commandsPath = path.join(__dirname, "commands");
 const commandFiles = fs
   .readdirSync(commandsPath)
   .filter((file) => file.endsWith(".js"));
 
 for (const file of commandFiles) {
   const filePath = path.join(commandsPath, file);
-  import(filePath).then(module => {
-    const command = module.default;
-    if (command && "data" in command && "execute" in command) {
-      client.commands.set(command.data.name, command);
-    } else {
-      console.log(
-        `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
-      );
-    }
-  }).catch(err => console.log(`Error while importing ${filePath}:`, err));
+  const command = require(filePath);
+  // Set a new item in the Collection with the key as the command name and the value as the exported module
+  if ("data" in command && "execute" in command) {
+    client.commands.set(command.data.name, command);
+  } else {
+    console.log(
+      `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
+    );
+  }
 }
-
 
 client.on(Events.InteractionCreate, (interaction) => {
   if (!interaction.isChatInputCommand()) return;

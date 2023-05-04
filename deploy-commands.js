@@ -1,68 +1,44 @@
-import { REST } from 'discord.js';
-import { Routes } from 'discord-api-types/v9';
-import fs from 'fs';
-import path from 'path';
-import dotenv from 'dotenv';
-dotenv.config();
+const { REST, Routes } = require("discord.js");
+const fs = require("fs");
+const path = require("path");
+require("dotenv").config();
 
+const { clientId } = require("./config.json");
 const token = process.env.TOKEN;
 
-import config from "./config.json" assert { type: "json" };
-const { clientId, guildId } = config;
-
 const commands = [];
-
-// Get the path to the commands directory
-const __filename = new URL(import.meta.url).pathname;
-const __dirname = path.dirname(__filename);
-const commandsPath = path.join(__dirname, "commands");
-
 // Grab all the command files from the commands directory you created earlier
+const commandsPath = path.join(__dirname, "commands");
 const commandFiles = fs
   .readdirSync(commandsPath)
   .filter((file) => file.endsWith(".js"));
 
-// Import each command module and push its toJSON result to the commands array
-const promises = [];
+// Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
 for (const file of commandFiles) {
-  const commandPath = `./commands/${file}`;
-  promises.push(import(commandPath));
+  const command = require(`./commands/${file}`);
+  commands.push(command.data.toJSON());
 }
 
-Promise.all(promises).then((modules) => {
-  modules.forEach((module) => {
-    const command = module.default && typeof module.default.toJSON === "function" ? module.default.toJSON() : null;
-    if (command) {
-      commands.push(command);
-    }
-  });
+// Construct and prepare an instance of the REST module
+const rest = new REST({ version: "10" }).setToken(token);
 
-  const rest = new REST({ version: "10" }).setToken(token);
-
-  rest.put(Routes.applicationCommands(clientId), { body: commands })
-    .then(() => console.log("Successfully registered application commands."))
-    .catch(console.error);
-});
-
-
-// Deploy the commands to the specified guild
+// and deploy your commands!
 (async () => {
   try {
     console.log(
       `Started refreshing ${commands.length} application (/) commands.`
     );
 
-    const rest = new REST({ version: "10" }).setToken(token);
-
-    const data = await rest.put(
-      Routes.applicationGuildCommands(clientId, guildId),
-      { body: commands }
-    );
+    // The put method is used to fully refresh all commands in the guild with the current set
+    const data = await rest.put(Routes.applicationCommands(clientId), {
+      body: commands,
+    });
 
     console.log(
       `Successfully reloaded ${data.length} application (/) commands.`
     );
   } catch (error) {
+    // And of course, make sure you catch and log any errors!
     console.error(error);
   }
 })();
