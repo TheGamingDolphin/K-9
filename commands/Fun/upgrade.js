@@ -70,7 +70,7 @@ module.exports = {
       }
     } else {
       await interaction.reply(
-        `Sorry, upgrading is not available for this server.`
+        `Sorry, upgrading is not available for this server.\nFor every feature, visit https://discord.gg/FEsXdZehwB`
       );
     }
   },

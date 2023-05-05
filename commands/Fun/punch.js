@@ -97,7 +97,7 @@ module.exports = {
           }
         } else {
           interaction.channel.send(
-            `Sorry, there is no reward for breaking the wall in this server.`
+            `Sorry, there is no reward for breaking the wall in this server.\nYou can claim your role reward in https://discord.gg/FEsXdZehwB!`
           );
         }
       } else if (newScore > 3000) {
