@@ -39,7 +39,7 @@ module.exports = {
           .add(role)
           .then(() => {
             interaction.reply(
-              `Upgrade complete. ${member.user.tag} is now a cyberman. (for 1 hour)`
+              `Upgrade complete. ${member.user.username} is now a cyberman. (for 1 hour)`
             );
 
             // Remove the role after 1 hour
@@ -48,13 +48,13 @@ module.exports = {
                 .remove(role)
                 .then(() => {
                   console.log(
-                    `Successfully removed ${role.name} role from ${member.user.tag} after 1 hour.`
+                    `Successfully removed ${role.name} role from ${member.user.username} after 1 hour.`
                   );
                 })
                 .catch((error) => {
                   console.error(error);
                   console.log(
-                    `There was an error while removing the role from ${member.user.tag} after 1 hour.`
+                    `There was an error while removing the role from ${member.user.username} after 1 hour.`
                   );
                 });
             }, 3600000); // 1 hour in milliseconds
@@ -64,7 +64,9 @@ module.exports = {
             interaction.reply("There was an error while upgrading.");
           });
       } else {
-        await interaction.reply(`${member.user.tag} is already a Cyberman`);
+        await interaction.reply(
+          `${member.user.username} is already a Cyberman`
+        );
       }
     } else {
       await interaction.reply(
