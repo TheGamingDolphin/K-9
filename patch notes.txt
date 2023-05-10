@@ -1,9 +1,7 @@
-K-9 Version 39 notes
+K-9 Version 40 notes
 ---------------------
 Features:
-    Added /patchnotes command
-    Added DM welcome message (BotI only)
+    None
 
 Other:
-    Added comments to the code for better readability
-    Code to send images to website is cleaner
+    Fixed issue where the DM on join didn't work
