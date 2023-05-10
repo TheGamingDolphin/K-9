@@ -1,5 +1,12 @@
+//imports
 const dotenv = require("dotenv");
-const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
+const {
+  Client,
+  Collection,
+  Events,
+  GatewayIntentBits,
+  EmbedBuilder,
+} = require("discord.js");
 const { Configuration, OpenAIApi } = require("openai");
 const readline = require("node:readline/promises");
 const { stdin: input, stdout: output } = require("node:process");
@@ -9,9 +16,10 @@ const path = require("node:path");
 
 dotenv.config();
 
+//sets prefix
 const PREFIX = "K-9 ";
-const PREFIX2 = ",";
 
+//gets the openai api key
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -22,15 +30,18 @@ const openai = new OpenAIApi(configuration);
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
   ],
 });
 
-let channel = "1071813708461916160";
+// sets the last channel
+let channel = "915568009815416845";
 let lastChannel = channel;
 let c;
 
+// allows messages to be sent through the terminal to appear as the bot
 async function reader() {
   const rl = readline.createInterface({ input, output });
 
@@ -54,21 +65,17 @@ async function reader() {
       }
     } else if (answer.trim().length) {
       client.channels.cache.get(channel).send(answer);
-
-      //dm a user
-
-      // client.users.fetch("394153008054796299", false).then((user) => {
-      //   user.send(answer);
-      // });
     }
   }
 }
 
+//checks if the original message has been deleted, and if it has, sends message with a ping instead of a reply
 function safeReply(message, reply) {
   message
     .reply(reply)
     .catch(() => message.channel.send(`<@${message.author.id}> ${reply}`));
 }
+// sets the gpt3 model
 async function getGptResponse(prompt, model) {
   const gptResponse = await openai.createCompletion({
     model: model,
@@ -80,43 +87,86 @@ async function getGptResponse(prompt, model) {
     frequency_penalty: 0.5,
     stop: ["\n", "END"],
   });
+  // sets the reply to the AI response
   const reply = `${gptResponse.data.choices[0].text.trim()}`;
   return reply;
 }
-
+// when the client is ready and logged into the discord bot, log in the console.
 client.on("ready", () => {
   console.log("Logged in as " + client.user.username);
   reader();
 });
 
+//when a member joins, send them a DM
+client.on("guildMemberAdd", async (member) => {
+  if (member.guild.id === "1018199943330140170") {
+    try {
+      // Send a direct message to the member
+      const DMEmbed = new EmbedBuilder()
+        .setColor("#003b6f")
+        .setTitle("Welcome to Bigger on the Inside!")
+        .setURL("https://k-9.cool-epicepic.repl.co/")
+        .setDescription("I'm K-9, here to help :)")
+        .setThumbnail(
+          "https://cdn.discordapp.com/attachments/915568009815416845/1103682438187724851/New_Project.png"
+        )
+        .addFields(
+          {
+            name: "Getting started ",
+            value:
+              "Just head to <#1018266915409514608> and click the button! Simple as that!\nThen, these links will start working! 👇👇",
+          },
+          { name: "\u200B", value: "\u200B" },
+          {
+            name: "Grab some roles!",
+            value: "<#1018263794427891742>",
+            inline: true,
+          },
+          {
+            name: "Introduce yourself!",
+            value: "<#1018442634005598269>",
+            inline: true,
+          }
+        )
+        .addFields({
+          name: "Join the conversation!",
+          value: "<#1018199943774732410>",
+          inline: true,
+        })
+        .setImage(
+          "https://cdn.discordapp.com/attachments/1018266915409514608/1018486366843191457/New_Project_73.png"
+        )
+        .setTimestamp()
+        .setFooter({
+          text: "Hope you enjoy your stay!!",
+        });
+
+      await member.send({ embeds: [DMEmbed] });
+    } catch (error) {
+      console.error("Error sending DM:", error);
+    }
+  }
+});
+
+//checks if the message is from a bot or if the mesage doesn't contain the 'K-9' prefix
 client.on("messageCreate", function (message) {
-  if (
-    message.author.bot ||
-    !(
-      message.content.indexOf(PREFIX) === 0 ||
-      (message.content.indexOf(PREFIX2) === 0 &&
-        message.author.id === process.env.PRIVV)
-    )
-  ) {
+  if (message.author.bot || !(message.content.indexOf(PREFIX) === 0)) {
     return;
   }
+  //runs the message through the moderation to make sure nothing harmful is being sent
   openai.createModeration({ input: message.content }).then(async (res) => {
     if (res.data.results[0].flagged) {
       safeReply(
         message,
         "Your message has been moderated. Please refrain from trying to generate the following content: hate, self-harm, sexual, violence. (This is an error, not an AI response)"
       );
-    } else if (message.content.indexOf(PREFIX) === 0) {
+    }
+    //if nothing is flagged, set the model and send the message to the AI
+    else {
       const gptResponse = await getGptResponse(
         message.content.substring(3),
         "ada:ft-personal:k-9-mark-ii-1-2023-02-11-19-23-19",
         console.log(message.content.substring(3))
-      );
-      safeReply(message, gptResponse);
-    } else {
-      const gptResponse = await getGptResponse(
-        message.content.substring(1),
-        "davinci:ft-personal:k-9-mark-ii-2023-02-11-16-43-01"
       );
       safeReply(message, gptResponse);
     }
@@ -124,106 +174,48 @@ client.on("messageCreate", function (message) {
   });
 });
 
+//send files to website
 const app = express();
 app.use(express.static("Website"));
-app.get("/", (req, res) => {
-  fs.readFile("./Website/Home.html", (err, data) => {
-    if (err) {
-      res.status(500).send("Error reading file");
-    } else {
-      res.set("Content-Type", "text/html");
-      res.send(data);
-    }
-  });
-});
-app.get("/icon", (req, res) => {
-  fs.readFile("./Website/Assets/K9Logo.png", (err, data) => {
-    if (err) {
-      res.status(500).send("Error reading file");
-    } else {
-      res.set("Content-Type", "image/jpeg");
-      res.send(data);
-    }
-  });
-});
-app.get("/title", (req, res) => {
-  fs.readFile("./Website/Assets/banner.png", (err, data) => {
-    if (err) {
-      res.status(500).send("Error reading file");
-    } else {
-      res.set("Content-Type", "image/jpeg");
-      res.send(data);
-    }
-  });
-});
-app.get("/K-9", (req, res) => {
-  fs.readFile("./Website/Assets/K-9.jpg", (err, data) => {
-    if (err) {
-      res.status(500).send("Error reading file");
-    } else {
-      res.set("Content-Type", "image/jpeg");
-      res.send(data);
-    }
-  });
-});
-app.get("/background", (req, res) => {
-  fs.readFile("./Website/Assets/background.png", (err, data) => {
-    if (err) {
-      res.status(500).send("Error reading file");
-    } else {
-      res.set("Content-Type", "image/jpeg");
-      res.send(data);
-    }
-  });
-});
-app.get("/backgroundVideo", (req, res) => {
-  fs.readFile("./Website/Assets/vortex.mp4", (err, data) => {
-    if (err) {
-      res.status(500).send("Error reading file");
-    } else {
-      res.set("Content-Type", "video/mp4");
-      res.send(data);
-    }
-  });
-});
-app.get("/K-9_2", (req, res) => {
-  fs.readFile("./Website/Assets/K-9_2.jpg", (err, data) => {
-    if (err) {
-      res.status(500).send("Error reading file");
-    } else {
-      res.set("Content-Type", "image/jpeg");
-      res.send(data);
-    }
-  });
-});
-app.get("/K-9_3", (req, res) => {
-  fs.readFile("./Website/Assets/K-9_3.jpg", (err, data) => {
-    if (err) {
-      res.status(500).send("Error reading file");
-    } else {
-      res.set("Content-Type", "image/jpeg");
-      res.send(data);
-    }
-  });
-});
-app.get("/K-9_4", (req, res) => {
-  fs.readFile("./Website/Assets/K-9_4.jpg", (err, data) => {
-    if (err) {
-      res.status(500).send("Error reading file");
-    } else {
-      res.set("Content-Type", "image/jpeg");
-      res.send(data);
-    }
-  });
-});
+
+app.get("/", sendFile("./Website/Home.html", "text/html"));
+app.get("/icon", sendFile("./Website/Assets/K9Logo.png", "image/png"));
+app.get("/title", sendFile("./Website/Assets/banner.png", "image/png"));
+app.get("/K-9", sendFile("./Website/Assets/K-9.jpg", "image/jpeg"));
+app.get(
+  "/background",
+  sendFile("./Website/Assets/background.png", "image/png")
+);
+app.get(
+  "/backgroundVideo",
+  sendFile("./Website/Assets/vortex.mp4", "video/mp4")
+);
+app.get("/K-9_2", sendFile("./Website/Assets/K-9_2.jpg", "image/jpeg"));
+app.get("/K-9_3", sendFile("./Website/Assets/K-9_3.jpg", "image/jpeg"));
+app.get("/K-9_4", sendFile("./Website/Assets/K-9_4.jpg", "image/jpeg"));
 
 app.listen(3000, () => console.log("Listening on port 3000"));
 
+function sendFile(filePath, contentType) {
+  return (req, res) => {
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        res.status(500).send("Error reading file");
+      } else {
+        res.set("Content-Type", contentType);
+        res.send(data);
+      }
+    });
+  };
+}
+
+//set commands
 client.commands = new Collection();
 
 const foldersPath = path.join(__dirname, "commands");
 const commandFolders = fs.readdirSync(foldersPath);
 
+//checks the commands folder for js files
 for (const folder of commandFolders) {
   const commandsPath = path.join(foldersPath, folder);
   const commandFiles = fs
@@ -242,12 +234,7 @@ for (const folder of commandFolders) {
     }
   }
 }
-
-client.on(Events.InteractionCreate, (interaction) => {
-  if (!interaction.isChatInputCommand()) return;
-  console.log(interaction);
-});
-
+//tries to run the command
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
@@ -276,4 +263,5 @@ client.on(Events.InteractionCreate, async (interaction) => {
   }
 });
 
+// log into the bot using the client token
 client.login(process.env.TOKEN);

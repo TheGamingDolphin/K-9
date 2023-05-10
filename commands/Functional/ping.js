@@ -23,5 +23,6 @@ module.exports = {
     console.log(
       interaction.channel.permissionsFor(interaction.client.user).toArray()
     );
+    console.log(interaction);
   },
 };
