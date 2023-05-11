@@ -4,4 +4,4 @@ Features:
     None
 
 Other:
-    Fixed issue where the DM on join didn't work
+    Fixed issue where running /reversepolarity would crash the bot if the user had Administrator permissions

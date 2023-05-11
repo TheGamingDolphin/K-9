@@ -6,9 +6,6 @@ module.exports = {
     .setDescription("Reverses the polarity??")
     .setDMPermission(false),
   async execute(interaction) {
-    console.log(
-      interaction.channel.permissionsFor(interaction.client.user).toArray()
-    );
     if (
       !interaction.channel
         .permissionsFor(interaction.client.user)
@@ -17,7 +14,10 @@ module.exports = {
       await interaction.reply(
         `I don't have the right permissions enabled to do that in this server.`
       );
-    } else if (!interaction.member.manageable) {
+    } else if (
+      !interaction.member.manageable ||
+      interaction.member.permissions.has("Administrator")
+    ) {
       // The above if statement determines whether the client user is above the member
       // who ran the command in the hierarchy, according to role position and guild ownership.
       interaction.reply(
