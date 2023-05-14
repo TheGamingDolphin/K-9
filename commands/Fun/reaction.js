@@ -14,10 +14,10 @@ var sadArray = [
   `https://pbs.twimg.com/media/FuznoUtWYAQhvNU?format=jpg&name=small`,
 ];
 var shockedArray = [
-  `https://cdn.discordapp.com/attachments/1105527309638828041/1105527354660503703/20230509_142102.jpg`,
   `https://cdn.discordapp.com/attachments/1018199943774732410/1105527884241702922/487332c99d94662632c4d764652784f7.jpg`,
   `https://media.discordapp.net/attachments/1064766850438795295/1105545737846145194/13eac4a313969b541286c09838173cc7.jpg`,
   `https://i.pinimg.com/736x/6c/19/dd/6c19dda83f8920d94a36a6d4a10326b0.jpg`,
+  `https://cdn.discordapp.com/attachments/915568009815416845/1106725050360541204/20230509_142102.jpg`,
 ];
 var excitedArray = [
   `https://cdn.discordapp.com/attachments/1018199943774732410/1105527883214110840/a5bbda2696e3bb669728be07210cabb1.jpg`,
@@ -32,7 +32,6 @@ var wtfArray = [
   `https://media.discordapp.net/attachments/1018199943774732410/1105527882975023194/588edf629120ceedddfa621d750c34b1.jpg`,
   `https://media.discordapp.net/attachments/1064766850438795295/1105545757643259914/748d9cd4d955acff96cac074ab8ed998.jpg`,
   `https://media.discordapp.net/attachments/1064766850438795295/1105545736155836426/866aaee873fc1c174614968e7fdb78f6.jpg`,
-  `https://cdn.discordapp.com/attachments/1105531640886874143/1105551902164402329/image0.jpg`,
   `https://images.theabcdn.com/i/37731521`,
   `https://pbs.twimg.com/media/FuZMeEMWAAEOwtj?format=jpg&name=small`,
 ];

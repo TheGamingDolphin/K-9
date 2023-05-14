@@ -1,7 +1,18 @@
-K-9 Version 41 notes
+K-9 Version 2 notes
 ---------------------
+K-9 will now have more structured updates!!! (Other than patches)
+Introducting: K-9 version 2!
 Features:
-    None
+    Added /trailer
+    Added /vortex
+    Added /exterminate (ban command)
+    Added ban appeal page to the website
+    Added /help
 
 Other:
-    Fixed issue where running /reversepolarity would crash the bot if the user had Administrator permissions
+    Removed the "Want bot for your own server?" page from website
+    Removed the "Status" page from website
+    Added everyone ping protection back, as K-9 will now have all permissions
+
+Patches:
+    Removed a broken link from /reaction

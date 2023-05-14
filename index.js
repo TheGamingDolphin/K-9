@@ -89,6 +89,16 @@ async function getGptResponse(prompt, model) {
   });
   // sets the reply to the AI response
   const reply = `${gptResponse.data.choices[0].text.trim()}`;
+  if (reply.length) {
+    if (!reply.includes("@")) {
+      return reply;
+    } else {
+      console.log(reply);
+      return "Sorry, my reply contained an '@' character, which is blocked for safety reasons";
+    }
+  } else {
+    return "Input unknown. Please try again. (This is an error, not an AI response)";
+  }
   return reply;
 }
 // when the client is ready and logged into the discord bot, log in the console.
@@ -149,7 +159,7 @@ client.on("guildMemberAdd", async (member) => {
 });
 
 //checks if the message is from a bot or if the mesage doesn't contain the 'K-9' prefix
-client.on("messageCreate", function(message) {
+client.on("messageCreate", function (message) {
   if (message.author.bot || !(message.content.indexOf(PREFIX) === 0)) {
     return;
   }
@@ -165,8 +175,7 @@ client.on("messageCreate", function(message) {
     else {
       const gptResponse = await getGptResponse(
         message.content.substring(3),
-        "ada:ft-personal:k-9-mark-ii-1-2023-02-11-19-23-19",
-        console.log(message.content.substring(3))
+        "ada:ft-personal:k-9-mark-ii-1-2023-02-11-19-23-19"
       );
       safeReply(message, gptResponse);
     }
@@ -193,6 +202,7 @@ app.get(
 app.get("/K-9_2", sendFile("./Website/Assets/K-9_2.jpg", "image/jpeg"));
 app.get("/K-9_3", sendFile("./Website/Assets/K-9_3.jpg", "image/jpeg"));
 app.get("/K-9_4", sendFile("./Website/Assets/K-9_4.jpg", "image/jpeg"));
+app.get("/K-9_5", sendFile("./Website/Assets/K-9_5.jpg", "image/jpeg"));
 
 app.listen(3000, () => console.log("Listening on port 3000"));
 
