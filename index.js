@@ -149,13 +149,13 @@ client.on("guildMemberAdd", async (member) => {
     // Send a direct message to the member
     await member.send({ embeds: [DMEmbed] });
     client.channels.cache
-      .get("1035684381005729902")
+      .get("1018199943330140172")
       .send(
         `<:Affirmative:1019680728759419011> Welcome to Bigger on the Inside <@${member.id}>!`
       );
   } catch (error) {
     client.channels.cache
-      .get("1035684381005729902")
+      .get("1018199943330140172")
       .send(`Welcome to Bigger on the Inside <@${member.id}>!`);
   }
 });
