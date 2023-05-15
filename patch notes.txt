@@ -1,13 +1,16 @@
-K-9 Version 2 notes
+K-9 Version 2.2 notes
 ---------------------
-K-9 will now have more structured updates!!! (Other than patches)
-Introducting: K-9 version 2!
+NEW:
+    K-9 will now send messages in #welcomes
+    Made /exterminate log the user ID
+---------------------
 Features:
     Added /trailer
     Added /vortex
     Added /exterminate (ban command)
     Added ban appeal page to the website
     Added /help
+
 
 Other:
     Removed the "Want bot for your own server?" page from website

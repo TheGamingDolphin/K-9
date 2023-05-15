@@ -99,7 +99,6 @@ async function getGptResponse(prompt, model) {
   } else {
     return "Input unknown. Please try again. (This is an error, not an AI response)";
   }
-  return reply;
 }
 // when the client is ready and logged into the discord bot, log in the console.
 client.on("ready", () => {
@@ -109,52 +108,55 @@ client.on("ready", () => {
 
 //when a member joins, send them a DM
 client.on("guildMemberAdd", async (member) => {
-  if (member.guild.id === "1018199943330140170") {
-    try {
-      // Send a direct message to the member
-      const DMEmbed = new EmbedBuilder()
-        .setColor("#003b6f")
-        .setTitle("Welcome to Bigger on the Inside!")
-        .setURL("https://k-9.cool-epicepic.repl.co/")
-        .setDescription("I'm K-9, here to help :)")
-        .setThumbnail(
-          "https://cdn.discordapp.com/attachments/915568009815416845/1103682438187724851/New_Project.png"
-        )
-        .addFields(
-          {
-            name: "Getting started ",
-            value:
-              "Just head to <#1018266915409514608> and click the button! Simple as that!\nThen, these links will start working! 👇👇",
-          },
-          { name: "\u200B", value: "\u200B" },
-          {
-            name: "Grab some roles!",
-            value: "<#1018263794427891742>",
-            inline: true,
-          },
-          {
-            name: "Introduce yourself!",
-            value: "<#1018442634005598269>",
-            inline: true,
-          }
-        )
-        .addFields({
-          name: "Join the conversation!",
-          value: "<#1018199943774732410>",
-          inline: true,
-        })
-        .setImage(
-          "https://cdn.discordapp.com/attachments/1018266915409514608/1018486366843191457/New_Project_73.png"
-        )
-        .setTimestamp()
-        .setFooter({
-          text: "Hope you enjoy your stay!!",
-        });
-
-      await member.send({ embeds: [DMEmbed] });
-    } catch (error) {
-      console.error("Error sending DM:", error);
-    }
+  const DMEmbed = new EmbedBuilder()
+    .setColor("#003b6f")
+    .setTitle("Welcome to Bigger on the Inside!")
+    .setURL("https://k-9.cool-epicepic.repl.co/")
+    .setDescription("I'm K-9, here to help :)")
+    .setThumbnail(
+      "https://cdn.discordapp.com/attachments/915568009815416845/1103682438187724851/New_Project.png"
+    )
+    .addFields(
+      {
+        name: "Getting started ",
+        value:
+          "Just head to <#1018266915409514608> and click the button! Simple as that!\nThen, these links will start working! 👇👇",
+      },
+      { name: "\u200B", value: "\u200B" },
+      {
+        name: "Grab some roles!",
+        value: "<#1018263794427891742>",
+        inline: true,
+      },
+      {
+        name: "Introduce yourself!",
+        value: "<#1018442634005598269>",
+        inline: true,
+      }
+    )
+    .addFields({
+      name: "Join the conversation!",
+      value: "<#1018199943774732410>",
+      inline: true,
+    })
+    .setImage(
+      "https://cdn.discordapp.com/attachments/1018266915409514608/1018486366843191457/New_Project_73.png"
+    )
+    .setFooter({
+      text: "Hope you enjoy your stay!!",
+    });
+  try {
+    // Send a direct message to the member
+    await member.send({ embeds: [DMEmbed] });
+    client.channels.cache
+      .get("1035684381005729902")
+      .send(
+        `<:Affirmative:1019680728759419011> Welcome to Bigger on the Inside <@${member.id}>!`
+      );
+  } catch (error) {
+    client.channels.cache
+      .get("1035684381005729902")
+      .send(`Welcome to Bigger on the Inside <@${member.id}>!`);
   }
 });
 

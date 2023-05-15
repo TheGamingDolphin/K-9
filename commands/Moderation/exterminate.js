@@ -54,7 +54,11 @@ module.exports = {
     const embed = new EmbedBuilder()
       .setColor("#003b6f")
       .setDescription(
-        `<:Affirmative:1019680728759419011> ${banUser.tag} has been banned.\nReason: ${reason}`
+        `<:Affirmative:1019680728759419011> ${
+          banUser.tag
+        } has been banned.\nReason: ${reason}\n\nID: ${
+          interaction.options.getUser("user").id
+        }`
       );
 
     let banSuccessful = false;
