@@ -17,7 +17,8 @@ var shockedArray = [
   `https://cdn.discordapp.com/attachments/1018199943774732410/1105527884241702922/487332c99d94662632c4d764652784f7.jpg`,
   `https://media.discordapp.net/attachments/1064766850438795295/1105545737846145194/13eac4a313969b541286c09838173cc7.jpg`,
   `https://i.pinimg.com/736x/6c/19/dd/6c19dda83f8920d94a36a6d4a10326b0.jpg`,
-  `https://cdn.discordapp.com/attachments/915568009815416845/1106725050360541204/20230509_142102.jpg`,
+  `https://cdn.discordapp.com/attachments/1105527309638828041/1108768082761109555/20230509_142102.jpg`,
+  `https://cdn.discordapp.com/attachments/1105527309638828041/1108768090264698910/20230516_085807.jpg`,
 ];
 var excitedArray = [
   `https://cdn.discordapp.com/attachments/1018199943774732410/1105527883214110840/a5bbda2696e3bb669728be07210cabb1.jpg`,

@@ -6,6 +6,7 @@ const {
   Events,
   GatewayIntentBits,
   EmbedBuilder,
+  ActivityType,
 } = require("discord.js");
 const { Configuration, OpenAIApi } = require("openai");
 const readline = require("node:readline/promises");
@@ -104,6 +105,9 @@ async function getGptResponse(prompt, model) {
 client.on("ready", () => {
   console.log("Logged in as " + client.user.username);
   reader();
+  client.user.setPresence({
+    activities: [{ name: `the TARDIS`, type: ActivityType.Watching }],
+  });
 });
 
 //when a member joins, send them a DM

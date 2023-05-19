@@ -30,28 +30,28 @@ module.exports = {
           `<@${userID}> has punched the wall ${newScore} times. How many seconds in eternity? And the shepherd's boy`
         );
         interaction.channel.send(
-          `https://thumbs.gfycat.com/AdorableHardHorsechestnutleafminer-size_restricted.gif`
+          `https://64.media.tumblr.com/d1f360cfea6c75f125cd8687431d3036/21e15b04b5d4a494-7d/s540x810/a8e521eccbc9455a5d9ab0594b6002837d5d0c60.gif`
         );
       } else if (newScore >= 1000 && newScore <= 1999) {
         await interaction.reply(
           `<@${userID}> has punched the wall ${newScore} times. And the shepherd's boy says`
         );
         interaction.channel.send(
-          `https://media.tenor.com/V1Ae_xBzeEcAAAAC/heaven-sent.gif`
+          `https://media.tenor.com/6onbZXLE9aMAAAAC/doctor-who-heaven-sent.gif`
         );
       } else if (newScore >= 2000 && newScore <= 2999) {
         await interaction.reply(
           `<@${userID}> has punched the wall ${newScore} times. And the shepherd's boy says, there's this mountain of pure diamond. It takes an hour to climb it, and an hour to go around it!`
         );
         interaction.channel.send(
-          `https://media.tenor.com/6onbZXLE9aMAAAAC/doctor-who-heaven-sent.gif`
+          `https://techaeris.com/wp-content/uploads/2015/12/doctor-who-heaven-sent-twelve-falling.gif`
         );
       } else if (newScore >= 3000 && newScore <= 3999) {
         await interaction.reply(
           `<@${userID}> has punched the wall ${newScore} times. Every hundred years, a little bird comes and sharpens its beak on the diamond mountain.`
         );
         interaction.channel.send(
-          `https://i.makeagif.com/media/2-05-2016/v_e0zq.gif`
+          `https://media.tenor.com/V1Ae_xBzeEcAAAAC/heaven-sent.gif`
         );
       } else if (newScore >= 4000 && newScore <= 4999) {
         await interaction.reply(
@@ -72,7 +72,7 @@ module.exports = {
           `<@${userID}> has punched the wall ${newScore} times. Personally, I think that's a hell of a`
         );
         interaction.channel.send(
-          `https://thumbs.gfycat.com/PeriodicAnotherHydatidtapeworm-max-1mb.gif`
+          `https://i.makeagif.com/media/2-05-2016/v_e0zq.gif`
         );
       } else if (newScore === 10000) {
         await interaction.reply(
