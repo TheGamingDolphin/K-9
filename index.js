@@ -108,6 +108,9 @@ client.on("ready", () => {
   client.user.setPresence({
     activities: [{ name: `the TARDIS`, type: ActivityType.Watching }],
   });
+  client.channels.cache
+    .get("1018199943774732410")
+    .send(`System restarting. All primary drives functioning.`);
 });
 
 //when a member joins, send them a DM
@@ -181,7 +184,7 @@ client.on("messageCreate", function (message) {
     else {
       const gptResponse = await getGptResponse(
         message.content.substring(3),
-        "ada:ft-personal:k-9-mark-ii-1-2023-02-11-19-23-19"
+        "ada:ft-personal:k-9-mk-iii-2023-05-25-19-50-30"
       );
       safeReply(message, gptResponse);
     }

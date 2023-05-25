@@ -38,7 +38,7 @@ module.exports = {
       );
     } else if (command === "fun_punch") {
       await interaction.reply(
-        "`/punch`: Punches the wall from Heaven Sent. You get a special role at 10,000 punches!"
+        "`/punch`: Punches the wall from Heaven Sent. You get a special role at 3000 punches!"
       );
     } else if (command === "fun_reaction") {
       await interaction.reply(
