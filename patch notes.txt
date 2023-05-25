@@ -1,14 +1,25 @@
-K-9 Version 3 notes
+K-9 Version 2.3 notes
+---------------------
+NEW:
+    Fixed broken link in /reaction
+    K-9 now has a status message
+    Added new images to /reaction
+    Re-did gifs in /punch
 ---------------------
 Features:
-    K-9's data now contains all Doctor Who scripts
-    K-9 now has a status message
-    K-9 will send a message in #🌍earth whenever he restarts
+    Added /trailer
+    Added /vortex
+    Added /exterminate (ban command)
+    Added ban appeal page to the website
+    Added /help
+    K-9 will now send messages in #welcomes
+
+
 Other:
-    Reworked gifs in /punch
-    Added new images to /reaction
-    Changed /punch back to have a limit of 3000
+    Removed the "Want bot for your own server?" page from website
+    Removed the "Status" page from website
+    Added everyone ping protection back, as K-9 will now have all permissions
+    Made /exterminate log the user ID
 
 Patches:
-    Fixed broken link in /reaction
-    Fixed broken link in /regenerate
+    Removed a broken link from /reaction

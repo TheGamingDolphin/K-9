@@ -25,56 +25,56 @@ module.exports = {
       const newLine = `${userID},${newScore}`;
       const updatedContents = fileContents.replace(line, newLine);
       fs.writeFileSync("streak.txt", updatedContents, "utf-8");
-      if (newScore >= 250 && newScore <= 499) {
+      if (newScore >= 500 && newScore <= 999) {
         await interaction.reply(
           `<@${userID}> has punched the wall ${newScore} times. How many seconds in eternity? And the shepherd's boy`
         );
         interaction.channel.send(
           `https://64.media.tumblr.com/d1f360cfea6c75f125cd8687431d3036/21e15b04b5d4a494-7d/s540x810/a8e521eccbc9455a5d9ab0594b6002837d5d0c60.gif`
         );
-      } else if (newScore >= 500 && newScore <= 749) {
+      } else if (newScore >= 1000 && newScore <= 1999) {
         await interaction.reply(
           `<@${userID}> has punched the wall ${newScore} times. And the shepherd's boy says`
         );
         interaction.channel.send(
           `https://media.tenor.com/6onbZXLE9aMAAAAC/doctor-who-heaven-sent.gif`
         );
-      } else if (newScore >= 750 && newScore <= 999) {
+      } else if (newScore >= 2000 && newScore <= 2999) {
         await interaction.reply(
           `<@${userID}> has punched the wall ${newScore} times. And the shepherd's boy says, there's this mountain of pure diamond. It takes an hour to climb it, and an hour to go around it!`
         );
         interaction.channel.send(
           `https://techaeris.com/wp-content/uploads/2015/12/doctor-who-heaven-sent-twelve-falling.gif`
         );
-      } else if (newScore >= 1000 && newScore <= 1499) {
+      } else if (newScore >= 3000 && newScore <= 3999) {
         await interaction.reply(
           `<@${userID}> has punched the wall ${newScore} times. Every hundred years, a little bird comes and sharpens its beak on the diamond mountain.`
         );
         interaction.channel.send(
           `https://media.tenor.com/V1Ae_xBzeEcAAAAC/heaven-sent.gif`
         );
-      } else if (newScore >= 1500 && newScore <= 1999) {
+      } else if (newScore >= 4000 && newScore <= 4999) {
         await interaction.reply(
           `<@${userID}> has punched the wall ${newScore} times. And when the entire mountain is chiselled away, the first second of eternity will have passed!`
         );
         interaction.channel.send(
           `https://64.media.tumblr.com/280d2cdbd70318470975df9f2d3bc1e6/21e15b04b5d4a494-15/s540x810/6fd53cf6a336459ee524efd2036cfc89a94d0434.gif`
         );
-      } else if (newScore >= 2000 && newScore <= 2499) {
+      } else if (newScore >= 6000 && newScore <= 7999) {
         await interaction.reply(
           `<@${userID}> has punched the wall ${newScore} times. You must think that's a hell of a long time,`
         );
         interaction.channel.send(
           `https://i.makeagif.com/media/3-18-2017/OkTEkl.gif`
         );
-      } else if (newScore >= 2500 && newScore <= 2999) {
+      } else if (newScore >= 8000 && newScore <= 9999) {
         await interaction.reply(
           `<@${userID}> has punched the wall ${newScore} times. Personally, I think that's a hell of a`
         );
         interaction.channel.send(
           `https://i.makeagif.com/media/2-05-2016/v_e0zq.gif`
         );
-      } else if (newScore === 3000) {
+      } else if (newScore === 10000) {
         await interaction.reply(
           `<@${userID}> has broken the wall!\n Personally, I think that's a hell of a bird.`
         );
@@ -100,11 +100,11 @@ module.exports = {
             `Sorry, there is no reward for breaking the wall in this server.\nYou can claim your role reward in https://discord.gg/FEsXdZehwB!`
           );
         }
-      } else if (newScore > 3000) {
+      } else if (newScore > 10000) {
         await interaction.reply(
           `You have already broken the wall <@${userID}>, there's nothing to punch`
         );
-      } else if (newScore >= 1 && newScore <= 249) {
+      } else if (newScore >= 1 && newScore <= 499) {
         await interaction.reply(
           `<@${userID}> has punched the wall ${newScore} times. There's this emperor and he asks this shepherd's boy, how many seconds in eternity?`
         );
