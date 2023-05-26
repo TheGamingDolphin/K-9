@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 require("dotenv").config();
 
-const { clientId } = require("./config.json");
+const { clientId, betaClientId } = require("./config.json");
 const token = process.env.TOKEN;
 
 const commands = [];
@@ -34,7 +34,7 @@ for (const folder of commandFolders) {
 // Construct and prepare an instance of the REST module
 const rest = new REST().setToken(token);
 
-// and deploy your commands!
+// deploy commands
 (async () => {
   try {
     console.log(
@@ -50,7 +50,12 @@ const rest = new REST().setToken(token);
       `Successfully reloaded ${data.length} application (/) commands.`
     );
   } catch (error) {
-    // And of course, make sure you catch and log any errors!
-    console.error(error);
+    const data = await rest.put(Routes.applicationCommands(betaClientId), {
+      body: commands,
+    });
+
+    console.log(
+      `Successfully reloaded ${data.length} application (/) commands.`
+    );
   }
 })();

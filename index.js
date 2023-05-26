@@ -108,9 +108,15 @@ client.on("ready", () => {
   client.user.setPresence({
     activities: [{ name: `the TARDIS`, type: ActivityType.Watching }],
   });
-  client.channels.cache
-    .get("1018199943774732410")
-    .send(`System restarting. All primary drives functioning.`);
+  try {
+    client.channels.cache
+      .get("1018199943774732410")
+      .send(`System restarting. All primary drives functioning.`);
+  } catch (error) {
+    client.channels.cache
+      .get("915568009815416845")
+      .send(`System restarting. All primary drives functioning.`);
+  }
 });
 
 //when a member joins, send them a DM
@@ -154,12 +160,14 @@ client.on("guildMemberAdd", async (member) => {
     });
   try {
     // Send a direct message to the member
-    await member.send({ embeds: [DMEmbed] });
-    client.channels.cache
-      .get("1018199943330140172")
-      .send(
-        `<:Affirmative:1019680728759419011> Welcome to Bigger on the Inside <@${member.id}>!`
-      );
+    if (member.guild.id === "1018199943330140170") {
+      await member.send({ embeds: [DMEmbed] });
+      client.channels.cache
+        .get("1018199943330140172")
+        .send(
+          `<:Affirmative:1019680728759419011> Welcome to Bigger on the Inside <@${member.id}>!`
+        );
+    }
   } catch (error) {
     client.channels.cache
       .get("1018199943330140172")

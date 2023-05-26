@@ -1,4 +1,7 @@
-K-9 Version 3 notes
+K-9 Version 3.1 notes
+---------------------
+NEW:
+    /delete command, moderator only: kicks a member
 ---------------------
 Features:
     K-9's data now contains all Doctor Who scripts
