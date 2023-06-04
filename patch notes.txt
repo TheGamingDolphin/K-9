@@ -1,4 +1,7 @@
-K-9 Version 4 notes
+K-9 Version 4.1 notes
+---------------------
+NEW:
+    Changed note formatting
 ---------------------
 Features:
     Added /note command (mod only)
