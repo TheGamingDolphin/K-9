@@ -70,7 +70,7 @@ module.exports = {
       }
     } else {
       await interaction.reply(
-        `Sorry, upgrading is not available for this server.\nFor every feature, visit https://discord.gg/FEsXdZehwB`
+        `Sorry, upgrading is not available right now. Please report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)`
       );
     }
   },

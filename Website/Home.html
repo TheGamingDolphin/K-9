@@ -5,9 +5,8 @@
     <link rel="icon" href="/icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
-  <body class="prevent-select" style="background-color: #8a8a8a">
-    <link rel="stylesheet" href="./Languages/Home/body.css" />
-    <link rel="stylesheet" href="./Languages/Home/video.css" />
+  <body style="background-color: #8a8a8a">
+    <link rel="stylesheet" href="main.css" />
     <section class="container">
       <video
         class="fullscreen"
@@ -19,7 +18,7 @@
         loop
       ></video>
       <div class="content">
-        <link rel="stylesheet" href="./Languages/Home/navbar.css" />
+        <link rel="stylesheet" href="navbar.css" />
         <div class="navbar">
           <div class="dropdown">
             <button class="dropbtn">
@@ -41,8 +40,6 @@
             <img class="banner" src="/title" alt="title" />
           </div>
         </div>
-        <script src="./Languages/Home/highlighting.js"></script>
-        <link rel="stylesheet" href="./Languages/Home/outlineText.css" />
         <div class="main">
           <div class="strokeme" style="display: flex">
             <div style="margin: auto" ;>
@@ -67,16 +64,23 @@
                 version of the ada model of
                 <a href="https://platform.openai.com/docs/models/gpt-3">GPT3</a>
               </h4>
-              <link rel="stylesheet" href="./Languages/Home/k9pic.css" />
               <img class="k9pic" src="/K-9" alt="title" />
 
-              <script
-                type="text/javascript"
-                src="./Languages/Home/hideButton.js"
-              ></script>
-              <link rel="stylesheet" href="./Languages/Home/hideButton.css" />
-              <br /><button class="hideButton" onclick="TestsFunction()">
-                Toggle video
+              <script type="text/javascript" src="videoButtons.js"></script>
+              <br />
+              <button
+                class="videoButton"
+                id="hideButton"
+                onclick="toggleVideo()"
+              >
+                Hide Video
+              </button>
+              <button
+                class="videoButton"
+                id="muteButton"
+                onclick="toggleMute()"
+              >
+                Unmute
               </button>
             </div>
           </div>

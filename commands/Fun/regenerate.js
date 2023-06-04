@@ -19,9 +19,9 @@ module.exports = {
       // who ran the command in the hierarchy, according to role position and guild ownership.
       canNickname = false;
     }
-
+    await interaction.deferReply();
     if (randomNumber === 1) {
-      await interaction.reply("https://i.gifer.com/Ac0v.gif");
+      await interaction.editReply({ files: ["./assets/regeneration/1.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The 2nd Doctor (${interaction.member.user.username})`;
 
@@ -39,7 +39,7 @@ module.exports = {
       }
     } else if (randomNumber === 2) {
       //2 to 3
-      await interaction.reply("https://i.gifer.com/EHul.gif");
+      await interaction.editReply({ files: ["./assets/regeneration/2.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The 3rd Doctor (${interaction.member.user.username})`;
 
@@ -57,7 +57,7 @@ module.exports = {
       }
     } else if (randomNumber === 3) {
       //3 to 4
-      await interaction.reply("https://i.gifer.com/Gx6Y.gif");
+      await interaction.editReply({ files: ["./assets/regeneration/3.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The 4th Doctor (${interaction.member.user.username})`;
 
@@ -75,7 +75,7 @@ module.exports = {
       }
     } else if (randomNumber === 4) {
       //4 to 5
-      await interaction.reply("https://i.gifer.com/EHun.gif");
+      await interaction.editReply({ files: ["./assets/regeneration/4.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The 5th Doctor (${interaction.member.user.username})`;
 
@@ -93,7 +93,7 @@ module.exports = {
       }
     } else if (randomNumber === 5) {
       //5 to 6
-      await interaction.reply("https://i.gifer.com/EHum.gif");
+      await interaction.editReply({ files: ["./assets/regeneration/5.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The 6th Doctor (${interaction.member.user.username})`;
 
@@ -111,7 +111,7 @@ module.exports = {
       }
     } else if (randomNumber === 6) {
       //6 to 7
-      await interaction.reply("https://i.gifer.com/EHuq.gif");
+      await interaction.editReply({ files: ["./assets/regeneration/6.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The 7th Doctor (${interaction.member.user.username})`;
 
@@ -129,7 +129,7 @@ module.exports = {
       }
     } else if (randomNumber === 7) {
       //7 to 8
-      await interaction.reply("https://i.gifer.com/3KMn.gif");
+      await interaction.editReply({ files: ["./assets/regeneration/7.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The 8th Doctor (${interaction.member.user.username})`;
 
@@ -147,7 +147,7 @@ module.exports = {
       }
     } else if (randomNumber === 8) {
       //8 to War
-      await interaction.reply("https://i.gifer.com/Gx6k.gif");
+      await interaction.editReply({ files: ["./assets/regeneration/8.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The War Doctor (${interaction.member.user.username})`;
 
@@ -165,9 +165,7 @@ module.exports = {
       }
     } else if (randomNumber === 9) {
       //War to 9
-      await interaction.reply(
-        "https://thumbs.gfycat.com/ImpoliteYellowCaterpillar-max-1mb.gif"
-      );
+      await interaction.editReply({ files: ["./assets/regeneration/war.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The 9th Doctor (${interaction.member.user.username})`;
 
@@ -185,7 +183,7 @@ module.exports = {
       }
     } else if (randomNumber === 10) {
       //9 to 10
-      await interaction.reply("https://tenor.com/view/-gif-3538028");
+      await interaction.editReply({ files: ["./assets/regeneration/9.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The 10th Doctor (${interaction.member.user.username})`;
 
@@ -203,9 +201,9 @@ module.exports = {
       }
     } else if (randomNumber === 11) {
       //10 to 10
-      await interaction.reply(
-        "https://media2.giphy.com/media/CoKJD9a9pxc9W/giphy.gif"
-      );
+      await interaction.editReply({
+        files: ["./assets/regeneration/10Alt.gif"],
+      });
       if (canNickname === true) {
         const nicknameWithUsername = `The 10th Doctor (${interaction.member.user.username})`;
 
@@ -223,9 +221,7 @@ module.exports = {
       }
     } else if (randomNumber === 12) {
       //10 to 11
-      await interaction.reply(
-        "https://media.tenor.com/WH5GS4DSS78AAAAd/doctor-who-david-tennant.gif"
-      );
+      await interaction.editReply({ files: ["./assets/regeneration/10.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The 11th Doctor (${interaction.member.user.username})`;
 
@@ -243,7 +239,7 @@ module.exports = {
       }
     } else if (randomNumber === 13) {
       //11 to 12
-      await interaction.reply("https://i.gifer.com/EHuf.gif");
+      await interaction.editReply({ files: ["./assets/regeneration/11.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The 12th Doctor (${interaction.member.user.username})`;
 
@@ -261,9 +257,7 @@ module.exports = {
       }
     } else if (randomNumber === 14) {
       //12 to 13
-      await interaction.reply(
-        "https://64.media.tumblr.com/af05ce9b690536924d0216893012bb3b/tumblr_p1v23yqP9U1tgl57yo1_540.gif"
-      );
+      await interaction.editReply({ files: ["./assets/regeneration/12.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The 13th Doctor (${interaction.member.user.username})`;
 
@@ -281,9 +275,9 @@ module.exports = {
       }
     } else if (randomNumber === 15) {
       //13 to Master
-      await interaction.reply(
-        "https://media.tenor.com/7GPggFxYxBQAAAAd/regenoration-13th-doctor.gif"
-      );
+      await interaction.editReply({
+        files: ["./assets/regeneration/13Alt.gif"],
+      });
       if (canNickname === true) {
         const nicknameWithUsername = `The Master Doctor (${interaction.member.user.username})`;
 
@@ -301,9 +295,9 @@ module.exports = {
       }
     } else if (randomNumber === 16) {
       //Master to 13
-      await interaction.reply(
-        "https://64.media.tumblr.com/d97f3c6fe15a54747e1c78ebf28ae774/6738b19fb6d790ad-5e/s540x810/e5ee3bb300c9bcccd2e24b6d16dd1c91d74d44e4.gif"
-      );
+      await interaction.editReply({
+        files: ["./assets/regeneration/13Master.gif"],
+      });
       if (canNickname === true) {
         const nicknameWithUsername = `The 13th Doctor (${interaction.member.user.username})`;
 
@@ -321,9 +315,7 @@ module.exports = {
       }
     } else if (randomNumber === 17) {
       //13 to 14
-      await interaction.reply(
-        "https://media.tenor.com/4mOyPi1ZQNoAAAAd/doctor-doctor-who.gif"
-      );
+      await interaction.editReply({ files: ["./assets/regeneration/13.gif"] });
       if (canNickname === true) {
         const nicknameWithUsername = `The 14th Doctor (${interaction.member.user.username})`;
 

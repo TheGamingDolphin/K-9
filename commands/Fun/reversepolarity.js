@@ -12,7 +12,7 @@ module.exports = {
         .has("ModerateMembers")
     ) {
       await interaction.reply(
-        `I don't have the right permissions enabled to do that in this server.`
+        `I don't have the right permissions enabled to do that. Please report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)`
       );
     } else if (
       !interaction.member.manageable ||

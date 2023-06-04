@@ -1,54 +1,53 @@
 const { SlashCommandBuilder } = require("discord.js");
 
 var happyArray = [
-  `https://cdn.discordapp.com/attachments/1018199943774732410/1105529916495237252/20230131_165035.jpg`,
-  `https://nerdreactor.com/wp-content/uploads/2014/05/doctor-who-tenth-cubicle.jpg`,
-  `https://cultbox.co.uk/wp-content/uploads/2014/05/Doctor-Who-Pandorica-Opens-Doctor-thumbs-up.jpg`,
-  `https://www.themarysue.com/wp-content/uploads/2014/12/DoctorWhoTennantHappy.jpg?fit=1280%2C720`,
+  "./assets/reaction/happy/maliciousLaughter.jpg",
+  "./assets/reaction/happy/11ThumbsUp.jpg",
+  "./assets/reaction/happy/10Happy.jpg",
 ];
 var sadArray = [
-  `https://media.discordapp.net/attachments/1018199943774732410/1105528254602944542/fc8c00437c51c70f4cd24b460de47958.jpg`,
-  `https://media.discordapp.net/attachments/1064766850438795295/1105545757089615912/3b752cfb04911c33a9147a59ec636517.jpg?width=712&height=702`,
-  `https://cdn.discordapp.com/attachments/1105527309638828041/1105552731978072144/l-intro-1652988476.png`,
-  `https://images.immediate.co.uk/production/volatile/sites/3/2016/01/98349.jpg?quality=90&resize=620,414`,
-  `https://pbs.twimg.com/media/FuznoUtWYAQhvNU?format=jpg&name=small`,
+  "./assets/reaction/sad/masterCry.jpg",
+  "./assets/reaction/sad/13Sad.jpg",
+  "./assets/reaction/sad/10Sad.png",
+  "./assets/reaction/sad/11Sad.jpg",
+  "./assets/reaction/sad/JackieSad.jpg",
 ];
 var shockedArray = [
-  `https://cdn.discordapp.com/attachments/1018199943774732410/1105527884241702922/487332c99d94662632c4d764652784f7.jpg`,
-  `https://media.discordapp.net/attachments/1064766850438795295/1105545737846145194/13eac4a313969b541286c09838173cc7.jpg`,
-  `https://i.pinimg.com/736x/6c/19/dd/6c19dda83f8920d94a36a6d4a10326b0.jpg`,
-  `https://cdn.discordapp.com/attachments/1105527309638828041/1108768082761109555/20230509_142102.jpg`,
-  `https://cdn.discordapp.com/attachments/1105527309638828041/1108768090264698910/20230516_085807.jpg`,
+  "./assets/reaction/shocked/10Uhhh.jpg",
+  "./assets/reaction/shocked/9RoseShock.jpg",
+  "./assets/reaction/shocked/10Shock.jpg",
+  "./assets/reaction/shocked/liveDalekSecReaction.jpg",
+  "./assets/reaction/shocked/TW CoE reaction.jpg",
 ];
 var excitedArray = [
-  `https://cdn.discordapp.com/attachments/1018199943774732410/1105527883214110840/a5bbda2696e3bb669728be07210cabb1.jpg`,
-  `https://cdn.discordapp.com/attachments/1018199943774732410/1105527883444785222/724576b8b6ae4d7790bbf84018916c3a.jpg`,
-  `https://media.discordapp.net/attachments/1064766850438795295/1105545735367307396/434189f292003113af30c967e0a764ed.jpg`,
-  `https://www.doctorwhotv.co.uk/wp-content/uploads/donna-tate-partners-in-crime.jpg`,
+  "./assets/reaction/excited/JackieAAAAAAA.jpg",
+  "./assets/reaction/excited/10Laugh.jpg",
+  "./assets/reaction/excited/10RoseLetsGo.jpg",
+  "./assets/reaction/excited/DonnaHappy.jpg",
 ];
 var wtfArray = [
-  `https://cdn.discordapp.com/attachments/1018199943774732410/1105527883893587968/7a972e60846d1358bfd73faedf198be1.jpg`,
-  `https://cdn.discordapp.com/attachments/1018199943774732410/1105529916235194449/20230131_225438.jpg`,
-  `https://cdn.discordapp.com/attachments/1018199943774732410/1105531839445217400/The-Time-of-Weeping-Angels.jpg`,
-  `https://media.discordapp.net/attachments/1018199943774732410/1105527882975023194/588edf629120ceedddfa621d750c34b1.jpg`,
-  `https://media.discordapp.net/attachments/1064766850438795295/1105545757643259914/748d9cd4d955acff96cac074ab8ed998.jpg`,
-  `https://media.discordapp.net/attachments/1064766850438795295/1105545736155836426/866aaee873fc1c174614968e7fdb78f6.jpg`,
-  `https://images.theabcdn.com/i/37731521`,
-  `https://pbs.twimg.com/media/FuZMeEMWAAEOwtj?format=jpg&name=small`,
+  "./assets/reaction/wtf/10Disgust.jpg",
+  "./assets/reaction/wtf/6Point.jpg",
+  "./assets/reaction/wtf/AngelTurn.jpg",
+  "./assets/reaction/wtf/DalekPOV.jpg",
+  "./assets/reaction/wtf/13DontSeeIt.jpg",
+  "./assets/reaction/wtf/11What.jpg",
+  "./assets/reaction/wtf/11Wtf.jpg",
+  "./assets/reaction/wtf/SlitheenHuh.jpg",
 ];
 var boredArray = [
-  `https://media.discordapp.net/attachments/1064766850438795295/1105545736797573180/7e0b1ce87ab3b6dcf58cef9e99a0c1a4.jpg`,
-  `https://media.discordapp.net/attachments/1064766850438795295/1105545737086971974/aeaf32bedfce181e80a3e3d7c1a9f5e5.jpg?width=702&height=702`,
-  `https://media.discordapp.net/attachments/1064766850438795295/1105545757362225162/ffec5ec2a85d30e5c23591f3adc84a44.jpg`,
-  `https://cdn.discordapp.com/attachments/1018199943774732410/1105528254145769613/83f186f8ab9af2b40d7a4538bce3f729.jpg`,
+  "./assets/reaction/bored/10Write.jpg",
+  "./assets/reaction/bored/10Sit.jpg",
+  "./assets/reaction/bored/10Sip.jpg",
+  "./assets/reaction/bored/10Sip2.jpg",
 ];
 var angryArray = [
-  `https://cdn.discordapp.com/attachments/239170784201801728/1088090319096119327/20230317_220802.jpg`,
-  `https://cdn.discordapp.com/attachments/1018199943774732410/1105529917069861025/20230202_101043.jpg`,
-  `https://cdn.discordapp.com/attachments/1018199943774732410/1105529916793040927/20230101_195633.jpg`,
-  `https://pataques.ovh/face.jpg`,
-  `https://i.ytimg.com/vi/6yak3ujqxDw/maxresdefault.jpg`,
-  `https://cdn3.whatculture.com/images/2015/01/doctor-who-angry-600x338.jpg`,
+  "./assets/reaction/angry/RomanaAngry.jpg",
+  "./assets/reaction/angry/1Gun.jpg",
+  "./assets/reaction/angry/NyssaGun.jpg",
+  "./assets/reaction/angry/MasterNotFunny.jpg",
+  "./assets/reaction/angry/12Angry.jpg",
+  "./assets/reaction/angry/10Yell.jpg",
 ];
 module.exports = {
   data: new SlashCommandBuilder()
@@ -74,25 +73,32 @@ module.exports = {
     const category = interaction.options.getString("category");
     if (category === "image_happy") {
       var randomNumber = Math.floor(Math.random() * happyArray.length);
-      await interaction.reply(happyArray[randomNumber]);
+      const randomImage = happyArray[randomNumber];
+      await interaction.reply({ files: [randomImage] });
     } else if (category === "image_sad") {
       var randomNumber = Math.floor(Math.random() * sadArray.length);
-      await interaction.reply(sadArray[randomNumber]);
+      const randomImage = sadArray[randomNumber];
+      await interaction.reply({ files: [randomImage] });
     } else if (category === "image_shocked") {
       var randomNumber = Math.floor(Math.random() * shockedArray.length);
-      await interaction.reply(shockedArray[randomNumber]);
+      const randomImage = shockedArray[randomNumber];
+      await interaction.reply({ files: [randomImage] });
     } else if (category === "image_excited") {
       var randomNumber = Math.floor(Math.random() * excitedArray.length);
-      await interaction.reply(excitedArray[randomNumber]);
+      const randomImage = excitedArray[randomNumber];
+      await interaction.reply({ files: [randomImage] });
     } else if (category === "image_wtf") {
       var randomNumber = Math.floor(Math.random() * wtfArray.length);
-      await interaction.reply(wtfArray[randomNumber]);
+      const randomImage = wtfArray[randomNumber];
+      await interaction.reply({ files: [randomImage] });
     } else if (category === "image_bored") {
       var randomNumber = Math.floor(Math.random() * boredArray.length);
-      await interaction.reply(boredArray[randomNumber]);
+      const randomImage = boredArray[randomNumber];
+      await interaction.reply({ files: [randomImage] });
     } else if (category === "image_angry") {
       var randomNumber = Math.floor(Math.random() * angryArray.length);
-      await interaction.reply(angryArray[randomNumber]);
+      const randomImage = angryArray[randomNumber];
+      await interaction.reply({ files: [randomImage] });
     }
   },
 };

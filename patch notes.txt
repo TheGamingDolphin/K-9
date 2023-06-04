@@ -1,17 +1,14 @@
-K-9 Version 3.1 notes
----------------------
-NEW:
-    /delete command, moderator only: kicks a member
+K-9 Version 4 notes
 ---------------------
 Features:
-    K-9's data now contains all Doctor Who scripts
-    K-9 now has a status message
-    K-9 will send a message in #🌍earth whenever he restarts
-Other:
-    Reworked gifs in /punch
-    Added new images to /reaction
-    Changed /punch back to have a limit of 3000
-
+    Added /note command (mod only)
+    Added /reload command (developer only)
+    Space is no longer needed after "K-9" in a message
+    "K-9" prompt is no longer case sensitive
 Patches:
-    Fixed broken link in /reaction
-    Fixed broken link in /regenerate
+    Fixed all broken links
+Other:
+    Added a toggle mute button to website
+    Added /delete to /help
+    Added files locally instead of as links; breaks less often:
+    Reworked a lot of file structure regarding the website

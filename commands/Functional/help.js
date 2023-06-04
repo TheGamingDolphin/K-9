@@ -23,11 +23,15 @@ module.exports = {
           { name: "help", value: "functional_help" },
           { name: "patchnotes", value: "functional_patchnotes" },
           { name: "ping", value: "functional_ping" },
-          { name: "exterminate", value: "moderation_exterminate" }
+          { name: "reload", value: "functional_reload" },
+          { name: "exterminate", value: "moderation_exterminate" },
+          { name: "delete", value: "moderation_delete" },
+          { name: "note", value: "moderation_note" }
         )
     ),
   async execute(interaction) {
     const command = interaction.options.getString("command");
+    // fun commands
     if (command === "fun_60th") {
       await interaction.reply(
         "`/60th`: Shows how many days left until the 60th anniversary of Doctor Who"
@@ -66,7 +70,9 @@ module.exports = {
       await interaction.reply(
         "`/vortex`: Sends the time vortex video for the server!"
       );
-    } else if (command === "functional_avatar") {
+    }
+    //function commands
+    else if (command === "functional_avatar") {
       await interaction.reply(
         "`/avatar`: Replies with the bot's avatar (the world's finest art)"
       );
@@ -80,13 +86,29 @@ module.exports = {
       );
     } else if (command === "functional_ping") {
       await interaction.reply(
-        "`/ping`: Replies with the bot's latency and the current uptime (also logs some useful stuff, so you may see the developer using it a lot)"
+        "`/ping`: Replies with the bot's latency and the current uptime (also logs some useful stuff)"
       );
-    } else if (command === "moderation_exterminate") {
+    } else if (command === "functional_reload") {
+      await interaction.reply(
+        "`/reload`: Reloads the bot (only works for developers)"
+      );
+    }
+    //moderation commands
+    else if (command === "moderation_exterminate") {
       await interaction.reply(
         "`/exterminate`: Bans a member. Only works for moderators."
       );
-    } else {
+    } else if (command === "moderation_delete") {
+      await interaction.reply(
+        "`/delete`: Kicks a member. Only works for moderators."
+      );
+    } else if (command === "moderation_note") {
+      await interaction.reply(
+        "`/note`: Adds a note to a message. Only works for moderators."
+      );
+    }
+    //
+    else {
       await interaction.reply(
         "To speak to K-9, start your message with `K-9 ` (case sensitive, and the space afterwards is required)\nYou can run this again with the name of anothe command afterwards to get help with it!\n__Links__:\n[K-9 website](https://k-9.cool-epicepic.repl.co/) (If K-9 goes offline, visiting this website will start him again)\n[K-9 testing server](https://discord.gg/xwMWhNHMd8)"
       );

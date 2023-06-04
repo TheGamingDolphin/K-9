@@ -18,7 +18,7 @@ const path = require("node:path");
 dotenv.config();
 
 //sets prefix
-const PREFIX = "K-9 ";
+const PREFIX = "K-9";
 
 //gets the openai api key
 const configuration = new Configuration({
@@ -95,10 +95,10 @@ async function getGptResponse(prompt, model) {
       return reply;
     } else {
       console.log(reply);
-      return "Sorry, my reply contained an '@' character, which is blocked for safety reasons";
+      return "Sorry, my reply contained an '@' character, which is blocked to prevent accidental everyone pings";
     }
   } else {
-    return "Input unknown. Please try again. (This is an error, not an AI response)";
+    return "Input unknown. Please try again. (This is an error, not an AI response)\nIf this keeps happening, please report the issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)";
   }
 }
 // when the client is ready and logged into the discord bot, log in the console.
@@ -106,7 +106,12 @@ client.on("ready", () => {
   console.log("Logged in as " + client.user.username);
   reader();
   client.user.setPresence({
-    activities: [{ name: `the TARDIS`, type: ActivityType.Watching }],
+    activities: [
+      {
+        name: `🌈Happy pride month!!🌈`,
+        type: ActivityType.Playing,
+      },
+    ],
   });
   try {
     client.channels.cache
@@ -126,9 +131,7 @@ client.on("guildMemberAdd", async (member) => {
     .setTitle("Welcome to Bigger on the Inside!")
     .setURL("https://k-9.cool-epicepic.repl.co/")
     .setDescription("I'm K-9, here to help :)")
-    .setThumbnail(
-      "https://cdn.discordapp.com/attachments/915568009815416845/1103682438187724851/New_Project.png"
-    )
+    .setThumbnail("attachment://dog.png")
     .addFields(
       {
         name: "Getting started ",
@@ -152,16 +155,17 @@ client.on("guildMemberAdd", async (member) => {
       value: "<#1018199943774732410>",
       inline: true,
     })
-    .setImage(
-      "https://cdn.discordapp.com/attachments/1018266915409514608/1018486366843191457/New_Project_73.png"
-    )
+    .setImage("attachment://BOTI_logo.png")
     .setFooter({
       text: "Hope you enjoy your stay!!",
     });
   try {
     // Send a direct message to the member
     if (member.guild.id === "1018199943330140170") {
-      await member.send({ embeds: [DMEmbed] });
+      await member.send({
+        embeds: [dmEmbed],
+        files: ["./assets/dog.png", "./assets/BOTI_logo.png"],
+      });
       client.channels.cache
         .get("1018199943330140172")
         .send(
@@ -177,7 +181,10 @@ client.on("guildMemberAdd", async (member) => {
 
 //checks if the message is from a bot or if the mesage doesn't contain the 'K-9' prefix
 client.on("messageCreate", function (message) {
-  if (message.author.bot || !(message.content.indexOf(PREFIX) === 0)) {
+  if (
+    message.author.bot ||
+    !message.content.toLowerCase().startsWith(PREFIX.toLowerCase())
+  ) {
     return;
   }
   //runs the message through the moderation to make sure nothing harmful is being sent
@@ -205,21 +212,14 @@ const app = express();
 app.use(express.static("Website"));
 
 app.get("/", sendFile("./Website/Home.html", "text/html"));
-app.get("/icon", sendFile("./Website/Assets/K9Logo.png", "image/png"));
-app.get("/title", sendFile("./Website/Assets/banner.png", "image/png"));
-app.get("/K-9", sendFile("./Website/Assets/K-9.jpg", "image/jpeg"));
-app.get(
-  "/background",
-  sendFile("./Website/Assets/background.png", "image/png")
-);
-app.get(
-  "/backgroundVideo",
-  sendFile("./Website/Assets/vortex.mp4", "video/mp4")
-);
-app.get("/K-9_2", sendFile("./Website/Assets/K-9_2.jpg", "image/jpeg"));
-app.get("/K-9_3", sendFile("./Website/Assets/K-9_3.jpg", "image/jpeg"));
-app.get("/K-9_4", sendFile("./Website/Assets/K-9_4.jpg", "image/jpeg"));
-app.get("/K-9_5", sendFile("./Website/Assets/K-9_5.jpg", "image/jpeg"));
+app.get("/icon", sendFile("./assets/K9Logo.png", "image/png"));
+app.get("/title", sendFile("./assets/banner.png", "image/png"));
+app.get("/K-9", sendFile("./assets/K-9.jpg", "image/jpeg"));
+app.get("/background", sendFile("./assets/background.png", "image/png"));
+app.get("/backgroundVideo", sendFile("./assets/bgvideo.mp4", "video/mp4"));
+app.get("/K-9_2", sendFile("./assets/K-9_2.jpg", "image/jpeg"));
+app.get("/K-9_3", sendFile("./assets/K-9_3.jpg", "image/jpeg"));
+app.get("/K-9_4", sendFile("./assets/K-9_4.jpg", "image/jpeg"));
 
 app.listen(3000, () => console.log("Listening on port 3000"));
 
@@ -278,12 +278,14 @@ client.on(Events.InteractionCreate, async (interaction) => {
     console.error(error);
     if (interaction.replied || interaction.deferred) {
       await interaction.followUp({
-        content: "There was an error while executing this command!",
+        content:
+          "There was an error while executing this command! If this keeps happening, please report the issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
         ephemeral: true,
       });
     } else {
       await interaction.reply({
-        content: "There was an error while executing this command!",
+        content:
+          "There was an error while executing this command! If this keeps happening, please report the issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
         ephemeral: true,
       });
     }

@@ -1,5 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  AttachmentBuilder,
+} = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("delete")
@@ -36,16 +39,12 @@ module.exports = {
       .setColor("#003b6f")
       .setTitle("Click here to rejoin!")
       .setURL("https://discord.gg/FEsXdZehwB")
-      .setThumbnail(
-        "https://cdn.discordapp.com/attachments/915568009815416845/1103682438187724851/New_Project.png"
-      )
+      .setThumbnail(`attachment://dog.png`)
       .addFields({
         name: `You have been kicked from ${interaction.guild.name}`,
         value: `Reason: ${reason}\nYou can still rejoin! Just click the link above!`,
       })
-      .setImage(
-        "https://cdn.discordapp.com/attachments/1035684381005729902/1111776490464481363/New_Project_73.png"
-      )
+      .setImage(`attachment://BOTI_logo.png`)
       .setTimestamp()
       .setFooter({
         text: "Safe travels!",
@@ -69,19 +68,27 @@ module.exports = {
         kickSuccessful = true;
       })
       .catch((err) => {
-        interaction.reply({ content: "I cannot kick this member!" });
+        interaction.reply({
+          content:
+            "I cannot kick this member!\nIf this is unexpected, please kick the member with a different bot and then report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
+        });
       });
 
     if (kickSuccessful) {
-      await kickUser.send({ embeds: [dmEmbed] }).catch((err) => {
-        try {
-          interaction.channel.send("I couldn't DM the kicked user.");
-        } catch (err) {
-          interaction.guild.channels.cache
-            .get("915568009815416845")
-            .send("I couldn't DM the kicked user.");
-        }
-      });
+      await kickUser
+        .send({
+          embeds: [dmEmbed],
+          files: ["./assets/dog.png", "./assets/BOTI_logo.png"],
+        })
+        .catch((err) => {
+          try {
+            interaction.channel.send("I couldn't DM the kicked user.");
+          } catch (err) {
+            interaction.guild.channels.cache
+              .get("915568009815416845")
+              .send("I couldn't DM the kicked user.");
+          }
+        });
       await interaction.reply({ embeds: [embed] });
 
       try {
