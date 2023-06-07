@@ -36,7 +36,7 @@ module.exports = {
     if (!reason) reason = "No reason given.";
 
     const dmEmbed = new EmbedBuilder()
-      .setColor("#003b6f")
+      .setColor("#5812a3")
       .setTitle("Click here to rejoin!")
       .setURL("https://discord.gg/FEsXdZehwB")
       .setThumbnail(`attachment://dog.png`)
@@ -51,7 +51,7 @@ module.exports = {
       });
 
     const embed = new EmbedBuilder()
-      .setColor("#003b6f")
+      .setColor("#5812a3")
       .setDescription(
         `<:Affirmative:1019680728759419011> ${
           kickUser.tag

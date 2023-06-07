@@ -45,7 +45,7 @@ module.exports = {
       const originalContent = logMessage.content;
 
       // Construct the updated message content with a multiline code block
-      const updatedContent = `\`Mod note:\` ${reason} \`- ${interaction.user.username}\`\n${originalContent}`;
+      const updatedContent = `\`Mod note: ${reason} - ${interaction.user.username}\`\n${originalContent}`;
 
       // Edit the log message with the updated content
       await logMessage.edit(updatedContent);

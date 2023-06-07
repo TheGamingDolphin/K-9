@@ -1,7 +1,9 @@
-K-9 Version 4.1 notes
+K-9 Version 4.2 notes
 ---------------------
 NEW:
-    Changed note formatting
+    Added /blink (warn command)
+    Added /silence (mute command)
+    Reworked embed colours
 ---------------------
 Features:
     Added /note command (mod only)
@@ -15,3 +17,4 @@ Other:
     Added /delete to /help
     Added files locally instead of as links; breaks less often:
     Reworked a lot of file structure regarding the website
+    Changed note formatting

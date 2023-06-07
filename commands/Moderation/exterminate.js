@@ -33,7 +33,7 @@ module.exports = {
     if (!reason) reason = "No reason given.";
 
     const dmEmbed = new EmbedBuilder()
-      .setColor("#003b6f")
+      .setColor("#85241d")
       .setTitle("Click here for appeal form!")
       .setURL("https://k-9.cool-epicepic.repl.co/Appeal.html")
       .setThumbnail("attachment://dog.png")
@@ -48,7 +48,7 @@ module.exports = {
       });
 
     const embed = new EmbedBuilder()
-      .setColor("#003b6f")
+      .setColor("#85241d")
       .setDescription(
         `<:Affirmative:1019680728759419011> ${
           banUser.tag
@@ -93,7 +93,9 @@ module.exports = {
           .get("1018289802065485826")
           .send({ embeds: [embed] });
       } catch (err) {
-        console.log("No channel found");
+        interaction.guild.channels.cache
+          .get("915568009815416845")
+          .send({ embeds: [embed] });
       }
     }
   },
