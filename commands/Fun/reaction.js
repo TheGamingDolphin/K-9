@@ -70,35 +70,36 @@ module.exports = {
         )
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const category = interaction.options.getString("category");
     if (category === "image_happy") {
       var randomNumber = Math.floor(Math.random() * happyArray.length);
       const randomImage = happyArray[randomNumber];
-      await interaction.reply({ files: [randomImage] });
+      await interaction.editReply({ files: [randomImage] });
     } else if (category === "image_sad") {
       var randomNumber = Math.floor(Math.random() * sadArray.length);
       const randomImage = sadArray[randomNumber];
-      await interaction.reply({ files: [randomImage] });
+      await interaction.editReply({ files: [randomImage] });
     } else if (category === "image_shocked") {
       var randomNumber = Math.floor(Math.random() * shockedArray.length);
       const randomImage = shockedArray[randomNumber];
-      await interaction.reply({ files: [randomImage] });
+      await interaction.editReply({ files: [randomImage] });
     } else if (category === "image_excited") {
       var randomNumber = Math.floor(Math.random() * excitedArray.length);
       const randomImage = excitedArray[randomNumber];
-      await interaction.reply({ files: [randomImage] });
+      await interaction.editReply({ files: [randomImage] });
     } else if (category === "image_wtf") {
       var randomNumber = Math.floor(Math.random() * wtfArray.length);
       const randomImage = wtfArray[randomNumber];
-      await interaction.reply({ files: [randomImage] });
+      await interaction.editReply({ files: [randomImage] });
     } else if (category === "image_bored") {
       var randomNumber = Math.floor(Math.random() * boredArray.length);
       const randomImage = boredArray[randomNumber];
-      await interaction.reply({ files: [randomImage] });
+      await interaction.editReply({ files: [randomImage] });
     } else if (category === "image_angry") {
       var randomNumber = Math.floor(Math.random() * angryArray.length);
       const randomImage = angryArray[randomNumber];
-      await interaction.reply({ files: [randomImage] });
+      await interaction.editReply({ files: [randomImage] });
     }
   },
 };

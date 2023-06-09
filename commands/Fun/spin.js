@@ -5,6 +5,7 @@ module.exports = {
     .setName("spin")
     .setDescription("K-9 will spin!"),
   async execute(interaction) {
-    await interaction.reply({ files: ["./assets/spin.gif"] });
+    await interaction.deferReply();
+    await interaction.editReply({ files: ["./assets/spin.gif"] });
   },
 };

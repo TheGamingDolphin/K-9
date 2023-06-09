@@ -6,6 +6,7 @@ module.exports = {
     .setName("punch")
     .setDescription("How many seconds in eternity?"),
   async execute(interaction) {
+    await interaction.deferReply();
     // read the contents of the 'streak.txt' file
     const fileContents = fs.readFileSync("streak.txt", "utf-8");
     const member = interaction.member;
@@ -26,42 +27,42 @@ module.exports = {
       const updatedContents = fileContents.replace(line, newLine);
       fs.writeFileSync("streak.txt", updatedContents, "utf-8");
       if (newScore >= 250 && newScore <= 499) {
-        await interaction.reply({
+        await interaction.editReply({
           content: `<@${userID}> has punched the wall ${newScore} times. How many seconds in eternity? And the shepherd's boy`,
           files: ["./assets/punch/250.gif"],
         });
       } else if (newScore >= 500 && newScore <= 749) {
-        await interaction.reply({
+        await interaction.editReply({
           content: `<@${userID}> has punched the wall ${newScore} times. And the shepherd's boy says`,
           files: ["./assets/punch/500.gif"],
         });
       } else if (newScore >= 750 && newScore <= 999) {
-        await interaction.reply({
+        await interaction.editReply({
           content: `<@${userID}> has punched the wall ${newScore} times. And the shepherd's boy says, there's this mountain of pure diamond. It takes an hour to climb it, and an hour to go around it!`,
           files: ["./assets/punch/750.gif"],
         });
       } else if (newScore >= 1000 && newScore <= 1499) {
-        await interaction.reply({
+        await interaction.editReply({
           content: `<@${userID}> has punched the wall ${newScore} times. Every hundred years, a little bird comes and sharpens its beak on the diamond mountain.`,
           files: ["./assets/punch/1000.gif"],
         });
       } else if (newScore >= 1500 && newScore <= 1999) {
-        await interaction.reply({
+        await interaction.editReply({
           content: `<@${userID}> has punched the wall ${newScore} times. And when the entire mountain is chiselled away, the first second of eternity will have passed!`,
           files: ["./assets/punch/1500.gif"],
         });
       } else if (newScore >= 2000 && newScore <= 2499) {
-        await interaction.reply({
+        await interaction.editReply({
           content: `<@${userID}> has punched the wall ${newScore} times. You must think that's a hell of a long time,`,
           files: ["./assets/punch/2000.gif"],
         });
       } else if (newScore >= 2500 && newScore <= 2999) {
-        await interaction.reply({
+        await interaction.editReply({
           content: `<@${userID}> has punched the wall ${newScore} times. Personally, I think that's a hell of a`,
           files: ["./assets/punch/2500.gif"],
         });
       } else if (newScore === 3000) {
-        await interaction.reply({
+        await interaction.editReply({
           content: `<@${userID}> has broken the wall!\n Personally, I think that's a hell of a bird.`,
           files: ["./assets/punch/End.mp4"],
         });
@@ -84,11 +85,11 @@ module.exports = {
           );
         }
       } else if (newScore > 3000) {
-        await interaction.reply(
+        await interaction.editReply(
           `You have already broken the wall <@${userID}>, there's nothing to punch`
         );
       } else if (newScore >= 1 && newScore <= 249) {
-        await interaction.reply({
+        await interaction.editReply({
           content: `<@${userID}> has punched the wall ${newScore} times. There's this emperor and he asks this shepherd's boy, how many seconds in eternity?`,
           files: ["./assets/punch/1.gif"],
         });
@@ -98,7 +99,7 @@ module.exports = {
       const newLine = `${userID},1\n`;
       const updatedContents = `${fileContents}${newLine}`;
       fs.writeFileSync("streak.txt", updatedContents, "utf-8");
-      await interaction.reply(
+      await interaction.editReply(
         `<@${userID}> has punched the wall for the first time. This might take me a little while, so do you want me to tell you a story?`,
         { files: ["./assets/punch/Start.gif"] }
       );
