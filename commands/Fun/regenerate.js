@@ -7,7 +7,7 @@ module.exports = {
   async execute(interaction) {
     const member = interaction.member.user.username;
     let canNickname = true;
-    const randomNumber = Math.floor(Math.random() * 17) + 1;
+    const randomNumber = Math.floor(Math.random() * 18) + 1;
     if (
       !interaction.channel
         .permissionsFor(interaction.client.user)
@@ -327,6 +327,26 @@ module.exports = {
             });
         } else {
           interaction.member.setNickname("The 14th Doctor").catch((error) => {
+            console.error("Error setting nickname without username:", error);
+          });
+        }
+      }
+    } else if (randomNumber === 18) {
+      //10 to 10
+      await interaction.editReply({
+        files: ["./assets/regeneration/shrek.gif"],
+      });
+      if (canNickname === true) {
+        const nicknameWithUsername = `The Shroctor (${interaction.member.user.username})`;
+
+        if (nicknameWithUsername.length <= 32) {
+          interaction.member
+            .setNickname(nicknameWithUsername)
+            .catch((error) => {
+              console.error("Error setting nickname with username:", error);
+            });
+        } else {
+          interaction.member.setNickname("The Shroctor").catch((error) => {
             console.error("Error setting nickname without username:", error);
           });
         }

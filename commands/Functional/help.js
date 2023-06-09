@@ -26,7 +26,9 @@ module.exports = {
           { name: "reload", value: "functional_reload" },
           { name: "exterminate", value: "moderation_exterminate" },
           { name: "delete", value: "moderation_delete" },
-          { name: "note", value: "moderation_note" }
+          { name: "note", value: "moderation_note" },
+          { name: "silence", value: "moderation_silence" },
+          { name: "blink", value: "moderation_blink" }
         )
     ),
   async execute(interaction) {
@@ -105,6 +107,14 @@ module.exports = {
     } else if (command === "moderation_note") {
       await interaction.reply(
         "`/note`: Adds a note to a message. Only works for moderators."
+      );
+    } else if (command === "moderation_silence") {
+      await interaction.reply(
+        "`/silence`: Mutes a member. Only works for moderators."
+      );
+    } else if (command === "moderation_blink") {
+      await interaction.reply(
+        "`/blink`: Warns a member. Member is banned after 3 strikes. Only works for moderators."
       );
     }
     //

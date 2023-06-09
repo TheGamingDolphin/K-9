@@ -1,20 +1,23 @@
-K-9 Version 4.2 notes
+K-9 Version 4.3 notes
 ---------------------
 NEW:
-    Added /blink (warn command)
-    Added /silence (mute command)
-    Reworked embed colours
+    ???
 ---------------------
 Features:
+    Added /blink (warn command)
+    Added /silence (mute command)
     Added /note command (mod only)
     Added /reload command (developer only)
     Space is no longer needed after "K-9" in a message
     "K-9" prompt is no longer case sensitive
+
 Patches:
     Fixed all broken links
+    
 Other:
+    Reworked embed colours
     Added a toggle mute button to website
     Added /delete to /help
-    Added files locally instead of as links; breaks less often:
+    Added files locally instead of as links; breaks less often
     Reworked a lot of file structure regarding the website
     Changed note formatting
