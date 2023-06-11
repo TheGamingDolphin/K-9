@@ -16,7 +16,6 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 dotenv.config();
-
 //sets prefix
 const PREFIX = "K-9";
 
@@ -102,7 +101,7 @@ async function getGptResponse(prompt, model) {
   }
 }
 // when the client is ready and logged into the discord bot, log in the console.
-client.on("ready", () => {
+client.on("ready", async () => {
   console.log("Logged in as " + client.user.username);
   reader();
   client.user.setPresence({
@@ -124,6 +123,16 @@ client.on("ready", () => {
   }
 });
 
+//crash prevention
+process.on("unhandledRejection", async (reason, promise) => {
+  console.log("Unhandled Rejection at:", promise, "reason", reason);
+});
+process.on("uncaughtException", (err) => {
+  console.log("Uncaught Exception:", err);
+});
+process.on("uncaughtExceptionMonitor", (err, origin) => {
+  console.log("Uncaught Exception Monitor", err, origin);
+});
 //when a member joins, send them a DM
 client.on("guildMemberAdd", async (member) => {
   const DMEmbed = new EmbedBuilder()

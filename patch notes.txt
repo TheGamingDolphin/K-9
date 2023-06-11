@@ -1,7 +1,7 @@
 K-9 Version 4.3 notes
 ---------------------
 NEW:
-    ???
+    Added a broad moderation subcommand to /help
 ---------------------
 Features:
     Added /blink (warn command)

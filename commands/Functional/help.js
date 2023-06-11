@@ -28,7 +28,8 @@ module.exports = {
           { name: "delete", value: "moderation_delete" },
           { name: "note", value: "moderation_note" },
           { name: "silence", value: "moderation_silence" },
-          { name: "blink", value: "moderation_blink" }
+          { name: "blink", value: "moderation_blink" },
+          { name: "moderation", value: "moderation_moderation" }
         )
     ),
   async execute(interaction) {
@@ -115,6 +116,10 @@ module.exports = {
     } else if (command === "moderation_blink") {
       await interaction.reply(
         "`/blink`: Warns a member. Member is banned after 3 strikes. Only works for moderators."
+      );
+    } else if (command === "moderation_moderation") {
+      await interaction.reply(
+        "Here are all moderation commands:\n`/exterminate`: Bans a member.\n`/delete`: Kicks a member.\n`/silence`: Mutes a member.\n`/blink`: Warns a member. Member is banned after 3 strikes.\n`/note`: Adds a note to a message."
       );
     }
     //
