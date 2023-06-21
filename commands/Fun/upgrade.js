@@ -39,7 +39,7 @@ module.exports = {
           .add(role)
           .then(() => {
             interaction.reply(
-              `Upgrade complete. ${member.user.username} is now a cyberman. (for 1 hour)`
+              `Upgrade complete. ${member.user.username} is now a cyberman.`
             );
 
             // Remove the role after 1 hour

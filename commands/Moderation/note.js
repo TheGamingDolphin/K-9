@@ -22,10 +22,7 @@ module.exports = {
     ),
   async execute(interaction) {
     // Check if the user has the appropriate permissions
-    if (
-      !interaction.member.permissions.has("KICK_MEMBERS") &&
-      !interaction.member.permissions.has("BAN_MEMBERS")
-    ) {
+    if (!interaction.member.permissions.has("KickMembers")) {
       return await interaction.reply({
         content: "You don't have permission to use this command.",
       });
@@ -52,7 +49,7 @@ module.exports = {
 
       // Reply to the interaction to inform the mod that the reason was updated
       await interaction.reply({
-        content: "Your note has ben added",
+        content: "Your note has been added.",
         ephemeral: true,
       });
     } catch (error) {

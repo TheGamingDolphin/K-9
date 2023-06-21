@@ -106,6 +106,7 @@ client.on("ready", async () => {
   reader();
   client.user.setPresence({
     activities: [
+      //status message
       {
         name: `🌈Happy pride month!!🌈`,
         type: ActivityType.Playing,
@@ -172,7 +173,7 @@ client.on("guildMemberAdd", async (member) => {
     // Send a direct message to the member
     if (member.guild.id === "1018199943330140170") {
       await member.send({
-        embeds: [dmEmbed],
+        embeds: [DMEmbed],
         files: ["./assets/dog.png", "./assets/BOTI_logo.png"],
       });
       client.channels.cache
@@ -189,9 +190,9 @@ client.on("guildMemberAdd", async (member) => {
 });
 
 //checks if the message is from a bot or if the mesage doesn't contain the 'K-9' prefix
-client.on("messageCreate", function (message) {
+client.on("messageCreate", async function (message) {
   if (
-    message.author.bot ||
+    // message.author.bot ||
     !message.content.toLowerCase().startsWith(PREFIX.toLowerCase())
   ) {
     return;
@@ -247,6 +248,9 @@ function sendFile(filePath, contentType) {
 
 //set commands
 client.commands = new Collection();
+//set cooldowns
+client.cooldowns = new Collection();
+client.COOLDOWN_SECONDS = 5; // replace with desired cooldown time in seconds
 
 const foldersPath = path.join(__dirname, "commands");
 const commandFolders = fs.readdirSync(foldersPath);

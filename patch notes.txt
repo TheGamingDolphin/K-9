@@ -1,7 +1,8 @@
 K-9 Version 4.3 notes
 ---------------------
 NEW:
-    Added a broad moderation subcommand to /help
+    Added cooldowns to commands with media
+    Changed vortex
 ---------------------
 Features:
     Added /blink (warn command)
@@ -10,7 +11,7 @@ Features:
     Added /reload command (developer only)
     Space is no longer needed after "K-9" in a message
     "K-9" prompt is no longer case sensitive
-
+    Added a broad moderation subcommand to /help
 Patches:
     Fixed all broken links
     
