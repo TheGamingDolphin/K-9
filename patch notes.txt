@@ -1,8 +1,7 @@
-K-9 Version 4.3 notes
+K-9 Version 4.5 notes
 ---------------------
 NEW:
-    Added cooldowns to commands with media
-    Changed vortex
+    Fixed DM working on bans
 ---------------------
 Features:
     Added /blink (warn command)

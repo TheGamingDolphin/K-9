@@ -53,14 +53,36 @@ module.exports = {
     const embed = new EmbedBuilder()
       .setColor("#5812a3")
       .setDescription(
-        `<:Affirmative:1019680728759419011> ${
-          kickUser.tag
-        } has been kicked.\nReason: ${reason}\n\nID: ${
+        `<:Affirmative:1019680728759419011> ${kickUser} has been kicked.\nReason: ${reason}\n\nID: ${
           interaction.options.getUser("user").id
         }`
       );
 
-    let kickSuccessful = false;
+    await kickUser
+      .send({
+        embeds: [dmEmbed],
+        files: ["./assets/dog.png", "./assets/BOTI_logo.png"],
+      })
+      .catch((err) => {
+        try {
+          interaction.channel.send("I couldn't DM the kicked user.");
+        } catch (err) {
+          interaction.guild.channels.cache
+            .get("915568009815416845")
+            .send("I couldn't DM the kicked user.");
+        }
+      });
+    await interaction.reply({ embeds: [embed] });
+
+    try {
+      interaction.guild.channels.cache
+        .get("1018289802065485826")
+        .send({ embeds: [embed] });
+    } catch (err) {
+      interaction.guild.channels.cache
+        .get("915568009815416845")
+        .send({ embeds: [embed] });
+    }
 
     await interaction.guild.members
       .kick(kickUser.id, { reason })
@@ -73,33 +95,5 @@ module.exports = {
             "I cannot kick this member!\nIf this is unexpected, please kick the member with a different bot and then report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
         });
       });
-
-    if (kickSuccessful) {
-      await kickUser
-        .send({
-          embeds: [dmEmbed],
-          files: ["./assets/dog.png", "./assets/BOTI_logo.png"],
-        })
-        .catch((err) => {
-          try {
-            interaction.channel.send("I couldn't DM the kicked user.");
-          } catch (err) {
-            interaction.guild.channels.cache
-              .get("915568009815416845")
-              .send("I couldn't DM the kicked user.");
-          }
-        });
-      await interaction.reply({ embeds: [embed] });
-
-      try {
-        interaction.guild.channels.cache
-          .get("1018289802065485826")
-          .send({ embeds: [embed] });
-      } catch (err) {
-        interaction.guild.channels.cache
-          .get("915568009815416845")
-          .send({ embeds: [embed] });
-      }
-    }
   },
 };

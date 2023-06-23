@@ -67,9 +67,7 @@ module.exports = {
     const embed = new EmbedBuilder()
       .setColor("#c46506")
       .setDescription(
-        `<:Affirmative:1019680728759419011> ${
-          muteUser.tag
-        } has been muted.\nReason: ${reason}\nDuration: ${minutes} minutes\n\nID: ${
+        `<:Affirmative:1019680728759419011> ${muteUser} has been muted.\nReason: ${reason}\nDuration: ${minutes} minutes\n\nID: ${
           interaction.options.getUser("user").id
         }`
       );

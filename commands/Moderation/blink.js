@@ -91,9 +91,7 @@ module.exports = {
     const embed = new EmbedBuilder()
       .setColor("#e9f505")
       .setDescription(
-        `<:Affirmative:1019680728759419011> ${
-          warnUser.tag
-        } has been warned.\nReason: ${reason}\nStrikes: ${strikes}\n\nID: ${
+        `<:Affirmative:1019680728759419011> ${warnUser} has been warned.\nReason: ${reason}\nStrikes: ${strikes}\n\nID: ${
           interaction.options.getUser("user").id
         }`
       );
@@ -116,9 +114,7 @@ module.exports = {
     const banEmbed = new EmbedBuilder()
       .setColor("#85241d")
       .setDescription(
-        `<:Affirmative:1019680728759419011> ${
-          warnUser.tag
-        } has been banned.\nReason: 3 strikes\n\nID: ${
+        `<:Affirmative:1019680728759419011> ${warnUser} has been banned.\nReason: 3 strikes\n\nID: ${
           interaction.options.getUser("user").id
         }`
       );
@@ -139,49 +135,45 @@ module.exports = {
       });
     await interaction.reply({ embeds: [embed] });
     if (banStrike === true) {
-      let banSuccessful = false;
-
-      await interaction.guild.bans
-        .create(warnUser.id, { reason })
-        .then(() => {
-          banSuccessful = true;
+      await warnUser
+        .send({
+          embeds: [banDmEmbed],
+          files: ["./assets/dog.png", "./assets/BOTI_logo.png"],
         })
         .catch((err) => {
           console.log(err);
-          interaction.channel.send({
-            content:
-              "I cannot ban this member!\nIf this is unexpected, please ban the member with a different bot and then report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
-          });
-        });
-      if (banSuccessful === true) {
-        await warnUser
-          .send({
-            embeds: [banDmEmbed],
-            files: ["./assets/dog.png", "./assets/BOTI_logo.png"],
-          })
-          .catch((err) => {
+          try {
+            interaction.channel.send("I couldn't DM the banned user.");
+          } catch (err) {
             console.log(err);
-            try {
-              interaction.channel.send("I couldn't DM the banned user.");
-            } catch (err) {
-              console.log(err);
-              interaction.guild.channels.cache
-                .get("915568009815416845")
-                .send("I couldn't DM the banned user.");
-            }
-          });
-        await interaction.channel.send({ embeds: [banEmbed] });
-        try {
-          interaction.guild.channels.cache
-            .get("1018289802065485826")
-            .send({ embeds: [banEmbed] });
-        } catch (err) {
-          interaction.guild.channels.cache
-            .get("915568009815416845")
-            .send({ embeds: [banEmbed] });
-        }
+            interaction.guild.channels.cache
+              .get("915568009815416845")
+              .send("I couldn't DM the banned user.");
+          }
+        });
+      await interaction.channel.send({ embeds: [banEmbed] });
+      try {
+        interaction.guild.channels.cache
+          .get("1018289802065485826")
+          .send({ embeds: [banEmbed] });
+      } catch (err) {
+        interaction.guild.channels.cache
+          .get("915568009815416845")
+          .send({ embeds: [banEmbed] });
       }
     }
+    await interaction.guild.bans
+      .create(warnUser.id, { reason })
+      .then(() => {
+        banSuccessful = true;
+      })
+      .catch((err) => {
+        console.log(err);
+        interaction.channel.send({
+          content:
+            "I cannot ban this member!\nIf this is unexpected, please ban the member with a different bot and then report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
+        });
+      });
 
     try {
       interaction.guild.channels.cache
