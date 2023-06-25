@@ -146,12 +146,12 @@ client.on("guildMemberAdd", async (member) => {
       {
         name: "Getting started ",
         value:
-          "Just head to <#1018266915409514608> and click the button! Simple as that!\nThen, these links will start working! 👇👇",
+          'Head to the "Channels & Roles" section and select what you want!\n\nWant to talk to me? Just put `K-9` before your message in the server! ',
       },
       { name: "\u200B", value: "\u200B" },
       {
-        name: "Grab some roles!",
-        value: "<#1018263794427891742>",
+        name: "Want to know what every channel is for? Click here!",
+        value: "<#1018443553862586388>",
         inline: true,
       },
       {
@@ -171,11 +171,11 @@ client.on("guildMemberAdd", async (member) => {
     });
   try {
     // Send a direct message to the member
+    await member.send({
+      embeds: [DMEmbed],
+      files: ["./assets/dog.png", "./assets/BOTI_logo.png"],
+    });
     if (member.guild.id === "1018199943330140170") {
-      await member.send({
-        embeds: [DMEmbed],
-        files: ["./assets/dog.png", "./assets/BOTI_logo.png"],
-      });
       client.channels.cache
         .get("1018199943330140172")
         .send(
