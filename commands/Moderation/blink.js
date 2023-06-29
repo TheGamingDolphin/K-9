@@ -161,19 +161,20 @@ module.exports = {
           .get("915568009815416845")
           .send({ embeds: [banEmbed] });
       }
-    }
-    await interaction.guild.bans
-      .create(warnUser.id, { reason })
-      .then(() => {
-        banSuccessful = true;
-      })
-      .catch((err) => {
-        console.log(err);
-        interaction.channel.send({
-          content:
-            "I cannot ban this member!\nIf this is unexpected, please ban the member with a different bot and then report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
+
+      await interaction.guild.bans
+        .create(warnUser.id, { reason })
+        .then(() => {
+          banSuccessful = true;
+        })
+        .catch((err) => {
+          console.log(err);
+          interaction.channel.send({
+            content:
+              "I cannot ban this member!\nIf this is unexpected, please ban the member with a different bot and then report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
+          });
         });
-      });
+    }
 
     try {
       interaction.guild.channels.cache
