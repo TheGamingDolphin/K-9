@@ -31,7 +31,7 @@ module.exports = {
     }
 
     // Check if the role exists and its ID matches the desired role ID
-    if (role && role.id === "1018260927948259358") {
+    if (role && role.id === "1124478121853321328") {
       // Check if the member does not have the role
       if (!member.roles.cache.has(role.id)) {
         // Give the mentioned role to the mentioned user

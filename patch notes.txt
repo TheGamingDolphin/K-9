@@ -1,7 +1,7 @@
-K-9 Version 4.6 notes
+K-9 Version 4.7 notes
 ---------------------
 NEW:
-Fixed bug where warning someone would ban
+    Made Cybermen role get removed from users when bot starts
 ---------------------
 Features:
     Added /blink (warn command)
@@ -14,6 +14,7 @@ Features:
 Patches:
     Fixed all broken links
     Fixed DM working on bans
+    Fixed bug where warning someone would ban
 Other:
     Reworked embed colours
     Added a toggle mute button to website

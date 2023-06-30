@@ -108,8 +108,8 @@ client.on("ready", async () => {
     activities: [
       //status message
       {
-        name: `🌈Happy pride month!!🌈`,
-        type: ActivityType.Playing,
+        name: `the TARDIS`,
+        type: ActivityType.Watching,
       },
     ],
   });
@@ -121,6 +121,19 @@ client.on("ready", async () => {
     client.channels.cache
       .get("915568009815416845")
       .send(`System restarting. All primary drives functioning.`);
+  }
+
+  //remove members from role
+  try {
+    const guild = client.guilds.cache.get("1018199943330140170");
+    const members = await guild.members.fetch();
+    members.forEach((member) => {
+      setTimeout(() => {
+        member.roles.remove("1124478121853321328").catch(console.log);
+      }, 2000);
+    });
+  } catch (error) {
+    console.error(error);
   }
 });
 
