@@ -205,7 +205,7 @@ client.on("guildMemberAdd", async (member) => {
 //checks if the message is from a bot or if the mesage doesn't contain the 'K-9' prefix
 client.on("messageCreate", async function (message) {
   if (
-    // message.author.bot ||
+    message.author.bot ||
     !message.content.toLowerCase().startsWith(PREFIX.toLowerCase())
   ) {
     return;
