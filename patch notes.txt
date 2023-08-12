@@ -1,25 +1,5 @@
-K-9 Version 4.8 notes
----------------------
-NEW:
-    Fixed glitch with pluralkit compatibility
+K-9 Version 5 notes
 ---------------------
 Features:
-    Added /blink (warn command)
-    Added /silence (mute command)
-    Added /note command (mod only)
-    Added /reload command (developer only)
-    Space is no longer needed after "K-9" in a message
-    "K-9" prompt is no longer case sensitive
-    Added a broad moderation subcommand to /help
-Patches:
-    Fixed all broken links
-    Fixed DM working on bans
-    Fixed bug where warning someone would ban
-Other:
-    Reworked embed colours
-    Added a toggle mute button to website
-    Added /delete to /help
-    Added files locally instead of as links; breaks less often
-    Reworked a lot of file structure regarding the website
-    Changed note formatting
-    Made Cybermen role get removed from users when bot starts
+    K-9 will now say at midday and midnight how many days remain until the 60th (provided he is online for those times)
+    When K-9 starts his status will now say he is watching a random episode
