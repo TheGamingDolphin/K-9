@@ -265,6 +265,20 @@ client.on("guildMemberAdd", async (member) => {
 //checks if the message is from a bot or if the mesage doesn't contain the 'K-9' prefix
 client.on("messageCreate", async function (message) {
   if (
+    message.content == "!!restart" &&
+    message.author.id == "1037466389163814932"
+  ) {
+    const { restart } = require("./restart");
+
+    await message.reply("Forcing restart");
+
+    try {
+      restart();
+    } catch (error) {
+      await message.channel.send("There was an issue while trying to restart");
+    }
+  }
+  if (
     message.author.bot ||
     !message.content.toLowerCase().startsWith(PREFIX.toLowerCase())
   ) {
