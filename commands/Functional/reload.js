@@ -15,9 +15,10 @@ module.exports = {
     .setName("reload")
     .setDescription("[DEVELOPER ONLY] Reloads the bot."),
   async execute(interaction) {
+    await interaction.deferReply();
     // Check permissions
     if (interaction.user.id !== "1037466389163814932") {
-      return await interaction.reply({
+      return await interaction.editReply({
         content: "You do not have permission to use this command.",
         ephemeral: true,
       });
@@ -49,7 +50,7 @@ module.exports = {
 
     const rest = new REST().setToken(token);
 
-    await interaction.reply("Commencing restart.");
+    await interaction.editReply("Commencing restart.");
 
     try {
       await interaction.channel.send(

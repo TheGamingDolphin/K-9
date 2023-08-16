@@ -5,6 +5,7 @@ module.exports = {
     .setName("60th")
     .setDescription("How many days until the 60th?"),
   async execute(interaction) {
+    await interaction.deferReply();
     let date_1 = new Date("11/23/2023");
     let date_2 = new Date();
 
@@ -13,7 +14,7 @@ module.exports = {
       let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
       return TotalDays;
     };
-    await interaction.reply(
+    await interaction.editReply(
       days(date_1, date_2) + " days until the 60th anniversary of Doctor Who!"
     );
   },

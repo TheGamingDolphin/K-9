@@ -155,9 +155,7 @@ client.on("ready", async () => {
         member.roles.remove("1124478121853321328").catch(console.log);
       }, 2000);
     });
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) {}
 
   // count down to 60th
   const targetDate = new Date("11/23/2023");

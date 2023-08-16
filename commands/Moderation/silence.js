@@ -23,6 +23,7 @@ module.exports = {
         .setDescription(`The reason for muting the member`)
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const users = interaction.options.getUser("user");
     const ID = users.id;
     const muteUser = interaction.client.users.cache.get(ID);
@@ -38,11 +39,11 @@ module.exports = {
     let minutes = milliseconds / 60 / 1000;
 
     if (!interaction.member.permissions.has("ModerateMembers"))
-      return await interaction.reply({
+      return await interaction.editReply({
         content: "You don't have mute perms. You can't mute others.",
       });
     if (interaction.member.id === ID)
-      return await interaction.reply({
+      return await interaction.editReply({
         content: "You cannot mute yourself... <:Silence:1019325346434273331>",
       });
 
@@ -80,7 +81,7 @@ module.exports = {
       muteSuccessful = true;
     } catch (error) {
       console.log(error);
-      interaction.reply({
+      interaction.editReply({
         content:
           "I cannot mute this member!\nIf this is unexpected, please kick the member with a different bot and then report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
       });
@@ -101,7 +102,7 @@ module.exports = {
               .send("I couldn't DM the muted user.");
           }
         });
-      await interaction.reply({ embeds: [embed] });
+      await interaction.editReply({ embeds: [embed] });
 
       try {
         interaction.guild.channels.cache

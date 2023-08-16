@@ -11,6 +11,7 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     // Get the mentioned user and role
     const member = interaction.options.getMember("user");
     const role = interaction.guild.roles.cache.find(
@@ -19,14 +20,14 @@ module.exports = {
 
     // Prevent the command from being used on the bot or the user who sent the command
     if (member.id === interaction.user.id) {
-      await interaction.reply(
+      await interaction.editReply(
         "UPGRADE MACHINE CANNOT BE OPERATED WITH ONLY ONE PARTICIPANT"
       );
       return;
     }
 
     if (member.id === interaction.client.user.id) {
-      await interaction.reply("I am already a robot.");
+      await interaction.editReply("I am already a robot.");
       return;
     }
 
@@ -38,7 +39,7 @@ module.exports = {
         member.roles
           .add(role)
           .then(() => {
-            interaction.reply(
+            interaction.editReply(
               `Upgrade complete. ${member.user.username} is now a cyberman.`
             );
 
@@ -61,15 +62,15 @@ module.exports = {
           })
           .catch((error) => {
             console.error(error);
-            interaction.reply("There was an error while upgrading.");
+            interaction.editReply("There was an error while upgrading.");
           });
       } else {
-        await interaction.reply(
+        await interaction.editReply(
           `${member.user.username} is already a Cyberman`
         );
       }
     } else {
-      await interaction.reply(
+      await interaction.editReply(
         `Sorry, upgrading is not available right now. Please report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)`
       );
     }

@@ -1,4 +1,4 @@
-K-9 Version 5 notes
+K-9 Version 5.1 notes
 ---------------------
 Features:
     K-9 will now say at midday and midnight how many days remain until the 60th (provided he is online for those times)

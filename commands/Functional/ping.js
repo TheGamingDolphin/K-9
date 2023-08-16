@@ -14,8 +14,9 @@ function format(seconds) {
 module.exports = {
   data: new SlashCommandBuilder().setName("ping").setDescription("Pong!"),
   async execute(interaction) {
+    await interaction.deferReply();
     var uptime = process.uptime();
-    await interaction.reply(
+    await interaction.editReply(
       `<:Affirmative:1019680728759419011> Latency is ${
         Date.now() - interaction.createdTimestamp
       }ms with ${format(uptime)} since last restart.`

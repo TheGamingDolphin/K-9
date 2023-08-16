@@ -16,16 +16,17 @@ module.exports = {
         .setDescription(`The reason for banning the member`)
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const users = interaction.options.getUser("user");
     const ID = users.id;
     const banUser = interaction.client.users.cache.get(ID);
 
     if (!interaction.member.permissions.has("BanMembers"))
-      return await interaction.reply({
+      return await interaction.editReply({
         content: "You don't have ban perms. You can't exterminate others.",
       });
     if (interaction.member.id === ID)
-      return await interaction.reply({
+      return await interaction.editReply({
         content: "You cannot ban yourself... <:Stare:1018284506941235200>",
       });
 
@@ -69,7 +70,7 @@ module.exports = {
             .send("I couldn't DM the banned user.");
         }
       });
-    await interaction.reply({ embeds: [embed] });
+    await interaction.editReply({ embeds: [embed] });
 
     try {
       interaction.guild.channels.cache
@@ -86,7 +87,7 @@ module.exports = {
         banSuccessful = true;
       })
       .catch((err) => {
-        interaction.reply({
+        interaction.editReply({
           content:
             "I cannot ban this member!\nIf this is unexpected, please ban the member with a different bot and then report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
         });

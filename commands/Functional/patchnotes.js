@@ -6,11 +6,12 @@ module.exports = {
     .setName("patchnotes")
     .setDescription("Show the latest patch notes!"),
   async execute(interaction) {
+    await interaction.deferReply();
     fs.readFile("patch notes.txt", (err, data) => {
       if (err) throw err;
 
       const notes = data.toString();
-      interaction.reply("```" + notes + "```");
+      interaction.editReply("```" + notes + "```");
     });
   },
 };

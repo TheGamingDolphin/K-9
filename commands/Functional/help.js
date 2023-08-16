@@ -33,98 +33,99 @@ module.exports = {
         )
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const command = interaction.options.getString("command");
     // fun commands
     if (command === "fun_60th") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/60th`: Shows how many days left until the 60th anniversary of Doctor Who"
       );
     } else if (command === "fun_affirmative") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/affirmative`: Replies with a video of K-9 saying 'Affirmative!' (in the style of the tbh creature)"
       );
     } else if (command === "fun_punch") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/punch`: Punches the wall from Heaven Sent. You get a special role at 3000 punches!"
       );
     } else if (command === "fun_reaction") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/reaction`: Get a reaction image from the category you specify"
       );
     } else if (command === "fun_regenerate") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/regenerate`: Sends a random regeneration gif. Also changes your nickname to that Doctor (your original username will stay in brackets, provided it is short enough to fit)"
       );
     } else if (command === "fun_reversepolarity") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/reversepolarity`: If you don't know what this one does, go try it ;) (doesn't work for people with admin perms)"
       );
     } else if (command === "fun_spin") {
-      await interaction.reply("`/spin`: Sends a gif of K-9 spinning");
+      await interaction.editReply("`/spin`: Sends a gif of K-9 spinning");
     } else if (command === "fun_trailer") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/trailer`: Sends youtube links to the trailers for future content)"
       );
     } else if (command === "fun_upgrade") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/upgrade`: Gives the member you choose the Cyberman role for 1 hour. The role is cosmetic only."
       );
     } else if (command === "fun_vortex") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/vortex`: Sends the time vortex video for the server!"
       );
     }
     //function commands
     else if (command === "functional_avatar") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/avatar`: Replies with the bot's avatar (the world's finest art)"
       );
     } else if (command === "functional_help") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/help`: Get help with the bot, or select a command to get help with that (but you knew that, you're already here)"
       );
     } else if (command === "functional_patchnotes") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/patchnotes`: Replies with the latest patch notes for the bot, showing the newest features"
       );
     } else if (command === "functional_ping") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/ping`: Replies with the bot's latency and the current uptime (also logs some useful stuff)"
       );
     } else if (command === "functional_reload") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/reload`: Reloads the bot (only works for developers)"
       );
     }
     //moderation commands
     else if (command === "moderation_exterminate") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/exterminate`: Bans a member. Only works for moderators."
       );
     } else if (command === "moderation_delete") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/delete`: Kicks a member. Only works for moderators."
       );
     } else if (command === "moderation_note") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/note`: Adds a note to a message. Only works for moderators."
       );
     } else if (command === "moderation_silence") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/silence`: Mutes a member. Only works for moderators."
       );
     } else if (command === "moderation_blink") {
-      await interaction.reply(
+      await interaction.editReply(
         "`/blink`: Warns a member. Member is banned after 3 strikes. Only works for moderators."
       );
     } else if (command === "moderation_moderation") {
-      await interaction.reply(
+      await interaction.editReply(
         "Here are all moderation commands:\n`/exterminate`: Bans a member.\n`/delete`: Kicks a member.\n`/silence`: Mutes a member.\n`/blink`: Warns a member. Member is banned after 3 strikes.\n`/note`: Adds a note to a message."
       );
     }
     //
     else {
-      await interaction.reply(
+      await interaction.editReply(
         "To speak to K-9, start your message with `K-9`\nYou can run this again with the name of anothe command afterwards to get help with it!\n__Links__:\n[K-9 website](https://k-9.cool-epicepic.repl.co/) (If K-9 goes offline, visiting this website will start him again)\n[K-9 testing server](https://discord.gg/xwMWhNHMd8)"
       );
     }

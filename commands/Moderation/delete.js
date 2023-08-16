@@ -19,16 +19,17 @@ module.exports = {
         .setDescription(`The reason for kicking the member`)
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const users = interaction.options.getUser("user");
     const ID = users.id;
     const kickUser = interaction.client.users.cache.get(ID);
 
     if (!interaction.member.permissions.has("KickMembers"))
-      return await interaction.reply({
+      return await interaction.editReply({
         content: "You don't have kick perms. You can't delete others.",
       });
     if (interaction.member.id === ID)
-      return await interaction.reply({
+      return await interaction.editReply({
         content: "You cannot kick yourself... <:Handles:1019777437963407361>",
       });
 
@@ -72,7 +73,7 @@ module.exports = {
             .send("I couldn't DM the kicked user.");
         }
       });
-    await interaction.reply({ embeds: [embed] });
+    await interaction.editReply({ embeds: [embed] });
 
     try {
       interaction.guild.channels.cache
@@ -90,7 +91,7 @@ module.exports = {
         kickSuccessful = true;
       })
       .catch((err) => {
-        interaction.reply({
+        interaction.editReply({
           content:
             "I cannot kick this member!\nIf this is unexpected, please kick the member with a different bot and then report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
         });
