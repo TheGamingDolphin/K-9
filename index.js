@@ -296,7 +296,7 @@ client.on("messageCreate", async function (message) {
     else {
       const gptResponse = await getGptResponse(
         message.content.substring(3),
-        "ada:ft-personal:k-9-mk-iii-2023-05-25-19-50-30"
+        "babbage:ft-personal:k-9-mk-iv-smarter-2023-08-23-18-29-56"
       );
       safeReply(message, gptResponse);
     }
