@@ -170,7 +170,7 @@ client.on("ready", async () => {
       try {
         const channel = client.channels.cache.get("1018199943774732410");
         channel.send(
-          `There are ${timeLeft} days left until the 60th anniversary.`
+          `There are ${timeLeft - 1} days left until the 60th anniversary.`
         );
       } catch {
         const channel = client.channels.cache.get("915568009815416845");
@@ -296,7 +296,7 @@ client.on("messageCreate", async function (message) {
     else {
       const gptResponse = await getGptResponse(
         message.content.substring(3),
-        "babbage:ft-personal:k-9-mk-iv-smarter-2023-08-23-18-29-56"
+        "babbage:ft-personal:k-9-information-2023-08-24-22-11-23"
       );
       safeReply(message, gptResponse);
     }
