@@ -1,6 +1,4 @@
-K-9 Version 5.1 notes
+K-9 Version 6 notes
 ---------------------
 Features:
-    Updated AI model
-    K-9 will now say at midday and midnight how many days remain until the 60th (provided he is online for those times)
-    When K-9 starts his status will now say he is watching a random episode
+    Updated to use GPT 3.5, the dog is now very smart.

@@ -15,10 +15,40 @@ const { stdin: input, stdout: output } = require("node:process");
 const express = require("express");
 const fs = require("node:fs");
 const path = require("node:path");
+const tiktoken = require("tiktoken");
 
 dotenv.config();
-//sets prefix
+//sets prefix and context
 const PREFIX = "K-9";
+const system_message = {
+  role: "system",
+  content:
+    "Act like K-9 the robot dog from Doctor Who. Do not break character. Don't state who you are all the time; only if the user asks who you are. Start all sentences normally; don't add random words.",
+};
+const token_limit = 1000;
+const max_response_tokens = 250;
+const conversation = [];
+conversation.push(system_message);
+
+// track tokens
+function num_tokens_from_messages(messages, model = "gpt-3.5-turbo") {
+  const encoding = tiktoken.encoding_for_model(model);
+  let num_tokens = 0;
+  for (let i = 0; i < messages.length; i++) {
+    num_tokens += 4; // every message follows <im_start>{role/name}\n{content}<imend>\n
+    const message = messages[i];
+    for (const key in message) {
+      const value = message[key];
+      num_tokens += encoding.encode(value).length;
+      if (key === "name") {
+        // if there's a name, the role is omitted
+        num_tokens += -1; // role is always required and always 1 token
+      }
+    }
+  }
+  num_tokens += 2; // every reply is primed with <im_start>assistant
+  return num_tokens;
+}
 
 //gets the openai api key
 const configuration = new Configuration({
@@ -78,18 +108,21 @@ function safeReply(message, reply) {
 }
 // sets the gpt3 model
 async function getGptResponse(prompt, model) {
-  const gptResponse = await openai.createCompletion({
+  const gptResponse = await openai.createChatCompletion({
     model: model,
-    prompt: `${prompt}. ###`,
-    max_tokens: 60,
+    messages: conversation,
+    max_tokens: max_response_tokens,
     temperature: 0.3,
-    top_p: 0.3,
-    presence_penalty: 0,
-    frequency_penalty: 0.5,
-    stop: ["\n", "END"],
+    stop: ["END"],
   });
   // sets the reply to the AI response
-  const reply = `${gptResponse.data.choices[0].text.trim()}`;
+  console.log(gptResponse);
+  const reply = gptResponse.data.choices[0].message.content;
+  while (conv_history_tokens + max_response_tokens >= token_limit) {
+    conversation.splice(1, 1);
+    conv_history_tokens = num_tokens_from_messages(conversation);
+    console.log(conv_history_tokens);
+  }
   if (reply.length) {
     if (!reply.includes("@")) {
       return reply;
@@ -294,9 +327,12 @@ client.on("messageCreate", async function (message) {
     }
     //if nothing is flagged, set the model and send the message to the AI
     else {
+      console.log(message.content);
+      conversation.push({ role: "user", content: message.content });
+      conv_history_tokens = num_tokens_from_messages(conversation);
       const gptResponse = await getGptResponse(
         message.content.substring(3),
-        "babbage:ft-personal:k-9-information-2023-08-24-22-11-23"
+        "gpt-3.5-turbo"
       );
       safeReply(message, gptResponse);
     }
