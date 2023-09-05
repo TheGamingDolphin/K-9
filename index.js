@@ -116,7 +116,6 @@ async function getGptResponse(prompt, model) {
     stop: ["END"],
   });
   // sets the reply to the AI response
-  console.log(gptResponse);
   const reply = gptResponse.data.choices[0].message.content;
   while (conv_history_tokens + max_response_tokens >= token_limit) {
     conversation.splice(1, 1);
