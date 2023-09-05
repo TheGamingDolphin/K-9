@@ -24,6 +24,7 @@ module.exports = {
           { name: "patchnotes", value: "functional_patchnotes" },
           { name: "ping", value: "functional_ping" },
           { name: "reload", value: "functional_reload" },
+          { name: "source", value: "functional_source" },
           { name: "exterminate", value: "moderation_exterminate" },
           { name: "delete", value: "moderation_delete" },
           { name: "note", value: "moderation_note" },
@@ -96,6 +97,10 @@ module.exports = {
       await interaction.editReply(
         "`/reload`: Reloads the bot (only works for developers)"
       );
+    } else if (command === "functional_source") {
+      await interaction.editReply(
+        "`/source`: Sends the specified file from K-9's source code"
+      );
     }
     //moderation commands
     else if (command === "moderation_exterminate") {
@@ -126,7 +131,7 @@ module.exports = {
     //
     else {
       await interaction.editReply(
-        "To speak to K-9, start your message with `K-9`\nYou can run this again with the name of anothe command afterwards to get help with it!\n__Links__:\n[K-9 website](https://k-9.cool-epicepic.repl.co/) (If K-9 goes offline, visiting this website will start him again)\n[K-9 testing server](https://discord.gg/xwMWhNHMd8)"
+        "To speak to K-9, start your message with `K-9`\nYou can run this again with the name of anothe command afterwards to get help with it!\n__Links__:\n[K-9 website](https://k-9.cool-epicepic.repl.co/)\n[K-9 testing server](https://discord.gg/xwMWhNHMd8)"
       );
     }
   },

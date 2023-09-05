@@ -353,8 +353,6 @@ app.get("/K-9_2", sendFile("./assets/K-9_2.jpg", "image/jpeg"));
 app.get("/K-9_3", sendFile("./assets/K-9_3.jpg", "image/jpeg"));
 app.get("/K-9_4", sendFile("./assets/K-9_4.jpg", "image/jpeg"));
 
-app.listen(3000, () => console.log("Listening on port 3000"));
-
 function sendFile(filePath, contentType) {
   return (req, res) => {
     fs.readFile(filePath, (err, data) => {
