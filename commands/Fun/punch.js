@@ -7,8 +7,8 @@ module.exports = {
     .setDescription("How many seconds in eternity?"),
   async execute(interaction) {
     await interaction.deferReply();
-    // read the contents of the 'streak.txt' file
-    const fileContents = fs.readFileSync("streak.txt", "utf-8");
+    // read the contents of the 'punch.txt' file
+    const fileContents = fs.readFileSync("punch.txt", "utf-8");
     const member = interaction.member;
     const role = interaction.guild.roles.cache.find(
       (role) => role.name === "Four and a half billion years"
@@ -25,7 +25,7 @@ module.exports = {
       const newScore = parseInt(score, 10) + 1;
       const newLine = `${userID},${newScore}`;
       const updatedContents = fileContents.replace(line, newLine);
-      fs.writeFileSync("streak.txt", updatedContents, "utf-8");
+      fs.writeFileSync("punch.txt", updatedContents, "utf-8");
       if (newScore >= 250 && newScore <= 499) {
         await interaction.editReply(
           `<@${userID}> has punched the wall ${newScore} times. How many seconds in eternity? And the shepherd's boy`
@@ -114,7 +114,7 @@ module.exports = {
       // if the userID doesn't exist, add a new line with score 1
       const newLine = `${userID},1\n`;
       const updatedContents = `${fileContents}${newLine}`;
-      fs.writeFileSync("streak.txt", updatedContents, "utf-8");
+      fs.writeFileSync("punch.txt", updatedContents, "utf-8");
       await interaction.editReply(
         `<@${userID}> has punched the wall for the first time. This might take me a little while, so do you want me to tell you a story?`
       );
