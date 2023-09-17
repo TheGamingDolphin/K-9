@@ -138,35 +138,14 @@ client.on("ready", async () => {
   console.log("Logged in as " + client.user.username);
   reader();
 
-  const episodePath = "episodes.txt";
-  let newStatus;
-  // Read the file asynchronously
-  fs.readFile(episodePath, "utf8", (err, data) => {
-    if (err) {
-      console.error("Error reading file:", err);
-      return;
-    }
-
-    // Remove surrounding quotes and spaces, split by comma, and create an array
-    const episodeArray = data
-      .replace(/"/g, "") // Remove quotes
-      .split(", "); // Split by comma and space
-
-    // Generate a random index based on array length
-    const randomIndex = Math.floor(Math.random() * episodeArray.length);
-
-    // Pick a random option from the array
-    newStatus = episodeArray[randomIndex]; // Assign to the global variable directly
-
-    // Set the presence outside the callback function
-    client.user.setPresence({
-      activities: [
-        {
-          name: newStatus,
-          type: ActivityType.Watching,
-        },
-      ],
-    });
+  // Set the presence outside the callback function
+  client.user.setPresence({
+    activities: [
+      {
+        name: "the TARDIS",
+        type: ActivityType.Watching,
+      },
+    ],
   });
   try {
     client.channels.cache
@@ -189,40 +168,56 @@ client.on("ready", async () => {
     });
   } catch (error) {}
 
-  // count down to 60th
-  const targetDate = new Date("11/23/2023");
-  const today = new Date();
-  const timeLeft = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24));
-
   setInterval(() => {
     const now = new Date();
 
     // Send the message at midnight
     if (now.getHours() === 0 && now.getMinutes() === 0) {
+      let date_1 = new Date("11/23/2023");
+      let date_2 = new Date();
+
+      const days = (date_1, date_2) => {
+        let difference = date_1.getTime() - date_2.getTime();
+        let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+        return TotalDays;
+      };
+      const midnight_sub = Math.ceil(days(date_1, date_2) - 1);
       try {
         const channel = client.channels.cache.get("1018199943774732410");
         channel.send(
-          `There are ${timeLeft - 1} days left until the 60th anniversary.`
+          `There are ` + midnight_sub + ` days left until the 60th anniversary.`
         );
       } catch {
         const channel = client.channels.cache.get("915568009815416845");
         channel.send(
-          `There are ${timeLeft} days left until the 60th anniversary.`
+          `There are ` + midnight_sub + ` days left until the 60th anniversary.`
         );
       }
     }
 
     // Send the message at midday
     if (now.getHours() === 12 && now.getMinutes() === 0) {
+      let date_1 = new Date("11/23/2023");
+      let date_2 = new Date();
+
+      const days = (date_1, date_2) => {
+        let difference = date_1.getTime() - date_2.getTime();
+        let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+        return TotalDays;
+      };
       try {
         const channel = client.channels.cache.get("1018199943774732410");
         channel.send(
-          `There are ${timeLeft} days left until the 60th anniversary.`
+          `There are ` +
+            days(date_1, date_2) +
+            ` days left until the 60th anniversary.`
         );
       } catch {
         const channel = client.channels.cache.get("915568009815416845");
         channel.send(
-          `There are ${timeLeft} days left until the 60th anniversary.`
+          `There are ` +
+            days(date_1, date_2) +
+            ` days left until the 60th anniversary.`
         );
       }
     }

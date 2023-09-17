@@ -1,5 +1,5 @@
-K-9 Version 7 notes
+K-9 Version 7.1 notes
 ---------------------
 Features:
-    K-9 runs off a raspberry pi
-    Added /source command
+    Added /episode
+    Fixed 60th countdown
