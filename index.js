@@ -291,10 +291,7 @@ client.on("guildMemberAdd", async (member) => {
 
 //checks if the message is from a bot or if the mesage doesn't contain the 'K-9' prefix
 client.on("messageCreate", async function (message) {
-  if (
-    message.content == "!!restart" &&
-    message.author.id == "1037466389163814932"
-  ) {
+  if (message.content == "!!restart") {
     const { restart } = require("./restart");
 
     await message.reply("Forcing restart");
@@ -333,33 +330,6 @@ client.on("messageCreate", async function (message) {
     return;
   });
 });
-
-//send files to website
-const app = express();
-app.use(express.static("Website"));
-
-app.get("/", sendFile("./Website/Home.html", "text/html"));
-app.get("/icon", sendFile("./assets/K9Logo.png", "image/png"));
-app.get("/title", sendFile("./assets/banner.png", "image/png"));
-app.get("/K-9", sendFile("./assets/K-9.jpg", "image/jpeg"));
-app.get("/background", sendFile("./assets/background.png", "image/png"));
-app.get("/backgroundVideo", sendFile("./assets/bgvideo.mp4", "video/mp4"));
-app.get("/K-9_2", sendFile("./assets/K-9_2.jpg", "image/jpeg"));
-app.get("/K-9_3", sendFile("./assets/K-9_3.jpg", "image/jpeg"));
-app.get("/K-9_4", sendFile("./assets/K-9_4.jpg", "image/jpeg"));
-
-function sendFile(filePath, contentType) {
-  return (req, res) => {
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
-        res.status(500).send("Error reading file");
-      } else {
-        res.set("Content-Type", contentType);
-        res.send(data);
-      }
-    });
-  };
-}
 
 //set commands
 client.commands = new Collection();

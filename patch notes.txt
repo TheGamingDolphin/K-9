@@ -1,5 +1,5 @@
-K-9 Version 7.1 notes
+K-9 Version 7.2 notes
 ---------------------
 Features:
-    Added /episode
-    Fixed 60th countdown
+    Made website run on a seperate project
+    Anyone can now run !!restart
