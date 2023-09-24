@@ -23,7 +23,7 @@ const PREFIX = "K-9";
 const system_message = {
   role: "system",
   content:
-    "Act like K-9 the robot dog from Doctor Who. Do not break character. Don't state who you are all the time; only if the user asks who you are. Start all sentences normally; don't add random words.",
+    "Act like K-9 the robot dog from Doctor Who. Do not break character. Don't state who you are all the time; only if the user asks who you are.",
 };
 const token_limit = 1000;
 const max_response_tokens = 250;
@@ -194,7 +194,15 @@ client.on("ready", async () => {
         );
       }
     }
-
+    // scheduled restart
+    if (now.getHours() === 6 && now.getMinutes() === 0) {
+      const { restart } = require("./restart");
+      try {
+        restart();
+      } catch (error) {
+        console.log("There was an issue while trying to restart");
+      }
+    }
     // Send the message at midday
     if (now.getHours() === 12 && now.getMinutes() === 0) {
       let date_1 = new Date("11/23/2023");
@@ -219,6 +227,15 @@ client.on("ready", async () => {
             days(date_1, date_2) +
             ` days left until the 60th anniversary.`
         );
+      }
+    }
+    // scheduled restart
+    if (now.getHours() === 18 && now.getMinutes() === 0) {
+      const { restart } = require("./restart");
+      try {
+        restart();
+      } catch (error) {
+        console.log("There was an issue while trying to restart");
       }
     }
   }, 60 * 1000); // Check every minute
@@ -302,6 +319,9 @@ client.on("messageCreate", async function (message) {
       await message.channel.send("There was an issue while trying to restart");
     }
   }
+  if (message.content.includes("dw")) {
+    await message.react(":dw:1086049130075394068");
+  }
   if (
     message.author.bot ||
     !message.content.toLowerCase().startsWith(PREFIX.toLowerCase())
@@ -309,26 +329,28 @@ client.on("messageCreate", async function (message) {
     return;
   }
   //runs the message through the moderation to make sure nothing harmful is being sent
-  openai.createModeration({ input: message.content }).then(async (res) => {
-    if (res.data.results[0].flagged) {
-      safeReply(
-        message,
-        "Your message has been moderated. Please refrain from trying to generate the following content: hate, self-harm, sexual, violence. (This is an error, not an AI response)"
-      );
-    }
-    //if nothing is flagged, set the model and send the message to the AI
-    else {
-      console.log(message.content);
-      conversation.push({ role: "user", content: message.content });
-      conv_history_tokens = num_tokens_from_messages(conversation);
-      const gptResponse = await getGptResponse(
-        message.content.substring(3),
-        "gpt-3.5-turbo"
-      );
-      safeReply(message, gptResponse);
-    }
-    return;
-  });
+  openai
+    .createModeration({ input: message.content.slice(3) })
+    .then(async (res) => {
+      if (res.data.results[0].flagged) {
+        safeReply(
+          message,
+          "Your message has been moderated. Please refrain from trying to generate the following content: hate, self-harm, sexual, violence. (This is an error, not an AI response)"
+        );
+      }
+      //if nothing is flagged, set the model and send the message to the AI
+      else {
+        console.log(message.content.slice(3));
+        conversation.push({ role: "user", content: message.content.slice(3) });
+        conv_history_tokens = num_tokens_from_messages(conversation);
+        const gptResponse = await getGptResponse(
+          message.content.substring(3),
+          "gpt-3.5-turbo"
+        );
+        safeReply(message, gptResponse);
+      }
+      return;
+    });
 });
 
 //set commands

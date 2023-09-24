@@ -1,5 +1,9 @@
-K-9 Version 7.2 notes
+K-9 Version 7.3 notes
 ---------------------
 Features:
-    Made website run on a seperate project
-    Anyone can now run !!restart
+    K-9 will restart at 06:00 and 18:00
+    K-9 will now react with the dw emoji if a message contains "dw"
+    Fixed 9 regen gif being small
+    Added /companion (booster only)
+    Added new trailer to /trailer
+    Added /doctor09
