@@ -11,11 +11,11 @@ module.exports = {
     await interaction.deferReply();
     const member = interaction.member;
     const role = interaction.guild.roles.cache.find(
-      (role) => role.name === "mod"
+      (role) => role.name === "Dalek"
     );
     let canNickname = true;
     const randomNumber = Math.floor(Math.random() * 16) + 1;
-    if (role && role.id === "1073022563971760256") {
+    if (role && role.id === "1018200127598497893") {
       // Check if the member does not have the role
       if (member.roles.cache.has(role.id)) {
         if (
