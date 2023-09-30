@@ -126,8 +126,8 @@ async function getGptResponse(prompt, model) {
     if (!reply.includes("@")) {
       return reply;
     } else {
-      console.log(reply);
-      return "Sorry, my reply contained an '@' character, which is blocked to prevent accidental everyone pings";
+      const newReply = "```" + reply + "```";
+      return newReply;
     }
   } else {
     return "Input unknown. Please try again. (This is an error, not an AI response)\nIf this keeps happening, please report the issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)";
