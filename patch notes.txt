@@ -1,4 +1,7 @@
-K-9 Version 7.4 notes
+K-9 Version 7.5 notes
 ---------------------
-Features:
+Changes:
     Changed how @ protection works
+    Updated /help
+    Added a new trailer to /trailer
+    Made the 'dw' reaction work for capital letters too

@@ -23,7 +23,7 @@ const PREFIX = "K-9";
 const system_message = {
   role: "system",
   content:
-    "Act like K-9 the robot dog from Doctor Who. Do not break character. Don't state who you are all the time; only if the user asks who you are.",
+    "Act like K-9 the robot dog from Doctor Who. Do not break character. Don't state who you are all the time; only if the user asks who you are. Use British English spellings. Do not start every sentence with 'Affirmative'.",
 };
 const token_limit = 1000;
 const max_response_tokens = 250;
@@ -319,7 +319,7 @@ client.on("messageCreate", async function (message) {
       await message.channel.send("There was an issue while trying to restart");
     }
   }
-  if (message.content.includes("dw")) {
+  if (message.content.toLowerCase().includes("dw")) {
     await message.react(":dw:1086049130075394068");
   }
   if (

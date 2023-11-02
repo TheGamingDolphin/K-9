@@ -7,7 +7,7 @@ module.exports = {
   async execute(interaction) {
     await interaction.deferReply();
     await interaction.editReply(
-      `60th Anniversary Trailers:\nTrailer 1: https://www.youtube.com/watch?v=FtzRP0fycII\nTrailer 2: https://www.youtube.com/watch?v=CpHEh5ZnQMo\nTrailer3: https://www.youtube.com/watch?v=tEkC6InjWQ8`
+      `60th Anniversary Trailers:\nTrailer 1: https://www.youtube.com/watch?v=FtzRP0fycII\nTrailer 2: https://www.youtube.com/watch?v=CpHEh5ZnQMo\nTrailer3: https://www.youtube.com/watch?v=tEkC6InjWQ8\nTrailer 4: https://www.youtube.com/watch?v=f6Z7JI8j0bk`
     );
   },
 };
