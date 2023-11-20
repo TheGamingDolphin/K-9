@@ -20,35 +20,6 @@ const tiktoken = require("tiktoken");
 dotenv.config();
 //sets prefix and context
 const PREFIX = "K-9";
-const system_message = {
-  role: "system",
-  content:
-    "Act like K-9 the robot dog from Doctor Who. Do not break character. Don't state who you are all the time; only if the user asks who you are. Use British English spellings. Do not start every sentence with 'Affirmative'.",
-};
-const token_limit = 1000;
-const max_response_tokens = 250;
-const conversation = [];
-conversation.push(system_message);
-
-// track tokens
-function num_tokens_from_messages(messages, model = "gpt-3.5-turbo") {
-  const encoding = tiktoken.encoding_for_model(model);
-  let num_tokens = 0;
-  for (let i = 0; i < messages.length; i++) {
-    num_tokens += 4; // every message follows <im_start>{role/name}\n{content}<imend>\n
-    const message = messages[i];
-    for (const key in message) {
-      const value = message[key];
-      num_tokens += encoding.encode(value).length;
-      if (key === "name") {
-        // if there's a name, the role is omitted
-        num_tokens += -1; // role is always required and always 1 token
-      }
-    }
-  }
-  num_tokens += 2; // every reply is primed with <im_start>assistant
-  return num_tokens;
-}
 
 //gets the openai api key
 const configuration = new Configuration({
@@ -102,26 +73,43 @@ async function reader() {
 
 //checks if the original message has been deleted, and if it has, sends message with a ping instead of a reply
 function safeReply(message, reply) {
-  message
-    .reply(reply)
-    .catch(() => message.channel.send(`<@${message.author.id}> ${reply}`));
+  openai.createModeration({ input: reply }).then(async (res) => {
+    if (res.data.results[0].flagged) {
+      safeReply(
+        message,
+        "My response was moderated. (This is an error, not an AI response)"
+      );
+      try {
+        client.channels.cache
+          .get("915568009815416845")
+          .send(`Moderated reply: ${reply}`);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    //if nothing is flagged, set the model and send the message to the AI
+    else {
+      message
+        .reply(reply)
+        .catch(() => message.channel.send(`<@${message.author.id}> ${reply}`));
+    }
+    return;
+  });
 }
 // sets the gpt3 model
 async function getGptResponse(prompt, model) {
-  const gptResponse = await openai.createChatCompletion({
+  const gptResponse = await openai.createCompletion({
     model: model,
-    messages: conversation,
-    max_tokens: max_response_tokens,
+    prompt: `${prompt}. ###`,
+    max_tokens: 60,
     temperature: 0.3,
-    stop: ["END"],
+    top_p: 0.3,
+    presence_penalty: 0,
+    frequency_penalty: 0.5,
+    stop: ["\n", "END"],
   });
   // sets the reply to the AI response
-  const reply = gptResponse.data.choices[0].message.content;
-  while (conv_history_tokens + max_response_tokens >= token_limit) {
-    conversation.splice(1, 1);
-    conv_history_tokens = num_tokens_from_messages(conversation);
-    console.log(conv_history_tokens);
-  }
+  const reply = `${gptResponse.data.choices[0].text.trim()}`;
   if (reply.length) {
     if (!reply.includes("@")) {
       return reply;
@@ -142,7 +130,7 @@ client.on("ready", async () => {
   client.user.setPresence({
     activities: [
       {
-        name: "the TARDIS",
+        name: "the 60th Anniversary Specials",
         type: ActivityType.Watching,
       },
     ],
@@ -181,7 +169,7 @@ client.on("ready", async () => {
         let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
         return TotalDays;
       };
-      const midnight_sub = Math.ceil(days(date_1, date_2) - 1);
+      const midnight_sub = Math.ceil(days(date_1, date_2));
       try {
         const channel = client.channels.cache.get("1018199943774732410");
         channel.send(
@@ -340,12 +328,9 @@ client.on("messageCreate", async function (message) {
       }
       //if nothing is flagged, set the model and send the message to the AI
       else {
-        console.log(message.content.slice(3));
-        conversation.push({ role: "user", content: message.content.slice(3) });
-        conv_history_tokens = num_tokens_from_messages(conversation);
         const gptResponse = await getGptResponse(
           message.content.substring(3),
-          "gpt-3.5-turbo"
+          "babbage:ft-personal:k-9-information-2023-08-24-22-11-23"
         );
         safeReply(message, gptResponse);
       }

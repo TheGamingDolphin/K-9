@@ -39,7 +39,7 @@ module.exports = {
     const dmEmbed = new EmbedBuilder()
       .setColor("#5812a3")
       .setTitle("Click here to rejoin!")
-      .setURL("https://discord.gg/JqdDmRnbeZ")
+      .setURL("https://discord.gg/TARDIS")
       .setThumbnail(`attachment://dog.png`)
       .addFields({
         name: `You have been kicked from ${interaction.guild.name}`,
