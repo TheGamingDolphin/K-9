@@ -1,8 +1,5 @@
-K-9 Version 8 notes
+K-9 Version 8.1 notes
 ---------------------
 Changes:
-    Added thermostat command
-    Changed AI to be stupid again
-    Made companion command available for all
-    Fixed 60th countdown
-    Made output moderated too
+    Changed what the doctor09 command does
+    Changed the channel moderated replies go to

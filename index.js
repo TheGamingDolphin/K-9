@@ -81,10 +81,12 @@ function safeReply(message, reply) {
       );
       try {
         client.channels.cache
-          .get("915568009815416845")
-          .send(`Moderated reply: ${reply}`);
+          .get("1018511988478967969")
+          .send(`Moderated reply: ||${reply}||`);
       } catch (error) {
-        console.log(error);
+        client.channels.cache
+          .get("915568009815416845")
+          .send(`Moderated reply: ||${reply}||`);
       }
     }
     //if nothing is flagged, set the model and send the message to the AI
