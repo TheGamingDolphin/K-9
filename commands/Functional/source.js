@@ -20,14 +20,13 @@ module.exports = {
           { name: "patch notes.txt", value: "patch notes.txt" },
           { name: "README.md", value: "README.md" },
           { name: "config.json", value: "config.json" },
+          { name: "snowmen.txt", value: "snowmen.txt" },
           // commands
-          { name: "60th.js", value: "60th.js" },
           { name: "affirmative.js", value: "affirmative.js" },
           { name: "punch.js", value: "punch.js" },
           { name: "reaction.js", value: "reaction.js" },
           { name: "regenerate.js", value: "regenerate.js" },
           { name: "spin.js", value: "spin.js" },
-          { name: "trailer.js", value: "trailer.js" },
           { name: "upgrade.js", value: "upgrade.js" },
           { name: "vortex.js", value: "vortex.js" },
           { name: "avatar.js", value: "avatar.js" },
@@ -60,11 +59,11 @@ module.exports = {
       await interaction.editReply({ files: ["README.md"] });
     } else if (command === "config.json") {
       await interaction.editReply({ files: ["config.json"] });
+    } else if (command === "snowmen.txt") {
+      await interaction.editReply({ files: ["./snowman/snowmen.txt"] });
     }
     // commands
-    else if (command === "60th.js") {
-      await interaction.editReply({ files: ["./commands/Fun/60th.js"] });
-    } else if (command === "affirmative.js") {
+    else if (command === "affirmative.js") {
       await interaction.editReply({ files: ["./commands/Fun/affirmative.js"] });
     } else if (command === "punch.js") {
       await interaction.editReply({ files: ["./commands/Fun/punch.js"] });
@@ -78,8 +77,6 @@ module.exports = {
       });
     } else if (command === "spin.js") {
       await interaction.editReply({ files: ["./commands/Fun/spin.js"] });
-    } else if (command === "trailer.js") {
-      await interaction.editReply({ files: ["./commands/Fun/trailer.js"] });
     } else if (command === "upgrade.js") {
       await interaction.editReply({ files: ["./commands/Fun/upgrade.js"] });
     } else if (command === "vortex.js") {

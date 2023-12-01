@@ -12,10 +12,8 @@ const {
 const { Configuration, OpenAIApi } = require("openai");
 const readline = require("node:readline/promises");
 const { stdin: input, stdout: output } = require("node:process");
-const express = require("express");
 const fs = require("node:fs");
 const path = require("node:path");
-const tiktoken = require("tiktoken");
 
 dotenv.config();
 //sets prefix and context
@@ -163,7 +161,7 @@ client.on("ready", async () => {
 
     // Send the message at midnight
     if (now.getHours() === 0 && now.getMinutes() === 0) {
-      let date_1 = new Date("11/23/2023");
+      let date_1 = new Date("12/25/2023");
       let date_2 = new Date();
 
       const days = (date_1, date_2) => {
@@ -175,12 +173,12 @@ client.on("ready", async () => {
       try {
         const channel = client.channels.cache.get("1018199943774732410");
         channel.send(
-          `There are ` + midnight_sub + ` days left until the 60th anniversary.`
+          `There are ` + midnight_sub + ` days left until Christmas!`
         );
       } catch {
         const channel = client.channels.cache.get("915568009815416845");
         channel.send(
-          `There are ` + midnight_sub + ` days left until the 60th anniversary.`
+          `There are ` + midnight_sub + ` days left until Christmas!`
         );
       }
     }
@@ -195,7 +193,7 @@ client.on("ready", async () => {
     }
     // Send the message at midday
     if (now.getHours() === 12 && now.getMinutes() === 0) {
-      let date_1 = new Date("11/23/2023");
+      let date_1 = new Date("12/25/2023");
       let date_2 = new Date();
 
       const days = (date_1, date_2) => {
@@ -206,16 +204,12 @@ client.on("ready", async () => {
       try {
         const channel = client.channels.cache.get("1018199943774732410");
         channel.send(
-          `There are ` +
-            days(date_1, date_2) +
-            ` days left until the 60th anniversary.`
+          `There are ` + days(date_1, date_2) + ` days left until Christmas!`
         );
       } catch {
         const channel = client.channels.cache.get("915568009815416845");
         channel.send(
-          `There are ` +
-            days(date_1, date_2) +
-            ` days left until the 60th anniversary.`
+          `There are ` + days(date_1, date_2) + ` days left until Christmas!`
         );
       }
     }
