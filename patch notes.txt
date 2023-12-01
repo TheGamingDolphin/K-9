@@ -1,7 +1,5 @@
-K-9 Version 9 notes
+K-9 Version 9.1 notes
 ---------------------
 Changes:
-    Deleted /60th
-    Changed 60th countdown to Christmas countdown
-    Deleted /trailer
-    Added /snowman command!!!!
+    Made snowmen melt at the end of December
+    Added 2 rare events to snowman command

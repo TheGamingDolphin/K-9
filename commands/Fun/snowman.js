@@ -154,28 +154,57 @@ module.exports = {
       // Get the current date
       const currentDate = new Date();
       // Check if the day is the same
-      if (currentDate.getDate() === storedDateObject.getDate()) {
-        // The days are the same
-        await interaction.reply(
-          `You can only grow your snowman once per day!\n${snowman} is currently ${
-            height / 10
-          }m tall!⛄\n:${emoji}:\n${emojiLines.join("\n")}`
-        );
-      } else {
-        // The days are different
-        console.log(currentDate.getDate());
-        if (currentDate.getDate() == "25") {
-          var newHeight = parseInt(height, 10) + 10;
+      if (currentDate.getMonth() + 1 == "12") {
+        if (currentDate.getDate() === storedDateObject.getDate()) {
+          // The days are the same
+          await interaction.reply(
+            `You can only grow your snowman once per day!\n${snowman} is currently ${
+              height / 10
+            }m tall!⛄\n:${emoji}:\n${emojiLines.join("\n")}`
+          );
         } else {
-          var newHeight = parseInt(height, 10) + 1;
+          // The days are different
+          if (currentDate.getDate() == "25") {
+            var newHeight = parseInt(height, 10) + 10;
+          } else {
+            var newHeight = parseInt(height, 10) + 1;
+          }
+          const randomNumber = Math.floor(Math.random() * 99) + 1;
+          console.log(randomNumber);
+          if (randomNumber === 69) {
+            interaction.channel.send(
+              `[RARE EVENT] <@${user}>'s snowman, ${snowman}, has come to life :D\n${snowman} grew by 5 extra snow!`
+            );
+            interaction.channel.send(
+              "https://i.makeagif.com/media/11-24-2015/FyAHw-.gif"
+            );
+            newHeight = newHeight + 5;
+          } else if (randomNumber === 66) {
+            interaction.channel.send(
+              `<@${user}>'s snowman, ${snowman}, was possessed by the Great Intelligence!\n${snowman} was defeated, causing 5 snow to melt away :(`
+            );
+            interaction.channel.send("https://j.gifs.com/vnD2Xj.gif");
+            newHeight = newHeight - 5;
+          }
+          const newLine = `${user},${snowman},${emoji},${newHeight},${currentDate}`;
+          const updatedContents = fileContents.replace(line, newLine);
+          fs.writeFileSync("./snowman/snowmen.txt", updatedContents, "utf-8");
+          const newEmojis = parseInt(newHeight, 10);
+          const newEmojiLines = Array.from(
+            { length: newEmojis },
+            () => `:white_circle:`
+          );
+          await interaction.reply(
+            `You added snow to your snowman!\n${snowman} is now ${
+              newHeight / 10
+            }m tall!⛄\n:${emoji}:\n${newEmojiLines.join("\n")}`
+          );
         }
-        const newLine = `${user},${snowman},${emoji},${newHeight},${currentDate}`;
-        const updatedContents = fileContents.replace(line, newLine);
-        fs.writeFileSync("./snowman/snowmen.txt", updatedContents, "utf-8");
+      } else {
         await interaction.reply(
-          `You added snow to your snowman!\n${snowman} is now ${
-            newHeight / 10
-          }m tall!⛄\n:${emoji}:\n${emojiLines.join("\n")}`
+          `December has ended, and ${snowman} has melted :(\nYour snowman was ${
+            height / 10
+          }m tall.`
         );
       }
     }
