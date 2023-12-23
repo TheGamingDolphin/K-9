@@ -1,5 +1,4 @@
-K-9 Version 9.1 notes
+K-9 Version 9.2 notes
 ---------------------
 Changes:
-    Made snowmen melt at the end of December
-    Added 2 rare events to snowman command
+    Restored snowman scores
