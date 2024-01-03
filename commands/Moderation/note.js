@@ -56,7 +56,7 @@ module.exports = {
       console.error(error);
       return await interaction.reply({
         content:
-          "There was an error adding the note. Please try again later.\nIf this keeps happening, please report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
+          "There was an error adding the note. Please try again later.\nIf this keeps happening, please report this issue on the [support page](https://k-9.vercel.app/Support.html)",
         ephemeral: true,
       });
     }

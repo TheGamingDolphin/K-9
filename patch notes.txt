@@ -1,4 +1,5 @@
-K-9 Version 9.3 notes
+K-9 Version 9.4 notes
 ---------------------
 Changes:
-    Restored snowman scores (again)
+    Changed website
+    Removed snowman command

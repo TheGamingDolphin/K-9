@@ -71,7 +71,7 @@ module.exports = {
       }
     } else {
       await interaction.editReply(
-        `Sorry, upgrading is not available right now. Please report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)`
+        `Sorry, upgrading is not available right now. Please report this issue on the [support page](https://k-9.vercel.app/Support.html)`
       );
     }
   },

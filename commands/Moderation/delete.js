@@ -93,7 +93,7 @@ module.exports = {
       .catch((err) => {
         interaction.editReply({
           content:
-            "I cannot kick this member!\nIf this is unexpected, please kick the member with a different bot and then report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
+            "I cannot kick this member!\nIf this is unexpected, please kick the member with a different bot and then report this issue on the [support page](https://k-9.vercel.app/Support.html)",
         });
       });
   },

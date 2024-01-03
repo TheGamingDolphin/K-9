@@ -118,7 +118,7 @@ async function getGptResponse(prompt, model) {
       return newReply;
     }
   } else {
-    return "Input unknown. Please try again. (This is an error, not an AI response)\nIf this keeps happening, please report the issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)";
+    return "Input unknown. Please try again. (This is an error, not an AI response)\nIf this keeps happening, please report the issue on the [support page](https://k-9.vercel.app/Support.html)";
   }
 }
 // when the client is ready and logged into the discord bot, log in the console.
@@ -130,7 +130,7 @@ client.on("ready", async () => {
   client.user.setPresence({
     activities: [
       {
-        name: "the 60th Anniversary Specials",
+        name: "the TARDIS",
         type: ActivityType.Watching,
       },
     ],
@@ -163,22 +163,16 @@ client.on("ready", async () => {
     if (now.getHours() === 0 && now.getMinutes() === 0) {
       let date_1 = new Date("12/25/2023");
       let date_2 = new Date();
-
-      const days = (date_1, date_2) => {
-        let difference = date_1.getTime() - date_2.getTime();
-        let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
-        return TotalDays;
-      };
       const midnight_sub = Math.ceil(days(date_1, date_2));
       try {
         const channel = client.channels.cache.get("1018199943774732410");
         channel.send(
-          `There are ` + midnight_sub + ` days left until Christmas!`
+          `Don't forget to click below to subscribe to the official Doctor Who YouTube channel\nhttp://bit.ly/SubscribeToDoctorWho`
         );
       } catch {
         const channel = client.channels.cache.get("915568009815416845");
         channel.send(
-          `There are ` + midnight_sub + ` days left until Christmas!`
+          `Don't forget to click below to subscribe to the official Doctor Who YouTube channel\nhttp://bit.ly/SubscribeToDoctorWho`
         );
       }
     }
@@ -193,23 +187,15 @@ client.on("ready", async () => {
     }
     // Send the message at midday
     if (now.getHours() === 12 && now.getMinutes() === 0) {
-      let date_1 = new Date("12/25/2023");
-      let date_2 = new Date();
-
-      const days = (date_1, date_2) => {
-        let difference = date_1.getTime() - date_2.getTime();
-        let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
-        return TotalDays;
-      };
       try {
         const channel = client.channels.cache.get("1018199943774732410");
         channel.send(
-          `There are ` + days(date_1, date_2) + ` days left until Christmas!`
+          `Don't forget to click below to subscribe to the official Doctor Who YouTube channel\nhttp://bit.ly/SubscribeToDoctorWho`
         );
       } catch {
         const channel = client.channels.cache.get("915568009815416845");
         channel.send(
-          `There are ` + days(date_1, date_2) + ` days left until Christmas!`
+          `Don't forget to click below to subscribe to the official Doctor Who YouTube channel\nhttp://bit.ly/SubscribeToDoctorWho`
         );
       }
     }
@@ -240,7 +226,7 @@ client.on("guildMemberAdd", async (member) => {
   const DMEmbed = new EmbedBuilder()
     .setColor("#003b6f")
     .setTitle("Welcome to Bigger on the Inside!")
-    .setURL("https://k-9.cool-epicepic.repl.co/")
+    .setURL("https://k-9.vercel.app/index.html")
     .setDescription("I'm K-9, here to help :)")
     .setThumbnail("attachment://dog.png")
     .addFields(
@@ -380,13 +366,13 @@ client.on(Events.InteractionCreate, async (interaction) => {
     if (interaction.replied || interaction.deferred) {
       await interaction.followUp({
         content:
-          "There was an error while executing this command! If this keeps happening, please report the issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
+          "There was an error while executing this command! If this keeps happening, please report the issue on the [support page](https://k-9.vercel.app/Support.html)",
         ephemeral: true,
       });
     } else {
       await interaction.reply({
         content:
-          "There was an error while executing this command! If this keeps happening, please report the issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
+          "There was an error while executing this command! If this keeps happening, please report the issue on the [support page](https://k-9.vercel.app/Support.html)",
         ephemeral: true,
       });
     }

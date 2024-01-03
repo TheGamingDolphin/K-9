@@ -100,7 +100,7 @@ module.exports = {
     const banDmEmbed = new EmbedBuilder()
       .setColor("#85241d")
       .setTitle("Click here for appeal form!")
-      .setURL("https://k-9.cool-epicepic.repl.co/Appeal.html")
+      .setURL("https://k-9.vercel.app/Appeal.html")
       .setThumbnail("attachment://dog.png")
       .addFields({
         name: `You have been banned from ${interaction.guild.name}`,
@@ -172,7 +172,7 @@ module.exports = {
           console.log(err);
           interaction.channel.send({
             content:
-              "I cannot ban this member!\nIf this is unexpected, please ban the member with a different bot and then report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
+              "I cannot ban this member!\nIf this is unexpected, please ban the member with a different bot and then report this issue on the [support page](https://k-9.vercel.app/Support.html)",
           });
         });
     }

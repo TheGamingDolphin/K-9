@@ -53,7 +53,7 @@ module.exports = {
     const dmEmbed = new EmbedBuilder()
       .setColor("#c46506")
       .setTitle("Click here for appeal form!")
-      .setURL("https://k-9.cool-epicepic.repl.co/Appeal.html")
+      .setURL("https://k-9.vercel.app/Appeal.html")
       .setThumbnail("attachment://dog.png")
       .addFields({
         name: `You have been muted in ${interaction.guild.name}`,
@@ -83,7 +83,7 @@ module.exports = {
       console.log(error);
       interaction.editReply({
         content:
-          "I cannot mute this member!\nIf this is unexpected, please kick the member with a different bot and then report this issue on the [support page](https://k-9.cool-epicepic.repl.co/Support.html)",
+          "I cannot mute this member!\nIf this is unexpected, please kick the member with a different bot and then report this issue on the [support page](https://k-9.vercel.app/Support.html)",
       });
     }
 
