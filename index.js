@@ -161,9 +161,6 @@ client.on("ready", async () => {
 
     // Send the message at midnight
     if (now.getHours() === 0 && now.getMinutes() === 0) {
-      let date_1 = new Date("12/25/2023");
-      let date_2 = new Date();
-      const midnight_sub = Math.ceil(days(date_1, date_2));
       try {
         const channel = client.channels.cache.get("1018199943774732410");
         channel.send(
@@ -312,7 +309,7 @@ client.on("messageCreate", async function (message) {
       else {
         const gptResponse = await getGptResponse(
           message.content.substring(3),
-          "babbage:ft-personal:k-9-information-2023-08-24-22-11-23"
+          "ft:babbage-002:personal::8etjgVF4"
         );
         safeReply(message, gptResponse);
       }

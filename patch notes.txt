@@ -1,5 +1,4 @@
-K-9 Version 9.4 notes
+K-9 Version 9.5 notes
 ---------------------
 Changes:
-    Changed website
-    Removed snowman command
+    Rebuild AI because OpenAI deleted it
