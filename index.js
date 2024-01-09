@@ -309,7 +309,7 @@ client.on("messageCreate", async function (message) {
       else {
         const gptResponse = await getGptResponse(
           message.content.substring(3),
-          "ft:babbage-002:personal::8etjgVF4"
+          "ft:babbage-002:personal::8euAZ98S"
         );
         safeReply(message, gptResponse);
       }
