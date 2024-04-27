@@ -33,6 +33,8 @@ module.exports = {
     setTimeout(() => cooldowns.delete(interaction.user.id), cooldownAmount);
     // cooldown section ends here
     await interaction.deferReply();
-    await interaction.editReply({ files: ["./assets/spin.gif"] });
+    await interaction.editReply(
+      "https://cdn.discordapp.com/attachments/1233867210896707665/1233867684798529636/spin.gif?ex=662ea854&is=662d56d4&hm=36956fa9eb723e1d5cf990c664ea35eb75530f9a48fe9a7c1166d3af3726d13b&"
+    );
   },
 };

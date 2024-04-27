@@ -33,6 +33,8 @@ module.exports = {
     setTimeout(() => cooldowns.delete(interaction.user.id), cooldownAmount);
     // cooldown section ends here
     await interaction.deferReply();
-    await interaction.editReply({ files: ["./assets/vortex.mp4"] });
+    await interaction.editReply(
+      "https://cdn.discordapp.com/attachments/1107372848097546341/1233867395555135529/vortex.mp4?ex=662ea80f&is=662d568f&hm=adfbb4407b3e570698b6ab1adfeb6f55f2572181d868a43e20f1d3e6a911a610&"
+    );
   },
 };

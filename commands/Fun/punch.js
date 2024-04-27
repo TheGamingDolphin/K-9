@@ -31,54 +31,53 @@ module.exports = {
           `<@${userID}> has punched the wall ${newScore} times. How many seconds in eternity? And the shepherd's boy`
         );
         interaction.channel.send(
-          `https://64.media.tumblr.com/d1f360cfea6c75f125cd8687431d3036/21e15b04b5d4a494-7d/s540x810/a8e521eccbc9455a5d9ab0594b6002837d5d0c60.gif`
+          `https://cdn.discordapp.com/attachments/1233865829091643474/1233866027033428152/250.gif?ex=662ea6c8&is=662d5548&hm=8a60980a5c0c9c84d83f1eee074a124a677efd6a21581256a2627796f9fd3ea6&`
         );
       } else if (newScore >= 500 && newScore <= 749) {
         await interaction.editReply(
           `<@${userID}> has punched the wall ${newScore} times. And the shepherd's boy says`
         );
         interaction.channel.send(
-          `https://media.tenor.com/6onbZXLE9aMAAAAC/doctor-who-heaven-sent.gif`
+          `https://cdn.discordapp.com/attachments/1233865829091643474/1233866027494936639/500.gif?ex=662ea6c9&is=662d5549&hm=1d692ef613d616cfb831e42cee25294a5bd084ee2099183c5deeb4991177f725&`
         );
       } else if (newScore >= 750 && newScore <= 999) {
         await interaction.editReply(
           `<@${userID}> has punched the wall ${newScore} times. And the shepherd's boy says, there's this mountain of pure diamond. It takes an hour to climb it, and an hour to go around it!`
         );
         interaction.channel.send(
-          `https://techaeris.com/wp-content/uploads/2015/12/doctor-who-heaven-sent-twelve-falling.gif`
+          `https://cdn.discordapp.com/attachments/1233865829091643474/1233866027960369213/750.gif?ex=662ea6c9&is=662d5549&hm=7fea3decbec49ccacbb2ad448576648cf535afbfb3f14b391331768c8377676b&`
         );
       } else if (newScore >= 1000 && newScore <= 1499) {
         await interaction.editReply(
           `<@${userID}> has punched the wall ${newScore} times. Every hundred years, a little bird comes and sharpens its beak on the diamond mountain.`
         );
         interaction.channel.send(
-          `https://media.tenor.com/V1Ae_xBzeEcAAAAC/heaven-sent.gif`
+          `https://cdn.discordapp.com/attachments/1233865829091643474/1233866028455428136/1000.gif?ex=662ea6c9&is=662d5549&hm=4e77242dc99f4abc2f3434dcfc86b9bcd8a443213e6ac41f02e28c26f3d20d53&`
         );
       } else if (newScore >= 1500 && newScore <= 1999) {
         await interaction.editReply(
           `<@${userID}> has punched the wall ${newScore} times. And when the entire mountain is chiselled away, the first second of eternity will have passed!`
         );
         interaction.channel.send(
-          `https://64.media.tumblr.com/280d2cdbd70318470975df9f2d3bc1e6/21e15b04b5d4a494-15/s540x810/6fd53cf6a336459ee524efd2036cfc89a94d0434.gif`
+          `https://cdn.discordapp.com/attachments/1233865829091643474/1233866028879057058/1500.gif?ex=662ea6c9&is=662d5549&hm=7077c1e0124f5aea5b8420ad4ad5ee7aa14af02668006e05d5a5f29303fa907f&`
         );
       } else if (newScore >= 2000 && newScore <= 2499) {
         await interaction.editReply(
           `<@${userID}> has punched the wall ${newScore} times. You must think that's a hell of a long time,`
         );
         interaction.channel.send(
-          `https://i.makeagif.com/media/3-18-2017/OkTEkl.gif`
+          `https://cdn.discordapp.com/attachments/1233865829091643474/1233866029436768376/2000.gif?ex=662ea6c9&is=662d5549&hm=80eff3e3e69280f0332765141085b5839cb70fdba97d2349e3e12d8e123d2ef8&`
         );
       } else if (newScore >= 2500 && newScore <= 2999) {
         await interaction.editReply(
           `<@${userID}> has punched the wall ${newScore} times. Personally, I think that's a hell of a`
         );
         interaction.channel.send(
-          `https://i.makeagif.com/media/2-05-2016/v_e0zq.gif`
+          `https://cdn.discordapp.com/attachments/1233865829091643474/1233866029797605426/2500.gif?ex=662ea6c9&is=662d5549&hm=9669bb6015af78b3e21dedbc74d99f143a2212c14f9943116d01d724aa1b1f7f&`
         );
       } else if (newScore === 3000) {
         await interaction.editReply({
-          content: `<@${userID}> has broken the wall!\n Personally, I think that's a hell of a bird.`,
-          files: ["./assets/punch/End.mp4"],
+          content: `<@${userID}> has broken the wall!\n Personally, I think that's a hell of a bird.\nhttps://cdn.discordapp.com/attachments/1233865829091643474/1233866510796062781/End.mp4?ex=662ea73c&is=662d55bc&hm=87e94fc73c55cdfc63f843fdc71250643f2c07ecef14579aca2b94271cdb7796&`,
         });
         // Check if the role exists and its ID matches the desired role ID
         if (role && role.id === "1104044177215471677") {
@@ -95,7 +94,7 @@ module.exports = {
           }
         } else {
           interaction.channel.send(
-            `Sorry, there is no reward for breaking the wall in this server.\nYou can claim your role reward in https://discord.gg/FEsXdZehwB!`
+            `Sorry, there is no reward for breaking the wall in this server.\nYou can claim your role reward in https://discord.gg/TARDIS!`
           );
         }
       } else if (newScore > 3000) {
@@ -107,7 +106,7 @@ module.exports = {
           `<@${userID}> has punched the wall ${newScore} times. There's this emperor and he asks this shepherd's boy, how many seconds in eternity?`
         );
         interaction.channel.send(
-          `https://64.media.tumblr.com/a0aab2a4d2af0118a66cd53128a6da0b/21e15b04b5d4a494-58/s540x810/029c8ca37517591d9e01353e050ac5e8998a4f9e.gif`
+          `https://cdn.discordapp.com/attachments/1233865829091643474/1233866026597355630/1.gif?ex=662ea6c8&is=662d5548&hm=baabec4c452d8ce49c37ecc1a46b0c09b682f97a225d9daf68dbddd649707dd2&`
         );
       }
     } else {
@@ -119,7 +118,7 @@ module.exports = {
         `<@${userID}> has punched the wall for the first time. This might take me a little while, so do you want me to tell you a story?`
       );
       interaction.channel.send(
-        `https://i.makeagif.com/media/1-13-2017/RllO7s.gif`
+        `https://cdn.discordapp.com/attachments/1233865829091643474/1233866494492934338/Start.gif?ex=662ea738&is=662d55b8&hm=c2671cdf4973954310263529c0a2654f63f55aff065a81a6f0c0d94fa38156c3&`
       );
     }
   },

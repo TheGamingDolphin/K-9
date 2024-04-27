@@ -186,14 +186,10 @@ client.on("ready", async () => {
     if (now.getHours() === 12 && now.getMinutes() === 0) {
       try {
         const channel = client.channels.cache.get("1018199943774732410");
-        channel.send(
-          `Don't forget to click below to subscribe to the official Doctor Who YouTube channel\nhttp://bit.ly/SubscribeToDoctorWho`
-        );
+        channel.send(`Series 14 releases <t:1715295600:R>!`);
       } catch {
         const channel = client.channels.cache.get("915568009815416845");
-        channel.send(
-          `Don't forget to click below to subscribe to the official Doctor Who YouTube channel\nhttp://bit.ly/SubscribeToDoctorWho`
-        );
+        channel.send(`Series 14 releases <t:1715295600:R>!`);
       }
     }
     // scheduled restart
