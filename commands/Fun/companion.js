@@ -78,7 +78,7 @@ module.exports = {
   async execute(interaction) {
     await interaction.deferReply();
     let canNickname = true;
-    const randomNumber = Math.floor(Math.random() * 17) + 1;
+    const randomNumber = Math.floor(Math.random() * 17);
     // Check if the member does not have the role
     if (
       !interaction.channel
