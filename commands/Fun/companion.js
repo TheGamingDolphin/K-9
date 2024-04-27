@@ -77,24 +77,19 @@ module.exports = {
     .setDescription("Become a random companion"),
   async execute(interaction) {
     await interaction.deferReply();
-    let canNickname = true;
+
     const randomNumber = Math.floor(Math.random() * 17);
-    // Check if the member does not have the role
-    if (
-      !interaction.channel
-        .permissionsFor(interaction.client.user)
-        .has("ManageNicknames")
-    ) {
-      canNickname = false;
-    } else if (!interaction.member.manageable) {
-      // The above if statement determines whether the client user is above the member
-      // who ran the command in the hierarchy, according to role position and guild ownership.
-      canNickname = false;
-    }
 
     await interaction.editReply(companionData[randomNumber].gif);
 
-    if (canNickname == true) {
+    // Check whether the bot has permission to change members' nicknames
+    // and whether the bot is above the member in the hierarchy
+    if (
+      interaction.channel
+        .permissionsFor(interaction.client.user)
+        .has("ManageNicknames") &&
+      interaction.member.manageable
+    ) {
       let nicknameWithUsername = `${companionData[randomNumber].name} ${interaction.member.user.username}`;
 
       if (nicknameWithUsername.length <= 32) {
