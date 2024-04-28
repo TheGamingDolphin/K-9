@@ -90,7 +90,7 @@ module.exports = {
         .has("ManageNicknames") &&
       interaction.member.manageable
     ) {
-      let nicknameWithUsername = `${companionData[randomNumber].name} ${interaction.member.user.username}`;
+      let nicknameWithUsername = `${companionData[randomNumber].name} (${interaction.member.user.username})`;
 
       if (nicknameWithUsername.length <= 32) {
         interaction.member.setNickname(nicknameWithUsername).catch((error) => {
