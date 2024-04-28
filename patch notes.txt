@@ -1,12 +1,6 @@
 K-9 Version 9.7 notes
 ---------------------
 Changes:
-    Added series 14 episodes to /episode
-    Added series 14 countdown
-    Added bigeneration to /regenerate
-    Added Ruby Sunday to /companion
-    Temporarily removed the /reaction command
-
-Changes but for nerds:
-    Changed the file system in /regenerate, /companion, /punch, /vortex and /spin to use links instead of file uploads
-    Removed all of the files for those commands from the repo in order to save storage
+    Updated other half of countdown
+    Made countdown count towards correct day
+    /companion works a lot better courtesy of youtube.com/ca1ify
