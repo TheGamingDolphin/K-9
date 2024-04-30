@@ -8,8 +8,6 @@ const namesList4 = ["Earth","Mars","Skaro","Gallifrey","Satellite Five","Mondas"
 const { SlashCommandBuilder } = require("discord.js");
 const { Collection } = require("discord.js");
 
-const cooldowns = new Collection();
-
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("wholette")
