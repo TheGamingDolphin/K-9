@@ -1,4 +1,5 @@
 K-9 Version 9.9 notes
 ---------------------
 Changes:
-    Added /wheretostart, which shows jumping on points for new fans!!
+    Removed countdown
+    Made punch count always show

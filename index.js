@@ -160,15 +160,15 @@ client.on("ready", async () => {
     const now = new Date();
 
     // Send the message at midnight
-    if (now.getHours() === 0 && now.getMinutes() === 0) {
-      try {
-        const channel = client.channels.cache.get("1018199943774732410");
-        channel.send(`Series 14 releases <t:1715382000:R>!`);
-      } catch {
-        const channel = client.channels.cache.get("915568009815416845");
-        channel.send(`Series 14 releases <t:1715382000:R>!`);
-      }
-    }
+    // if (now.getHours() === 0 && now.getMinutes() === 0) {
+    //   try {
+    //     const channel = client.channels.cache.get("1018199943774732410");
+    //     channel.send(`Series 14 releases <t:1715382000:R>!`);
+    //   } catch {
+    //     const channel = client.channels.cache.get("915568009815416845");
+    //     channel.send(`Series 14 releases <t:1715382000:R>!`);
+    //   }
+    // }
     // scheduled restart
     if (now.getHours() === 6 && now.getMinutes() === 0) {
       const { restart } = require("./restart");
@@ -179,15 +179,15 @@ client.on("ready", async () => {
       }
     }
     // Send the message at midday
-    if (now.getHours() === 12 && now.getMinutes() === 0) {
-      try {
-        const channel = client.channels.cache.get("1018199943774732410");
-        channel.send(`Series 14 releases <t:1715382000:R>!`);
-      } catch {
-        const channel = client.channels.cache.get("915568009815416845");
-        channel.send(`Series 14 releases <t:1715382000:R>!`);
-      }
-    }
+    // if (now.getHours() === 12 && now.getMinutes() === 0) {
+    //   try {
+    //     const channel = client.channels.cache.get("1018199943774732410");
+    //     channel.send(`Series 14 releases <t:1715382000:R>!`);
+    //   } catch {
+    //     const channel = client.channels.cache.get("915568009815416845");
+    //     channel.send(`Series 14 releases <t:1715382000:R>!`);
+    //   }
+    // }
     // scheduled restart
     if (now.getHours() === 18 && now.getMinutes() === 0) {
       const { restart } = require("./restart");

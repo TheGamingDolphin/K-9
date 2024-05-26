@@ -99,7 +99,7 @@ module.exports = {
         }
       } else if (newScore > 3000) {
         await interaction.editReply(
-          `You have already broken the wall <@${userID}>, there's nothing to punch`
+          `You have already broken the wall <@${userID}>, there's nothing to punch...but you punch anyway. You have now punched the wall(?) ${newScore} times.`
         );
       } else if (newScore >= 1 && newScore <= 249) {
         await interaction.editReply(
