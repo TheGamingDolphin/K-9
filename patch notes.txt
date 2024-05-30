@@ -1,5 +1,6 @@
-K-9 Version 9.9 notes
+K-9 Version 9.9.2 notes
 ---------------------
 Changes:
-    Removed countdown
-    Made punch count always show
+    Altered join dm text slightly
+    Added a 1/1000 chance to mpreg react any message
+    Yaoi

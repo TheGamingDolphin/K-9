@@ -222,7 +222,7 @@ client.on("guildMemberAdd", async (member) => {
       {
         name: "Getting started ",
         value:
-          'Head to the "Channels & Roles" section and select what you want!\n\nWant to talk to me? Just put `K-9` before your message in the server! ',
+          'Head back to the "Channels & Roles" section to get a colour role!\n\nWant to talk to me? Just put `K-9` before your message in the server! ',
       },
       { name: "\u200B", value: "\u200B" },
       {
@@ -280,6 +280,11 @@ client.on("messageCreate", async function (message) {
   }
   if (message.content.toLowerCase().includes("dw")) {
     await message.react(":dw:1086049130075394068");
+  }
+  const randomNumber = Math.random() * 1000;
+  // Check if the number is less than 1 (1 in 1000 chance)
+  if (randomNumber < 1) {
+    await message.react("🫃");
   }
   if (
     message.author.bot ||
