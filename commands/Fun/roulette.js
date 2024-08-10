@@ -243,7 +243,7 @@ module.exports = {
                 leaderboardMessage += `👑${player.username} (${player.score})${index < topPlayers.length - 1 ? ', ' : ''}`;
             });
         
-            const topRoleID = '1271598076255141899';
+            const topRoleID = '1271816605654978623';
             const guild = interaction.guild;
         
             try {
