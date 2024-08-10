@@ -1,4 +1,4 @@
-K-9 Version 9.9.9.4 notes
+K-9 Version 9.9.9.5 notes
 ---------------------
 Changes:
-    Incorrect role was assigned in roulette command
+    Fixed roulette not starting with 6 players

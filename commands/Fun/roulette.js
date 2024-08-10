@@ -68,38 +68,40 @@ module.exports = {
             try {
                 const joinUserID = i.user.id;
                 const joinUsername = i.user.username;
-
+        
                 if (players.find(p => p.id === joinUserID)) {
-                    // If the user has already joined, send an ephemeral message
                     await i.reply({ content: "You've already joined this game.", ephemeral: true });
                 } else {
                     if (players.length < 6) {
                         if (!scores.find(s => s.id === joinUserID)) {
-                            // If the user ID doesn't exist in scores, append a new score line to the array and file
                             scores.push({ id: joinUserID, username: joinUsername, score: 0 });
                             fs.appendFileSync("././roulette.txt", `${joinUserID},0,${joinUsername}\n`, "utf-8");
                         }
-
-                        await i.deferReply({ ephemeral: true }); // Acknowledge the interaction
-
-                        // Update the players list
+        
+                        await i.deferReply({ ephemeral: true });
                         players.push({ id: joinUserID, name: joinUsername });
-                        
-                        // Check if the player count reaches 6 and disable the button if it does
+        
                         if (players.length >= 6) {
-                            button = button.setDisabled(true); // Disable the button
-                            row = new ActionRowBuilder().addComponents(button); // Update the row
+                            button = button.setDisabled(true);
+                            row = new ActionRowBuilder().addComponents(button);
+                            
+                            // Start the game immediately when 6 players are present
+                            await interaction.editReply({ 
+                                content: `Welcome to roulette!\nSurviving games will increase your score, but if you lose it will be reset to 0 and you will be muted for 5 minutes.\nHaving the highest score will reward you with the "Let's go gambling!" role!\n\nPlayers: ${players.length}/6\n${players.map(p => p.name).join('\n')}\nStarting the game now!`, 
+                                components: []
+                            });
+        
+                            collector.stop(); // Stop the collector as game is full
+                            await startGame(message, players);
+                        } else {
+                            await interaction.editReply({ 
+                                content: `Welcome to roulette!\nSurviving games will increase your score, but if you lose it will be reset to 0 and you will be muted for 5 minutes.\nHaving the highest score will reward you with the "Let's go gambling!" role!\n\nPlayers: ${players.length}/6\n${players.map(p => p.name).join('\n')}\nStarting: <t:${endTime}:R>`, 
+                                components: [row]
+                            });
+        
+                            await i.followUp({ content: "You've joined the game!", ephemeral: true });
                         }
-
-                        // Update the original message
-                        await interaction.editReply({ 
-                            content: `Welcome to roulette!\nSurviving games will increase your score, but if you lose it will be reset to 0 and you will be muted for 5 minutes.\nHaving the highest score will reward you with the "Let's go gambling!" role!\n\nPlayers: ${players.length}/6\n${players.map(p => p.name).join('\n')}\nStarting: <t:${endTime}:R>`, 
-                            components: [row]
-                        });
-
-                        await i.followUp({ content: "You've joined the game!", ephemeral: true }); // Notify the user
                     } else {
-                        // If the game is full, inform the user
                         await i.reply({ content: "Sorry, the game is full.", ephemeral: true });
                     }
                 }
@@ -107,16 +109,16 @@ module.exports = {
                 console.error('Failed to update interaction:', error.message);
             }
         });
-
+        
         collector.on('end', async () => {
-            if (players.length > 1) {
-                // Start the game!
+            if (players.length > 1 && players.length < 6) {
                 await startGame(message, players);
-            } else {
+            } else if (players.length < 2) {
                 await interaction.followUp('Not enough players to start the game.');
-                activeGameChannel = null; // Reset active game channel if not enough players
+                activeGameChannel = null; 
             }
         });
+        
 
         async function startGame(message, players) {
             let currentTurnIndex = Math.floor(Math.random() * players.length); // Randomly select the first player
@@ -124,8 +126,8 @@ module.exports = {
             let gameEnded = false; // Flag to track if the game has ended
 
             const proceedTurn = async () => {
-                if (gameEnded) return; // Stop execution if the game has ended
-
+                if (gameEnded) return;
+            
                 const currentPlayer = players[currentTurnIndex];
                 let buttons = players.map((player) => 
                     new ButtonBuilder()
@@ -133,86 +135,78 @@ module.exports = {
                         .setLabel(player.name)
                         .setStyle(ButtonStyle.Primary)
                 );
-
-                let row = new ActionRowBuilder().addComponents(buttons);
-
-                // Update the same message for the player's turn
+            
+                // Split buttons into rows of 5 or less
+                let rows = [];
+                for (let i = 0; i < buttons.length; i += 5) {
+                    rows.push(new ActionRowBuilder().addComponents(buttons.slice(i, i + 5)));
+                }
+            
                 const endTurn = Math.floor(Date.now() / 1000) + countdownSeconds;
                 await message.edit({
                     content: `<@${currentPlayer.id}>, it's your turn!\nChoose a player to shoot. Alternatively, you can choose to shoot yourself for an extra turn!\nChance of death: 1/${loseChance}\nTurn skipped: <t:${endTurn}:R>`,
-                    components: [row]
+                    components: rows
                 });
-
+            
                 const filter = i => players.map(p => p.name).includes(i.customId);
                 const turnCollector = message.channel.createMessageComponentCollector({ filter, time: 30000 });
-
+            
                 turnCollector.on('collect', async i => {
                     if (i.user.id !== currentPlayer.id) {
                         await i.reply({ content: "It's not your turn!", ephemeral: true });
                         return;
                     }
-
-                    await i.deferUpdate(); // Acknowledge the interaction
-
-                    // Determine if the selected player loses
+            
+                    await i.deferUpdate();
+            
                     const selectedPlayerName = i.customId;
                     const selectedPlayer = players.find(p => p.name === selectedPlayerName);
                     const random = Math.floor(Math.random() * loseChance);
-
+            
                     if (random === 0) {
-                        // The selected player loses
                         await message.edit({
                             content: `${selectedPlayerName} has lost and has had their streak reset to 0! Give them 5 minutes to regenerate.\nAll other players get +1 point added to their streak!`,
                             components: []
                         });
-
-                        // Update scores: Increment for all except the loser
+            
                         scores = scores.map(score => {
                             if (score.id === selectedPlayer.id) {
-                                return { id: score.id, username: score.username, score: 0 }; // Reset the loser's score
+                                return { id: score.id, username: score.username, score: 0 };
                             } else if (players.find(p => p.id === score.id)) {
-                                return { id: score.id, username: score.username, score: score.score + 1 }; // Increment the score for others
+                                return { id: score.id, username: score.username, score: score.score + 1 };
                             }
-                            return score; // Keep other scores as is
+                            return score;
                         });
-
-                        // Write the updated scores back to the file
+            
                         fs.writeFileSync("././roulette.txt", scores.map(score => `${score.id},${score.score},${score.username}`).join("\n") + "\n", "utf-8");
-
-                        // Timeout the losing player for 5 minutes
+            
                         try {
                             const member = await interaction.guild.members.fetch(selectedPlayer.id);
-                            await member.timeout(5 * 60 * 1000, 'aw dang it'); // 5 minutes timeout
+                            await member.timeout(5 * 60 * 1000, 'aw dang it');
                         } catch (error) {
                             console.error(`Failed to timeout ${selectedPlayerName}:`, error.message);
                         }
-
+            
                         players = players.filter(player => player.id !== selectedPlayer.id);
-                        gameEnded = true; // Set the flag to indicate the game has ended
-                        activeGameChannel = null; // Reset active game channel after game ends
+                        gameEnded = true;
+                        activeGameChannel = null;
                         
-                        
-                            // Display the leaderboard and top player(s)
-                            await displayLeaderboard(players, scores, interaction);
-                        
+                        await displayLeaderboard(players, scores, interaction);
                     } else {
-                        // The selected player does not lose
                         if (selectedPlayer.name === currentPlayer.name) {
-                            // If the player selected themselves, they get another turn
                             loseChance--;
                         } else {
-                            // Otherwise, the turn passes to the next player
                             loseChance--;
                             currentTurnIndex = (currentTurnIndex + 1) % players.length;
                         }
                     }
-
-                    turnCollector.stop(); // End the turn and start the next one
+            
+                    turnCollector.stop();
                     if (players.length > 1 && !gameEnded) {
                         proceedTurn();
                     }
                 });
-
+            
                 turnCollector.on('end', async collected => {
                     if (collected.size === 0 && players.length > 1 && !gameEnded) {
                         currentTurnIndex = (currentTurnIndex + 1) % players.length;
@@ -220,6 +214,7 @@ module.exports = {
                     }
                 });
             };
+            
 
             proceedTurn(); // Start the first turn
         }
