@@ -162,7 +162,7 @@ module.exports = {
                     if (random === 0) {
                         // The selected player loses
                         await message.edit({
-                            content: `${selectedPlayerName} has lost and has had their streak reset to 0! Give them 10 minutes to regenerate.\n All other players get +1 point added to their streak!`,
+                            content: `${selectedPlayerName} has lost and has had their streak reset to 0! Give them 10 minutes to regenerate.\nAll other players get +1 point added to their streak!`,
                             components: []
                         });
 

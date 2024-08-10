@@ -21,8 +21,8 @@ module.exports = {
           { name: "README.md", value: "README.md" },
           { name: "config.json", value: "config.json" },
           { name: "snowmen.txt", value: "snowmen.txt" },
+          { name: "roulette.txt", value: "roulette.txt" },
           // commands
-          { name: "affirmative.js", value: "affirmative.js" },
           { name: "punch.js", value: "punch.js" },
           { name: "reaction.js", value: "reaction.js" },
           { name: "regenerate.js", value: "regenerate.js" },
@@ -61,6 +61,8 @@ module.exports = {
       await interaction.editReply({ files: ["config.json"] });
     } else if (command === "snowmen.txt") {
       await interaction.editReply({ files: ["./snowman/snowmen.txt"] });
+    } else if (command === "roulette.txt") {
+      await interaction.editReply({ files: ["././roulette.txt"] });
     }
     // commands
     else if (command === "affirmative.js") {

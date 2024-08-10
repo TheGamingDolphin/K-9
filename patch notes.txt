@@ -1,5 +1,5 @@
-K-9 Version 9.9.9.0 notes
+K-9 Version 9.9.9.1 notes
 ---------------------
 Changes:
-    Added functionality back to snowman command; disabling it via discord instead of via code
-    Added roulette command
+    Removed extra space at the start of a line in roulette
+    Added roulette scores to /source
