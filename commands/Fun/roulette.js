@@ -190,9 +190,11 @@ module.exports = {
                         players = players.filter(player => player.id !== selectedPlayer.id);
                         gameEnded = true; // Set the flag to indicate the game has ended
                         activeGameChannel = null; // Reset active game channel after game ends
-
-                        // Display the leaderboard and top player(s)
-                        await displayLeaderboard(players, scores, interaction);
+                        
+                        
+                            // Display the leaderboard and top player(s)
+                            await displayLeaderboard(players, scores, interaction);
+                        
                     } else {
                         // The selected player does not lose
                         if (selectedPlayer.name === currentPlayer.name) {
@@ -226,47 +228,62 @@ module.exports = {
             // Sort the scores of players who participated in the game
             let gameScores = scores.filter(score => players.find(p => p.id === score.id));
             gameScores.sort((a, b) => b.score - a.score);
-
+        
             let leaderboardMessage = "Game Leaderboard:\n\n";
             gameScores.forEach((score, index) => {
                 leaderboardMessage += `${index + 1}. ${score.username}: ${score.score}\n`;
             });
-
+        
             // Find the top player(s) in the server
             let maxScore = Math.max(...scores.map(score => score.score));
             let topPlayers = scores.filter(score => score.score === maxScore);
-
+        
             leaderboardMessage += `\nTop player${topPlayers.length > 1 ? 's' : ''}: `;
             topPlayers.forEach((player, index) => {
                 leaderboardMessage += `👑${player.username} (${player.score})${index < topPlayers.length - 1 ? ', ' : ''}`;
             });
-
-            // Assign the top role to the top player(s)
-            const topRoleID = '1271816605654978623';
+        
+            const topRoleID = '1271598076255141899';
             const guild = interaction.guild;
-
-            // First, remove the top role from all members who have it
-            const topRole = await guild.roles.fetch(topRoleID);
-            const membersWithTopRole = topRole.members;
-
-            for (const member of membersWithTopRole.values()) {
-                if (!topPlayers.some(player => player.id === member.id)) {
-                    await member.roles.remove(topRoleID);
+        
+            try {
+                // Fetch the top role
+                const topRole = await guild.roles.fetch(topRoleID);
+        
+                // If the role doesn't exist, topRole will be null
+                if (!topRole) {
+                    throw new Error(`Role with ID ${topRoleID} does not exist in this server.`);
                 }
-            }
-
-            // Then, assign the top role to the new top player(s)
-            for (const player of topPlayers) {
-                try {
-                    const member = await guild.members.fetch(player.id);
-                    await member.roles.add(topRoleID);
-                } catch (error) {
-                    console.error(`Failed to assign top role to ${player.username}:`, error.message);
+        
+                // First, remove the top role from all members who have it
+                const membersWithTopRole = topRole.members;
+                for (const member of membersWithTopRole.values()) {
+                    if (!topPlayers.some(player => player.id === member.id)) {
+                        await member.roles.remove(topRoleID);
+                    }
                 }
+        
+                // Then, assign the top role to the new top player(s)
+                for (const player of topPlayers) {
+                    try {
+                        const member = await guild.members.fetch(player.id);
+                        await member.roles.add(topRoleID);
+                    } catch (error) {
+                        console.error(`Failed to assign top role to ${player.username}:`, error.message);
+                    }
+                }
+        
+            } catch (error) {
+                console.error('Error processing the top role:', error.message);
+                // Inform the user that the role update failed
+                await interaction.followUp({
+                    content: `Leaderboard updated, but could not assign the "Let's go gambling!" role because it does not exist in this server.`,
+                });
+                return;
             }
-
+        
             // Send the leaderboard message
             await interaction.followUp({ content: leaderboardMessage });
         }
     }
-};
+}
