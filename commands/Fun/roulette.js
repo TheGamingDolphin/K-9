@@ -55,7 +55,7 @@ module.exports = {
 
         // Send the initial message with the button and countdown
         const message = await interaction.reply({ 
-            content: `Welcome to roulette!\nSurviving games will increase your score, but if you lose it will be reset to 0 and you will be muted for 10 minutes.\nHaving the highest score will reward you with the "Let's go gambling!" role!\n\nPlayers: ${players.length}/6\n${players.map(p => p.name).join('\n')}\nStarting: <t:${endTime}:R>`, 
+            content: `Welcome to roulette!\nSurviving games will increase your score, but if you lose it will be reset to 0 and you will be muted for 5 minutes.\nHaving the highest score will reward you with the "Let's go gambling!" role!\n\nPlayers: ${players.length}/6\n${players.map(p => p.name).join('\n')}\nStarting: <t:${endTime}:R>`, 
             components: [row],
             fetchReply: true // Fetch the sent message to update it later
         });
@@ -93,7 +93,7 @@ module.exports = {
 
                         // Update the original message
                         await interaction.editReply({ 
-                            content: `Welcome to roulette!\nSurviving games will increase your score, but if you lose it will be reset to 0 and you will be muted for 10 minutes.\nHaving the highest score will reward you with the "Let's go gambling!" role!\n\nPlayers: ${players.length}/6\n${players.map(p => p.name).join('\n')}\nStarting: <t:${endTime}:R>`, 
+                            content: `Welcome to roulette!\nSurviving games will increase your score, but if you lose it will be reset to 0 and you will be muted for 5 minutes.\nHaving the highest score will reward you with the "Let's go gambling!" role!\n\nPlayers: ${players.length}/6\n${players.map(p => p.name).join('\n')}\nStarting: <t:${endTime}:R>`, 
                             components: [row]
                         });
 
@@ -162,7 +162,7 @@ module.exports = {
                     if (random === 0) {
                         // The selected player loses
                         await message.edit({
-                            content: `${selectedPlayerName} has lost and has had their streak reset to 0! Give them 10 minutes to regenerate.\nAll other players get +1 point added to their streak!`,
+                            content: `${selectedPlayerName} has lost and has had their streak reset to 0! Give them 5 minutes to regenerate.\nAll other players get +1 point added to their streak!`,
                             components: []
                         });
 
@@ -179,10 +179,10 @@ module.exports = {
                         // Write the updated scores back to the file
                         fs.writeFileSync("././roulette.txt", scores.map(score => `${score.id},${score.score},${score.username}`).join("\n") + "\n", "utf-8");
 
-                        // Timeout the losing player for 10 minutes
+                        // Timeout the losing player for 5 minutes
                         try {
                             const member = await interaction.guild.members.fetch(selectedPlayer.id);
-                            await member.timeout(10 * 60 * 1000, 'aw dang it'); // 10 minutes timeout
+                            await member.timeout(5 * 60 * 1000, 'aw dang it'); // 5 minutes timeout
                         } catch (error) {
                             console.error(`Failed to timeout ${selectedPlayerName}:`, error.message);
                         }

@@ -1,5 +1,4 @@
-K-9 Version 9.9.9.1 notes
+K-9 Version 9.9.9.2 notes
 ---------------------
 Changes:
-    Removed extra space at the start of a line in roulette
-    Added roulette scores to /source
+    Halved mute from roulette
