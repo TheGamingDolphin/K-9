@@ -1,4 +1,4 @@
-K-9 Version 9.9.9.5 notes
+K-9 Version 9.9.9.6 notes
 ---------------------
 Changes:
-    Fixed roulette not starting with 6 players
+    Added option to include spinoffs in /episode
