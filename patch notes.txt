@@ -1,4 +1,4 @@
-K-9 Version 9.9.9.6 notes
+K-9 Version 9.9.9.7 notes
 ---------------------
 Changes:
-    Added option to include spinoffs in /episode
+    Added Iantodle
