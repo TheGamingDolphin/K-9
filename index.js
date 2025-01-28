@@ -41,6 +41,10 @@ let channel = "915568009815416845";
 let lastChannel = channel;
 let c;
 
+// Torchwood image cooldown
+let lastTriggered = 0; // Tracks the last time any Torchwood response was triggered
+const cooldownTime = 10 * 60 * 1000; // 10 minutes in milliseconds
+
 // allows messages to be sent through the terminal to appear as the bot
 async function reader() {
   const rl = readline.createInterface({ input, output });
@@ -111,10 +115,10 @@ async function getGptResponse(prompt, model) {
   // sets the reply to the AI response
   const reply = `${gptResponse.data.choices[0].text.trim()}`;
   if (reply.length) {
-    if (!reply.includes("@")) {
+    if (!reply.includes("@everyone" || "@here" || "@&")) {
       return reply;
     } else {
-      const newReply = "```" + reply + "```";
+      const newReply = "This message could mass ping users, and has been blocked. (This is an error, not an AI response)";
       return newReply;
     }
   } else {
@@ -160,15 +164,15 @@ client.on("ready", async () => {
     const now = new Date();
 
     // Send the message at midnight
-    if (now.getHours() === 0 && now.getMinutes() === 0) {
-      try {
-        const channel = client.channels.cache.get("1018199943774732410");
-        channel.send(`Christmas is <t:1735128000:R>!`);
-      } catch {
-        const channel = client.channels.cache.get("915568009815416845");
-        channel.send(`Christmas is <t:1735128000:R>!`);
-      }
-    }
+    // if (now.getHours() === 0 && now.getMinutes() === 0) {
+    //   try {
+    //     const channel = client.channels.cache.get("1018199943774732410");
+    //     channel.send(`Christmas is <t:1735128000:R>!`);
+    //   } catch {
+    //     const channel = client.channels.cache.get("915568009815416845");
+    //     channel.send(`Christmas is <t:1735128000:R>!`);
+    //   }
+    // }
     // scheduled restart
     if (now.getHours() === 6 && now.getMinutes() === 0) {
       const { restart } = require("./restart");
@@ -179,15 +183,15 @@ client.on("ready", async () => {
       }
     }
     // Send the message at midday
-    if (now.getHours() === 12 && now.getMinutes() === 0) {
-      try {
-        const channel = client.channels.cache.get("1018199943774732410");
-        channel.send(`Christmas is <t:1735128000:R>!`);
-      } catch {
-        const channel = client.channels.cache.get("915568009815416845");
-        channel.send(`Christmas is <t:1735128000:R>!`);
-      }
-    }
+    // if (now.getHours() === 12 && now.getMinutes() === 0) {
+    //   try {
+    //     const channel = client.channels.cache.get("1018199943774732410");
+    //     channel.send(`Christmas is <t:1735128000:R>!`);
+    //   } catch {
+    //     const channel = client.channels.cache.get("915568009815416845");
+    //     channel.send(`Christmas is <t:1735128000:R>!`);
+    //   }
+    // }
     // scheduled restart
     if (now.getHours() === 18 && now.getMinutes() === 0) {
       const { restart } = require("./restart");
@@ -281,27 +285,75 @@ client.on("messageCreate", async function (message) {
   if (message.content.toLowerCase().includes("dw")) {
     await message.react(":dw:1086049130075394068");
   }
-  if (message.content.toLowerCase().includes("jack")) {
-    try{
-    await message.reply("https://cdn.discordapp.com/attachments/915568009815416845/1315388340559679578/jork.png?ex=67573a5b&is=6755e8db&hm=251f0c4d5fea133ce9a130837f179a3bec1c35280216b42a3879ecd010af7036&");
-  } catch {message.channel.send("https://cdn.discordapp.com/attachments/915568009815416845/1315388340559679578/jork.png?ex=67573a5b&is=6755e8db&hm=251f0c4d5fea133ce9a130837f179a3bec1c35280216b42a3879ecd010af7036&")}}
-  if (message.content.toLowerCase().includes("ianto")) {
-    try{
-    await message.reply("https://cdn.discordapp.com/attachments/915568009815416845/1315388341071646813/fanta.png?ex=67573a5b&is=6755e8db&hm=bc604262cbfa70a8295135ba8e774ca705418e8ab18a699fa5d2818a43472003&");
-  } catch {message.channel.send("https://cdn.discordapp.com/attachments/915568009815416845/1315388341071646813/fanta.png?ex=67573a5b&is=6755e8db&hm=bc604262cbfa70a8295135ba8e774ca705418e8ab18a699fa5d2818a43472003&")}}
-  if (message.content.toLowerCase().includes("gwen")) {
-    try{
-      await message.reply("https://cdn.discordapp.com/attachments/915568009815416845/1315388341830811678/hen.png?ex=67573a5b&is=6755e8db&hm=ba12d7dda0ddcc3752d7700005c7e5afa99fc77815b28c088c1d46c422c3f5c4&");
-    } catch {message.channel.send("https://cdn.discordapp.com/attachments/915568009815416845/1315388341830811678/hen.png?ex=67573a5b&is=6755e8db&hm=ba12d7dda0ddcc3752d7700005c7e5afa99fc77815b28c088c1d46c422c3f5c4&")}}
-  if (message.content.toLowerCase().includes("owen")) {
-    try{
-      await message.reply("https://cdn.discordapp.com/attachments/915568009815416845/1315388342866804736/going.png?ex=67573a5b&is=6755e8db&hm=7520167ec6f8580e01a62f381998aa2de46cbe10c125a87f317e13a9993edec5&");
-    } catch {message.channel.send("https://cdn.discordapp.com/attachments/915568009815416845/1315388342866804736/going.png?ex=67573a5b&is=6755e8db&hm=7520167ec6f8580e01a62f381998aa2de46cbe10c125a87f317e13a9993edec5&")}}
-  if (message.content.toLowerCase().includes("tosh")) {
-    try{
-      await message.reply("https://cdn.discordapp.com/attachments/915568009815416845/1315388342451441664/bosh.png?ex=67573a5b&is=6755e8db&hm=b9a79b4fc1a4e6b514927a4d8756d3c7a2e8ea2f9e33025eb0fe2d63d1383c46&");
-    } catch {message.channel.send("https://cdn.discordapp.com/attachments/915568009815416845/1315388342451441664/bosh.png?ex=67573a5b&is=6755e8db&hm=b9a79b4fc1a4e6b514927a4d8756d3c7a2e8ea2f9e33025eb0fe2d63d1383c46&")}}
-
+   // Torchwood images (with cooldown)
+   const currentTime = Date.now();
+   if (
+     message.content.toLowerCase().includes("jack") ||
+     message.content.toLowerCase().includes("ianto") ||
+     message.content.toLowerCase().includes("gwen") ||
+     message.content.toLowerCase().includes("owen") ||
+     message.content.toLowerCase().includes("tosh")
+   ) {
+     // Check if the cooldown period has passed
+     if (currentTime - lastTriggered < cooldownTime) {
+       return; // Cooldown active, do nothing
+     }
+ 
+     // Update the last triggered time
+     lastTriggered = currentTime;
+   // Send the appropriate image
+   if (message.content.toLowerCase().includes("jack")) {
+    try {
+      await message.reply(
+        "https://cdn.discordapp.com/attachments/915568009815416845/1315388340559679578/jork.png"
+      );
+    } catch {
+      message.channel.send(
+        "https://cdn.discordapp.com/attachments/915568009815416845/1315388340559679578/jork.png"
+      );
+    }
+  } else if (message.content.toLowerCase().includes("ianto")) {
+    try {
+      await message.reply(
+        "https://cdn.discordapp.com/attachments/915568009815416845/1315388341071646813/fanta.png"
+      );
+    } catch {
+      message.channel.send(
+        "https://cdn.discordapp.com/attachments/915568009815416845/1315388341071646813/fanta.png"
+      );
+    }
+  } else if (message.content.toLowerCase().includes("gwen")) {
+    try {
+      await message.reply(
+        "https://cdn.discordapp.com/attachments/915568009815416845/1315388341830811678/hen.png"
+      );
+    } catch {
+      message.channel.send(
+        "https://cdn.discordapp.com/attachments/915568009815416845/1315388341830811678/hen.png"
+      );
+    }
+  } else if (message.content.toLowerCase().includes("owen")) {
+    try {
+      await message.reply(
+        "https://cdn.discordapp.com/attachments/915568009815416845/1315388342866804736/going.png"
+      );
+    } catch {
+      message.channel.send(
+        "https://cdn.discordapp.com/attachments/915568009815416845/1315388342866804736/going.png"
+      );
+    }
+  } else if (message.content.toLowerCase().includes("tosh")) {
+    try {
+      await message.reply(
+        "https://cdn.discordapp.com/attachments/915568009815416845/1315388342451441664/bosh.png"
+      );
+    } catch {
+      message.channel.send(
+        "https://cdn.discordapp.com/attachments/915568009815416845/1315388342451441664/bosh.png"
+      );
+    }
+  }
+} 
   const randomNumber = Math.random() * 1000;
   // Check if the number is less than 1 (1 in 1000 chance)
   if (randomNumber < 1) {
