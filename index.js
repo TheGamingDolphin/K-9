@@ -294,7 +294,7 @@ client.on("messageCreate", async function (message) {
     await message.react(":dw:1086049130075394068");
   }
  // Random pet events
- 
+ if (message.channel.id == "1018199943774732410") {
  const petEvent = Math.random() * 500;
  if (petEvent < 1) {
               // Check for double XP roles
@@ -377,7 +377,7 @@ client.on("messageCreate", async function (message) {
         }
     });
     
-  }
+  }}
  }
   // Torchwood images (with 1/50 chance)
   const randomChance = Math.random() * 50;
