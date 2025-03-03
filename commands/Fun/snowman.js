@@ -15,7 +15,7 @@ module.exports = {
     .setDescription("Build a snowman!"),
   async execute(interaction) {
     //check if snowman exists
-    const fileContents = fs.readFileSync("./snowman/snowmen.txt", "utf-8");
+    const fileContents = fs.readFileSync("./snowmen.txt", "utf-8");
     var userID = interaction.user.id;
     const line = fileContents
       .split("\n")
@@ -136,7 +136,7 @@ module.exports = {
             let currentDate = new Date();
             const newLine = `${userID},${snowmanName},${confirmation.customId},1,${currentDate}\n`;
             const updatedContents = `${fileContents}${newLine}`;
-            fs.writeFileSync("./snowman/snowmen.txt", updatedContents, "utf-8");
+            fs.writeFileSync("./snowmen.txt", updatedContents, "utf-8");
           }
         } else {
           console.error("Snowman name is undefined");
@@ -188,7 +188,7 @@ module.exports = {
           }
           const newLine = `${user},${snowman},${emoji},${newHeight},${currentDate}`;
           const updatedContents = fileContents.replace(line, newLine);
-          fs.writeFileSync("./snowman/snowmen.txt", updatedContents, "utf-8");
+          fs.writeFileSync("./snowmen.txt", updatedContents, "utf-8");
           const newEmojis = parseInt(newHeight, 10);
           const newEmojiLines = Array.from(
             { length: newEmojis },

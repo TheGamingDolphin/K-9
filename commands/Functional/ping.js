@@ -12,7 +12,7 @@ function format(seconds) {
 }
 
 module.exports = {
-  data: new SlashCommandBuilder().setName("ping").setDescription("Pong!"),
+  data: new SlashCommandBuilder().setName("ping").setDescription("Check the bot's latency"),
   async execute(interaction) {
     await interaction.deferReply();
     var uptime = process.uptime();

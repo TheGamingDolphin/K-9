@@ -1,6 +1,8 @@
-K-9 Version 9.9.9.9.2 notes
+K-9 Version 9.9.9.9.3 notes
 ---------------------
 Changes:
-    Removed christmas countdown
-    Added cooldown to torchwood images
-    Added command where ppl in dial can ban themselves bc funny
+    Renamed /funny to /raven
+    Added series 15 countdown
+    Added new command for competition
+    Made torchwood images have a 1/50 chance
+    ADDED PETS!!!

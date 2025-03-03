@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("funny")
+    .setName("raven")
     .setDescription("Escape the dial. Only run this if a mod tells you to."),
   async execute(interaction) {
     await interaction.deferReply();;

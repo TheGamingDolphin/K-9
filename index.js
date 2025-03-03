@@ -45,6 +45,14 @@ let c;
 let lastTriggered = 0; // Tracks the last time any Torchwood response was triggered
 const cooldownTime = 10 * 60 * 1000; // 10 minutes in milliseconds
 
+function checkUserIdInPetsFile(userId) {
+  const filePath = path.join(__dirname, "pets.txt");
+  const fileContents = fs.readFileSync(filePath, "utf-8");
+  const lines = fileContents.split("\n");
+  const userLine = lines.find(line => line.startsWith(userId + ","));
+  return userLine !== undefined;
+}
+
 // allows messages to be sent through the terminal to appear as the bot
 async function reader() {
   const rl = readline.createInterface({ input, output });
@@ -164,15 +172,15 @@ client.on("ready", async () => {
     const now = new Date();
 
     // Send the message at midnight
-    // if (now.getHours() === 0 && now.getMinutes() === 0) {
-    //   try {
-    //     const channel = client.channels.cache.get("1018199943774732410");
-    //     channel.send(`Christmas is <t:1735128000:R>!`);
-    //   } catch {
-    //     const channel = client.channels.cache.get("915568009815416845");
-    //     channel.send(`Christmas is <t:1735128000:R>!`);
-    //   }
-    // }
+    if (now.getHours() === 0 && now.getMinutes() === 0) {
+      try {
+        const channel = client.channels.cache.get("1018199943774732410");
+        channel.send(`Series 15 releases <t:1744441200:R>!`);
+      } catch {
+        const channel = client.channels.cache.get("915568009815416845");
+        channel.send(`Series 15 releases <t:1744441200:R>!`);
+      }
+    }
     // scheduled restart
     if (now.getHours() === 6 && now.getMinutes() === 0) {
       const { restart } = require("./restart");
@@ -183,15 +191,15 @@ client.on("ready", async () => {
       }
     }
     // Send the message at midday
-    // if (now.getHours() === 12 && now.getMinutes() === 0) {
-    //   try {
-    //     const channel = client.channels.cache.get("1018199943774732410");
-    //     channel.send(`Christmas is <t:1735128000:R>!`);
-    //   } catch {
-    //     const channel = client.channels.cache.get("915568009815416845");
-    //     channel.send(`Christmas is <t:1735128000:R>!`);
-    //   }
-    // }
+    if (now.getHours() === 12 && now.getMinutes() === 0) {
+      try {
+        const channel = client.channels.cache.get("1018199943774732410");
+        channel.send(`Series 15 releases <t:1744441200:R>!`);
+      } catch {
+        const channel = client.channels.cache.get("915568009815416845");
+        channel.send(`Series 15 releases <t:1744441200:R>!`);
+      }
+    }
     // scheduled restart
     if (now.getHours() === 18 && now.getMinutes() === 0) {
       const { restart } = require("./restart");
@@ -285,75 +293,117 @@ client.on("messageCreate", async function (message) {
   if (message.content.toLowerCase().includes("dw")) {
     await message.react(":dw:1086049130075394068");
   }
-   // Torchwood images (with cooldown)
-   const currentTime = Date.now();
-   if (
-     message.content.toLowerCase().includes("jack") ||
-     message.content.toLowerCase().includes("ianto") ||
-     message.content.toLowerCase().includes("gwen") ||
-     message.content.toLowerCase().includes("owen") ||
-     message.content.toLowerCase().includes("tosh")
-   ) {
-     // Check if the cooldown period has passed
-     if (currentTime - lastTriggered < cooldownTime) {
-       return; // Cooldown active, do nothing
-     }
+ // Random pet events
  
-     // Update the last triggered time
-     lastTriggered = currentTime;
-   // Send the appropriate image
-   if (message.content.toLowerCase().includes("jack")) {
-    try {
-      await message.reply(
-        "https://cdn.discordapp.com/attachments/915568009815416845/1315388340559679578/jork.png"
-      );
-    } catch {
-      message.channel.send(
-        "https://cdn.discordapp.com/attachments/915568009815416845/1315388340559679578/jork.png"
-      );
-    }
-  } else if (message.content.toLowerCase().includes("ianto")) {
-    try {
-      await message.reply(
-        "https://cdn.discordapp.com/attachments/915568009815416845/1315388341071646813/fanta.png"
-      );
-    } catch {
-      message.channel.send(
-        "https://cdn.discordapp.com/attachments/915568009815416845/1315388341071646813/fanta.png"
-      );
-    }
-  } else if (message.content.toLowerCase().includes("gwen")) {
-    try {
-      await message.reply(
-        "https://cdn.discordapp.com/attachments/915568009815416845/1315388341830811678/hen.png"
-      );
-    } catch {
-      message.channel.send(
-        "https://cdn.discordapp.com/attachments/915568009815416845/1315388341830811678/hen.png"
-      );
-    }
-  } else if (message.content.toLowerCase().includes("owen")) {
-    try {
-      await message.reply(
-        "https://cdn.discordapp.com/attachments/915568009815416845/1315388342866804736/going.png"
-      );
-    } catch {
-      message.channel.send(
-        "https://cdn.discordapp.com/attachments/915568009815416845/1315388342866804736/going.png"
-      );
-    }
-  } else if (message.content.toLowerCase().includes("tosh")) {
-    try {
-      await message.reply(
-        "https://cdn.discordapp.com/attachments/915568009815416845/1315388342451441664/bosh.png"
-      );
-    } catch {
-      message.channel.send(
-        "https://cdn.discordapp.com/attachments/915568009815416845/1315388342451441664/bosh.png"
-      );
+ const petEvent = Math.random() * 500;
+ if (petEvent < 1) {
+  const userId = message.author.id;
+  const userExists = checkUserIdInPetsFile(userId);
+  if (userExists) {
+    const filePath = './pets.txt';
+    const fileStream = fs.createReadStream(filePath, 'utf-8');
+    const rl = readline.createInterface({
+      input: fileStream,
+      crlfDelay: Infinity, // Handle both '\n' and '\r\n' line endings
+    });
+    const updatedLines = [];
+    rl.on('line', (line) => {
+      // Check if the line starts with the userID
+      if (line.startsWith(userId + ',')) {
+        const [user, pet, petEmoji, hunger, feedDate, playDate, xp, happiness] = line.split(',');
+        // Get current date
+        const currentDate = new Date()
+        // react with emoji
+        message.react(petEmoji);
+      // Update the fields
+      const updatedHunger = 100;
+      const updatedHappiness = 100;
+      const updatedXp = Number(xp) + 100;
+
+    // Reconstruct the line with updated values
+    const updatedLine = `${user},${pet},${petEmoji},${updatedHunger},${currentDate},${currentDate},${updatedXp},${updatedHappiness}`;
+    updatedLines.push(updatedLine);
+
+    rl.on('close', () => {
+      // Join all lines into a single string with newline characters
+      const updatedContent = updatedLines.join('\n');
+        // Write the updated content back to the file
+  fs.writeFileSync(filePath, updatedContent, 'utf-8');
+
+message.channel.send(`<@${userId}> Your pet has come to spend time with you while you chat!\nHunger set to 100%. Happiness set to 100%. +100xp gained.`);
+});
+  } else {
+    // If the line doesn't match the userID, keep it unchanged
+    updatedLines.push(line);
+  }
+});
+  }
+ }
+  // Torchwood images (with 1/50 chance)
+  const randomChance = Math.random() * 50;
+  if (
+    message.content.toLowerCase().includes("jack") ||
+    message.content.toLowerCase().includes("ianto") ||
+    message.content.toLowerCase().includes("gwen") ||
+    message.content.toLowerCase().includes("owen") ||
+    message.content.toLowerCase().includes("tosh")
+  ) {
+    if (randomChance < 1) {
+      // Send the appropriate image
+      if (message.content.toLowerCase().includes("jack")) {
+        try {
+          await message.reply(
+            "https://cdn.discordapp.com/attachments/915568009815416845/1315388340559679578/jork.png"
+          );
+        } catch {
+          message.channel.send(
+            "https://cdn.discordapp.com/attachments/915568009815416845/1315388340559679578/jork.png"
+          );
+        }
+      } else if (message.content.toLowerCase().includes("ianto")) {
+        try {
+          await message.reply(
+            "https://cdn.discordapp.com/attachments/915568009815416845/1315388341071646813/fanta.png"
+          );
+        } catch {
+          message.channel.send(
+            "https://cdn.discordapp.com/attachments/915568009815416845/1315388341071646813/fanta.png"
+          );
+        }
+      } else if (message.content.toLowerCase().includes("gwen")) {
+        try {
+          await message.reply(
+            "https://cdn.discordapp.com/attachments/915568009815416845/1315388341830811678/hen.png"
+          );
+        } catch {
+          message.channel.send(
+            "https://cdn.discordapp.com/attachments/915568009815416845/1315388341830811678/hen.png"
+          );
+        }
+      } else if (message.content.toLowerCase().includes("owen")) {
+        try {
+          await message.reply(
+            "https://cdn.discordapp.com/attachments/915568009815416845/1315388342866804736/going.png"
+          );
+        } catch {
+          message.channel.send(
+            "https://cdn.discordapp.com/attachments/915568009815416845/1315388342866804736/going.png"
+          );
+        }
+      } else if (message.content.toLowerCase().includes("tosh")) {
+        try {
+          await message.reply(
+            "https://cdn.discordapp.com/attachments/915568009815416845/1315388342451441664/bosh.png"
+          );
+        } catch {
+          message.channel.send(
+            "https://cdn.discordapp.com/attachments/915568009815416845/1315388342451441664/bosh.png"
+          );
+        }
+      }
     }
   }
-} 
+
   const randomNumber = Math.random() * 1000;
   // Check if the number is less than 1 (1 in 1000 chance)
   if (randomNumber < 1) {
