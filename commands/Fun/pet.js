@@ -46,7 +46,7 @@ module.exports = {
             // Create fourth set of buttons
             const fourthButtons = new ActionRowBuilder().addComponents(
                 new ButtonBuilder().setCustomId("k9").setEmoji("<:Affirmative:1019680728759419011>").setStyle(ButtonStyle.Secondary),
-                new ButtonBuilder().setCustomId("jerma").setEmoji("<:Doctor0985:1184880615145885696>").setStyle(ButtonStyle.Secondary),
+                new ButtonBuilder().setCustomId("owen").setEmoji("<:Owen:1315373305598836736>").setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder().setCustomId("tardis").setEmoji("<:TARDIS:1018284360379682926>").setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder().setCustomId("moodeng").setEmoji("<:Moodeng:1286766576028356620>").setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder().setCustomId("slitheen").setEmoji("<:Slitheen:1018283628586881095>").setStyle(ButtonStyle.Secondary)
@@ -115,8 +115,8 @@ module.exports = {
                 case "k9":
                     petEmoji = "<:Affirmative:1019680728759419011>";
                     break;
-                case "jerma":
-                    petEmoji = "<:Doctor0985:1184880615145885696>";
+                case "owen":
+                    petEmoji = "<:Owen:1315373305598836736>";
                     break;
                 case "tardis":
                     petEmoji = "<:TARDIS:1018284360379682926>";
@@ -259,7 +259,7 @@ module.exports = {
                                 "1163825260194447381",
                                 "1163825574603653200", // ^^ halloween event roles
                                 "1345969083870347295", // puzzle solver
-                                "1146535148884603060"
+                                "1146535148884603060" // testing server test role
                             ];
                             const userRoles = interaction.member.roles.cache.map(role => role.id);
                             const hasDoubleXpRole = doubleXpRoles.some(role => userRoles.includes(role));

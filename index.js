@@ -297,6 +297,21 @@ client.on("messageCreate", async function (message) {
  
  const petEvent = Math.random() * 500;
  if (petEvent < 1) {
+              // Check for double XP roles
+              const doubleXpRoles = [
+                "1018290989246468116", // mods
+                "1271816605654978623", // gambling
+                "1312574581118079077", // curator
+                "1104044177215471677", // wall
+                "1018200127598497893", // booster
+                "1163825738051498105",
+                "1163825260194447381",
+                "1163825574603653200", // ^^ halloween event roles
+                "1345969083870347295", // puzzle solver
+                "1146535148884603060"  // testing server test role
+            ];
+            const userRoles = message.member.roles.cache.map(role => role.id);
+            const hasDoubleXpRole = doubleXpRoles.some(role => userRoles.includes(role));
   const userId = message.author.id;
   const userExists = checkUserIdInPetsFile(userId);
   if (userExists) {
@@ -307,36 +322,61 @@ client.on("messageCreate", async function (message) {
       crlfDelay: Infinity, // Handle both '\n' and '\r\n' line endings
     });
     const updatedLines = [];
+    let updatedXp = null; // Initialize updatedXp to null
+    
     rl.on('line', (line) => {
-      // Check if the line starts with the userID
-      if (line.startsWith(userId + ',')) {
-        const [user, pet, petEmoji, hunger, feedDate, playDate, xp, happiness] = line.split(',');
-        // Get current date
-        const currentDate = new Date()
-        // react with emoji
-        message.react(petEmoji);
-      // Update the fields
-      const updatedHunger = 100;
-      const updatedHappiness = 100;
-      const updatedXp = Number(xp) + 100;
-
-    // Reconstruct the line with updated values
-    const updatedLine = `${user},${pet},${petEmoji},${updatedHunger},${currentDate},${currentDate},${updatedXp},${updatedHappiness}`;
-    updatedLines.push(updatedLine);
-
+        // Check if the line starts with the userID
+        if (line.startsWith(userId + ',')) {
+            const [user, pet, petEmoji, hunger, feedDate, playDate, xp, happiness] = line.split(',');
+    
+            // Get current date
+            const currentDate = new Date();
+    
+            // React with emoji
+            message.react(petEmoji);
+    
+            // Declare variables outside the if-else block
+            let updatedHunger;
+            let updatedHappiness;
+    
+            if (hasDoubleXpRole) {
+                updatedHunger = 200;
+                updatedHappiness = 200;
+                updatedXp = Number(xp) + 200;
+            } else {
+                updatedHunger = 100;
+                updatedHappiness = 100;
+                updatedXp = Number(xp) + 100;
+            }
+    
+            // Reconstruct the line with updated values
+            const updatedLine = `${user},${pet},${petEmoji},${updatedHunger},${currentDate},${currentDate},${updatedXp},${updatedHappiness}`;
+            updatedLines.push(updatedLine);
+    
+        } else {
+            // If the line doesn't match the userID, keep it unchanged
+            updatedLines.push(line);
+        }
+    });
+    
+    // Move `rl.on('close', ...)` OUTSIDE of `rl.on('line', ...)`
     rl.on('close', () => {
-      // Join all lines into a single string with newline characters
-      const updatedContent = updatedLines.join('\n');
+        // Join all lines into a single string with newline characters
+        const updatedContent = updatedLines.join('\n');
         // Write the updated content back to the file
-  fs.writeFileSync(filePath, updatedContent, 'utf-8');
-
-message.channel.send(`<@${userId}> Your pet has come to spend time with you while you chat!\nHunger set to 100%. Happiness set to 100%. +100xp gained.`);
-});
-  } else {
-    // If the line doesn't match the userID, keep it unchanged
-    updatedLines.push(line);
-  }
-});
+        fs.writeFileSync(filePath, updatedContent, 'utf-8');
+        // Only send a message if `updatedXp` was set
+        if (updatedXp !== null) {
+          if (hasDoubleXpRole) {
+                message.channel.send(`<@${userId}> Your pet has come to spend time with you while you chat!\n` +
+                `Hunger set to 100%. Happiness set to 100%. +200xp gained.`)
+        } else {
+                message.channel.send(`<@${userId}> Your pet has come to spend time with you while you chat!\n` +
+                `Hunger set to 100%. Happiness set to 100%. +100xp gained.`)
+        }
+        }
+    });
+    
   }
  }
   // Torchwood images (with 1/50 chance)

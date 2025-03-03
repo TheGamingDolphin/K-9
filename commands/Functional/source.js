@@ -17,6 +17,7 @@ module.exports = {
           { name: "punch.txt", value: "punch.txt" },
           { name: "warns.txt", value: "warns.txt" },
           { name: "episodes.txt", value: "episodes.txt" },
+          { name: "pets.txt", value: "pets.txt" },
           { name: "patch notes.txt", value: "patch notes.txt" },
           { name: "README.md", value: "README.md" },
           { name: "config.json", value: "config.json" },
@@ -24,7 +25,6 @@ module.exports = {
           { name: "roulette.txt", value: "roulette.txt" },
           // commands
           { name: "punch.js", value: "punch.js" },
-          { name: "reaction.js", value: "reaction.js" },
           { name: "regenerate.js", value: "regenerate.js" },
           { name: "spin.js", value: "spin.js" },
           { name: "upgrade.js", value: "upgrade.js" },
@@ -53,6 +53,8 @@ module.exports = {
       await interaction.editReply({ files: ["warns.txt"] });
     } else if (command === "episodes.txt") {
       await interaction.editReply({ files: ["episodes.txt"] });
+    } else if (command === "pets.txt") {
+      await interaction.editReply({ files: ["pets.txt"] });
     } else if (command === "patch notes.txt") {
       await interaction.editReply({ files: ["patch notes.txt"] });
     } else if (command === "README.md") {
@@ -60,7 +62,7 @@ module.exports = {
     } else if (command === "config.json") {
       await interaction.editReply({ files: ["config.json"] });
     } else if (command === "snowmen.txt") {
-      await interaction.editReply({ files: ["./snowman/snowmen.txt"] });
+      await interaction.editReply({ files: ["snowmen.txt"] });
     } else if (command === "roulette.txt") {
       await interaction.editReply({ files: ["././roulette.txt"] });
     }
