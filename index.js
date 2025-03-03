@@ -340,8 +340,8 @@ client.on("messageCreate", async function (message) {
             let updatedHappiness;
     
             if (hasDoubleXpRole) {
-                updatedHunger = 200;
-                updatedHappiness = 200;
+                updatedHunger = 100;
+                updatedHappiness = 100;
                 updatedXp = Number(xp) + 200;
             } else {
                 updatedHunger = 100;
